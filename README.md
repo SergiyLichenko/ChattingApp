@@ -12,7 +12,7 @@ Example of usage:
   4. You can also watch all available public chats in the application by clicking "Join Chat" in the left dropdown list
   Right now there are only 2 chats available on the server: first is created by me, and second - created by other user, and I can join the second one:
   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Join%20Chat.png)
-  5. So right now I have 2 chats in my list:
+  5. So right now I have 2 chats in my chat list:
   
   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/2%20Chats.png)
 
@@ -30,3 +30,20 @@ Example of usage:
   
   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/FirstAppearance.png)
   
+  9. You can update your message and it will be immediately updated for every user in current chat:
+  
+  ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Update.png)
+  
+  10. Updated message for another user:
+  
+   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Updated.png)
+    
+  11. If you will click on your profile image, your username or if you will select "My Profile" in the left dropdown list, you will see this pop up with information about selected profile:
+  
+   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Default%20Profile.png)
+  
+  12. If selected profile is yours, you will be able to edit it. You can change your avatar, username, password or email
+  
+  ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Update%20profile.png)
+  
+  13. 
