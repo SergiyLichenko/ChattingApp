@@ -1,0 +1,30 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Create new chat: </h3>
+    </div>
+    <div class="form-group label-static left-chat-form">
+        <div class="form-title">Create chat</div>
+        <input type="text" class="form-control" placeholder="Title" ng-model="$ctrl.title" id="chatTitle"/>
+    </div>
+
+    <div class="form-group label-static left-chat-form" style="height: 100%">
+        <div class="form-title">Select avatar</div>
+        <div class="demo-section k-header">
+            <h3 ng-show="$ctrl.uploader.queue.length === 0">Click here...</h3>
+            <input type="file" nv-file-select uploader="$ctrl.uploader"/><br/>
+            <ul>
+                <li ng-repeat="item in $ctrl.uploader.queue">
+                    Name: <span ng-bind="item.file.name"></span><br/>
+                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }">
+                    </div>
+                    <img width="{{item.image.width}}" height="{{item.image.height}}"
+                         ng-src="{{item.image.src}}">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">Ok</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+    </div>
+</div>

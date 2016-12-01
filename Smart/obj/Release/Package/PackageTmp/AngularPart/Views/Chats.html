@@ -1,0 +1,187 @@
+﻿
+
+<script src="../../Scripts/jquery-3.1.0.js"></script>
+<script src="../../Scripts/jquery.signalR-2.2.1.js"></script>
+<script src='/signalr/js'></script>
+<div style="margin-top: -50px">
+    <button id="logout-btn" class="btn btn-raised btn-primary" style="float: right; margin-right: 1%"
+            data-ng-click="logOut()">
+        LogOut
+    </button>
+</div>
+<br />
+<br />
+<div class="busyPromise" cg-busy="busyPromise"  id="Chats" style="height: 100%; ">
+    <div class="ui chat">
+        <div class="left-menu" style="height: 100%;">
+            <div class="btn-group" style="width: 100%" uib-dropdown is-open="status.isopen">
+                <button id="single-button" type="button" style="width: 100%" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    Smart chat <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" style="width: 100%" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <li role="menuitem" style="width: 100%; margin-top: -5px" data-ng-controller="ModalController as $ctrl">
+                        <button type="button" style="width: 100%" class="btn btn-info"
+                                ng-click="$ctrl.open('lg', 'join')">
+                            Join chat
+                        </button>
+                    </li>
+                    <li role="menuitem" style="width: 100%; margin-top: 3px" data-ng-controller="ModalController as $ctrl">
+                        <button type="button" style="width: 100%" class="btn btn-info"
+                                ng-click="$ctrl.open('lg', 'create')">
+                            Create chat
+                        </button>
+                    </li>
+                    <li role="menuitem" style="width: 100%;  margin-top: 3px" data-ng-controller="ProfileController">
+                        <button id="chats-btn" style="width: 100%" class="btn btn-info"
+                                ng-click="open('lg', getCurrentUsername())">
+                            My Profile
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="list-friends" style="width: 100%; overflow-y: hidden; height: 100%;">
+                <li data-ng-click="getMessagesForChat(item)" data-ng-repeat="item in chats">
+                    <img width="100" height="100" ng-src="{{item.img}}">
+                    <div class="info">
+                        <!-- TODO class user -> class chat -->
+                        <div class="user">{{item.title}}</div>
+                        <div class="status on"> {{item.createDate}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="chat"  style="height: 100%">
+            <img ng-show="currentChat.chat.id" class="img-circle" width="100" height="100" ng-src="{{currentChat.chat.img}}">
+            <button  class="btn btn-raised btn-success" style="float: right; margin-right: 20px; margin-top: 20px"
+                    ng-show="currentChat.chat.authorName === getCurrentUsername()"
+                    ng-click="deleteChat(currentChat.chat)">
+                Delete chat
+            </button><br />
+            <button id="login-btn" class="btn btn-raised btn-success" style="float: right; clear: right; margin-right: 20px; margin-top: 20px"
+                    ng-show="currentChat.chat.id"
+                    ng-click="quitChat(currentChat.chat.id)">
+                Quit chat
+            </button>
+            <button ng-controller="EditChatController"
+                    class="btn btn-raised btn-success"
+                    style="float: right; clear: right; margin-right: 20px; margin-top: 20px"
+                    ng-show="currentChat.chat.id"
+                    ng-click="open('lg', currentChat.chat)">
+                Edit chat
+            </button>
+            <div class="top" style="margin-top: 30px; height: 5%">
+                <div class="info">
+                    <div ng-show="currentChat.chat.id" class="name">{{currentChat.chat.title}}</div>
+                    <div ng-show="currentChat.chat.id && currentChat.countAll > 1" class="count">already {{currentChat.countAll}} messages</div>
+                </div>
+                <div class="info">
+                    <div>
+                        <div ng-show="currentChat.chat.id" class="name">Users {{currentChat.usersCount}}</div>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 60%" class="busyPromise" cg-busy="messagesBusyPromise">
+                <ul class="messages" style="height: 55%;" scroll="currentChat.messages">
+                    <li data-ng-class="getClass($index)" data-ng-repeat="message in currentChat.messages">
+                        <div ng-if="message.user.userName=== getCurrentUsername()">
+                            <div style="float: right; display: inline-block;">
+                                <div class="head">
+                                    <span data-ng-controller="ProfileController"
+                                          ng-click="open('lg', message.user.userName)"
+                                          class="name"
+                                          style="float: left; padding-left: 95px">{{message.user.userName}}</span>
+                                    <span class="time" style="">{{message.createDate | date:'short'}}</span>
+                                </div>
+
+                                <img style="float: right;" height="20" width="20"
+                                     ng-click="deleteMessage(message)"
+                                     src="../../Content/Delete.png" />
+                                <img style="float: right;" height="20" width="20"
+                                     ng-if="!message.isInEdit"
+                                     ng-click="message.isInEdit = !message.isInEdit; message.beforeEdit = message.text"
+                                     src="../../Content/Edit.jpg" />
+
+                                <div ng-if="!message.isInEdit" style="display: inline-block; min-width: 300px;">
+                                    <div class="message" ng-bind-html="message.text"
+                                         style="display: inline-block; min-width: 300px; white-space: pre; text-align: left;">
+                                    </div>
+                                    <div style="display: inline-block;  margin-top: 17px; float: left; padding-right: 20px">
+                                        <img data-ng-controller="ProfileController"
+                                             ng-click="open('lg', message.user.userName)"
+                                             class="img-circle" height="75" width="75"
+                                             ng-src="{{getUserPhoto(message.user.id)}}" />
+                                    </div>
+                                </div>
+
+                                <div ng-if="message.isInEdit" style="display: inline-block; min-width: 300px;">
+                                    <div style="display: inline-block; margin-top: 30px; float: left; padding-right: 10px">
+                                        <img class="img-circle" height="75" width="75" ng-src="{{getUserPhoto(message.user.id)}}" />
+                                    </div>
+
+                                    <div style="padding-right: 30px; display: inline-block; min-width: 300px; max-width: 500px; min-height: 70px; max-height: 300px">
+                                        <textarea class="form-group label-static left-chat-form"
+                                                  style="display: inline-block; min-width: 300px; max-width: 500px; min-height: 70px; max-height: 300px; font-size: 18px"
+                                                  ng-model="message.text" />
+                                    </div>
+                                    <br />
+                                    <button class="btn btn-raised btn-success" style="display: inline-block; float: right; padding-right: 30px" type="button"
+                                            ng-click="updateMessage(message); message.isInEdit = !message.isInEdit; message.beforeEdit = ''">
+                                        Ok
+                                    </button>
+                                    <button class="btn btn-raised btn-failure" type="button"
+                                            style="float: right;"
+                                            ng-click="message.isInEdit = !message.isInEdit; message.text = message.beforeEdit; message.beforeEdit = ''">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div ng-if="message.user.userName!== getCurrentUsername()">
+                            <div data-ng-controller="ProfileController"
+                                 ng-click="open('lg', message.user.userName)"
+                                 style="float: left; margin-top: 77px; display: inline-block; max-width: 135px">
+                                <div class="time" style="float: left; margin-top: -10px; max-width: 130px">
+                                    {{message.createDate | date:'short'}}
+                                </div>
+                                <img class="img-circle" style="margin-top: 10px;" height="75" width="75" ng-src="{{getUserPhoto(message.user.id)}}" />
+                            </div>
+
+                            <div style="float: left; display: inline-block; min-width: 300px">
+                                <div class="head" style="">
+                                    <span class="name"
+                                          data-ng-controller="ProfileController"
+                                          ng-click="open('lg', message.user.userName)"
+                                          style="float: left;">{{message.user.userName}}</span>
+                                </div>
+                                <div class="message" style="text-align: left; min-width: 300px; white-space: pre;" ng-bind-html="message.text">
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--<span data-ng-click="commentMessage(message)" style="float: left;" class="time">Comment</span>
+                        <span data-ng-click="makeFavourite(message)" style="float: left;" class="time">Favourite</span>-->
+                    </li>
+                </ul>
+                <div>
+                    <img class="img-circle" style="margin-left: 7%; margin-top: 10px;" height="125" width="125"
+                         ng-if="!angular.isUndefined(getCurrentUsernamePhoto())"
+                         ng-src="{{getCurrentUsernamePhoto()}}" />
+                    <div class="form-group label-static left-chat-form"
+                         style="margin-right: 20%; margin-left: 20%; margin-bottom: 50px">
+                        <button class="btn btn-raised btn-success"
+                                style="float: right; margin-right: -25%; margin-top: 10%"
+                                ng-click="sendMessage()">
+                            Send Message
+                        </button>
+                        <textarea style="height: 120px" class="form-control"
+                                  placeholder="Write a message"
+                                  ng-model="currentMessageText" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
