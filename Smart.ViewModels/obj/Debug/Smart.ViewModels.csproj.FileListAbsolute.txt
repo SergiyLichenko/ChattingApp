@@ -1,0 +1,10 @@
+C:\Users\sergiy.lichenko\OneDrive\Smart\Smart.ViewModels\bin\Debug\Smart.ViewModels.dll
+C:\Users\sergiy.lichenko\OneDrive\Smart\Smart.ViewModels\bin\Debug\Smart.ViewModels.pdb
+C:\Users\sergiy.lichenko\OneDrive\Smart\Smart.ViewModels\obj\Debug\Smart.ViewModels.dll
+C:\Users\sergiy.lichenko\OneDrive\Smart\Smart.ViewModels\obj\Debug\Smart.ViewModels.pdb
+C:\Users\sergiy.lichenko\OneDrive\Smart\Smart.ViewModels\obj\Debug\Smart.ViewModels.csprojResolveAssemblyReference.cache
+C:\Projects\ChatMy\Smart.ViewModels\bin\Debug\Smart.ViewModels.dll
+C:\Projects\ChatMy\Smart.ViewModels\bin\Debug\Smart.ViewModels.pdb
+C:\Projects\ChatMy\Smart.ViewModels\obj\Debug\Smart.ViewModels.csprojResolveAssemblyReference.cache
+C:\Projects\ChatMy\Smart.ViewModels\obj\Debug\Smart.ViewModels.dll
+C:\Projects\ChatMy\Smart.ViewModels\obj\Debug\Smart.ViewModels.pdb

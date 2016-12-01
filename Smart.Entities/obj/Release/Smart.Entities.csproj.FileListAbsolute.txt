@@ -1,0 +1,14 @@
+C:\Projects\ChatMy\Smart.Entities\bin\Release\Smart.Entities.dll.config
+C:\Projects\ChatMy\Smart.Entities\bin\Release\Smart.Entities.dll
+C:\Projects\ChatMy\Smart.Entities\bin\Release\Smart.Entities.pdb
+C:\Projects\ChatMy\Smart.Entities\bin\Release\EntityFramework.dll
+C:\Projects\ChatMy\Smart.Entities\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Projects\ChatMy\Smart.Entities\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Projects\ChatMy\Smart.Entities\bin\Release\System.ComponentModel.Annotations.dll
+C:\Projects\ChatMy\Smart.Entities\bin\Release\EntityFramework.xml
+C:\Projects\ChatMy\Smart.Entities\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Projects\ChatMy\Smart.Entities\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Projects\ChatMy\Smart.Entities\bin\Release\ru\EntityFramework.resources.dll
+C:\Projects\ChatMy\Smart.Entities\obj\Release\Smart.Entities.csprojResolveAssemblyReference.cache
+C:\Projects\ChatMy\Smart.Entities\obj\Release\Smart.Entities.dll
+C:\Projects\ChatMy\Smart.Entities\obj\Release\Smart.Entities.pdb
