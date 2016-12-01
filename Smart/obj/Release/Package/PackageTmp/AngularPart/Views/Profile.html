@@ -1,0 +1,116 @@
+﻿<form name="myForm" class="busyPromise" cg-busy="ProfileControllerInstance.busyPromise">
+    <div class="modal-header">
+        <h2 class="modal-title" align="center" id="modal-title">Profile</h2>
+    </div>
+    <div ng-if="uploader.queue.length > 0"
+         class="form-group label-static left-chat-form" style="float: left; margin-left: 80px; ">
+        <ul>
+            <li ng-repeat="item in uploader.queue">
+                <img width="{{item.image.width}}" ng-show="uploader.isHTML5"
+                     ng-thumb="{ file: uploader.queue[0]._file, height: 100 }"
+                     height="{{item.image.height}}"
+                     ng-src="{{item.image.src}}">
+            </li>
+        </ul>
+    </div>
+    <div ng-if="uploader.queue.length === 0" class="form-group label-static left-chat-form"
+         style="float: left; margin-left: 130px">
+        <div ng-show="uploader.queue.length === 0">
+            <img ng-src="{{user.img}}" style="float: left; max-width: 450px; max-height: 300px">
+            <br /><br /><br /><br /><br />
+            <br /><br /><br /><br /><br /><br />
+            <div class="demo-section k-header">
+                <label for="file">
+                    <h2 style="margin-left: 70px; margin-top: 20px; padding-right: 30px"
+                        ng-if="!isReadonly">
+                        Click here...
+                    </h2>
+                </label>
+
+                <input type="file" id="file" ng-hide="true" nv-file-select uploader="uploader"
+                       height="150" width="150" ng-if="!isReadonly" />
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div align="center" style="margin-left: 10px">
+
+        <h3 style="display: inline-block">Username</h3>
+        <input type="text" class="form-control" required
+               style="display: inline-block; font-size: 20px" ng-readonly="isReadonly"
+               ng-model="user.userName"
+               name="userName" />
+        <div class="text-danger"
+             ng-show="myForm.userName.$invalid">
+            Required
+        </div>
+        <br />
+        <br />
+
+        <div ng-if="user.userName === getCurrentUsername() || usernameTemp === getCurrentUsername()">
+            <h3 style="display: inline-block">Password</h3><br />
+            <h4 style="display: inline-block; float: left;">Old:</h4>
+            <input type="password" class="form-control"
+                   style="display: inline-block; font-size: 16px" ng-readonly="isReadonly"
+                   ng-model="user.oldPassword" />
+            <br />
+
+            <h4 style="display: inline-block; float: left;">New:</h4>
+            <input type="password" class="form-control" ng-required="oldPassword.length > 0"
+                   style="display: inline-block; font-size: 16px" ng-readonly="isReadonly"
+                   ng-model="user.password" />
+            <br />
+            <h4 style="display: inline-block; float: left;">Confirm:</h4>
+            <input type="password" class="form-control"
+                   style="display: inline-block; font-size: 16px" ng-readonly="isReadonly"
+                   ng-model="user.confirmPassword"
+                   match="user.password"
+                   name="confirm" />
+            <br />
+            <div class="text-danger" ng-show="myForm.confirm.$error.match">Passwords are not equal</div>
+        </div>
+        <h3 style="display: inline-block">Email</h3><br />
+        <input type="email" class="form-control" required
+               style="display: inline-block; font-size: 20px;" ng-readonly="isReadonly"
+               ng-model="user.email"
+               name="email" />
+        <div class="text-danger" ng-show="myForm.email.$error.email">Input valid email</div>
+
+    </div>
+    <br />
+    <div class="modal-footer">
+        <button ng-show="user.userName === getCurrentUsername() || usernameTemp === getCurrentUsername()"
+                class="btn btn-raised btn-success"
+                style="float: left; font-size: 20px" type="button"
+                ng-click="isReadonly = !isReadonly; usernameTemp = user.userName">
+            Edit
+        </button>
+        <button class="btn btn-success" style="font-size: 20px" type="button"
+                ng-if="!isReadonly && !myForm.$invalid" ng-click="ok()">
+            Ok
+        </button>
+        <button class="btn btn-warning" style="font-size: 20px" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

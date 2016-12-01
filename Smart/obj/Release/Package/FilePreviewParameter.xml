@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="chatmy" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Projects\\ChatMy\\Smart\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Projects\\ChatMy\\Smart\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="MessengerConnectionString-Web.config Connection String" description="" value="data source=tcp:nnm75fp212.database.windows.net,1433;initial catalog=Database;user id=SergiyLichenko@nnm75fp212;password=seregalichenkO96;MultipleActiveResultSets=True;App=EntityFramework" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\ChatMy\\Smart\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MessengerConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="Smart.Data.AuthContext-Web.config Connection String" description="" value="Data Source=tcp:nnm75fp212.database.windows.net,1433;Initial Catalog=Database;User Id=SergiyLichenko@nnm75fp212;Password=seregalichenkO96" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\ChatMy\\Smart\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Smart.Data.AuthContext']/@connectionString" />
+  </parameter>
+</parameters>
