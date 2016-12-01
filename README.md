@@ -7,10 +7,10 @@ Example of usage:
   ![alt Sign Up](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/SignUp.png)
   2. And then login into application
   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Login.png)
-  3. Now I'm in the messenger, but I don't have any chats, so let's create our first chat by clicking "Create Chat" in the left dropdown list
+  3. Now I'm in the messenger, but I don't have any chats, so let's create our first chat by clicking "Create Chat" in the left dropdown list.
   As you can see, you have to type the name of the chat and give it the avatar
    ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Create%20Chat.png)
-  4. You can also watch all available public chats in the application by clicking "Join Chat" in the left dropdown list
+  4. You can also watch all available public chats in the application by clicking "Join Chat" in the left dropdown list.
   Right now there are only 2 chats available on the server: first is created by me, and second - created by other user, and I can join the second one:
   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Join%20Chat.png)
   5. So right now I have 2 chats in my chat list:
@@ -21,7 +21,7 @@ Example of usage:
   
    ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/2%20users.png)
   
-  So right now, I have 2 users in on both chats, and it is time for first message!:
+  So right now, I have 2 users in on both chats, and it is time for first message!
   
   7. Second user (the right one) is sending a message:
   
@@ -51,7 +51,10 @@ Example of usage:
   
   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Updated%20Profile.png)
 
-  14. You can also delete the message by pressing the recycle bin near it. This message will be deleted for every user in current chat instantly. Which hasn't any punctuation:
+  14. You can also delete the message by pressing the recycle bin near it. This message will be deleted for every user in current chat instantly.
+  
+  Let's delete a message which hasn't any punctuation:
+  
   Before:
     ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Before%20delete.png)
   After:
@@ -62,4 +65,6 @@ Example of usage:
     
        ![alt Login Page](  https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Edit%20Chat.png)
   
+  You can have multiple chats and each of them can contain multiple messages. There will not be any problem with switching between chats, all messages for current chat will be loaded automatically.
   
+  This app was tested by a group of 50+ students. Everything worked like a charm
