@@ -1,6 +1,7 @@
 # ChattingApp
 
 Real-time messenger using ASP.NET WebApi, Entity Framework, SignalR and AngularJS
+
 Example of usage:
   1. Let's asume I want to create a user with username "PettyLover" 
   ![alt Sign Up](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/SignUp.png)
@@ -46,4 +47,19 @@ Example of usage:
   
   ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Update%20profile.png)
   
-  13. 
+  13. By clicking "OK" your information will be updated and every user in current chat will see changes:
+  
+  ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Updated%20Profile.png)
+
+  14. You can also delete the message by pressing the recycle bin near it. This message will be deleted for every user in current chat instantly. Which hasn't any punctuation:
+  Before:
+    ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Before%20delete.png)
+  After:
+  ![alt Login Page](https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/After%20delete.png)
+  
+  15. And, finally, there is an options for deleting, quiting and editing chat:
+    If you are a creator of chat, there will be an option for you to delete any user from this chat:
+    
+       ![alt Login Page](  https://github.com/SergiyLichenko/ChattingApp/blob/master/Smart/Docs/Edit%20Chat.png)
+  
+  
