@@ -1,7 +1,10 @@
-﻿using System.Threading;
+﻿using System.Net;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 
-namespace Smart.Results
+namespace ChattingApp.Results
 {
     public class ChallengeResult : IHttpActionResult
     {
@@ -16,7 +19,7 @@ namespace Smart.Results
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
-            Request.GetOwinContext().Authentication.Challenge(LoginProvider);
+           // Request.GetOwinContext().Authentication.Challenge(LoginProvider);
 
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             response.RequestMessage = Request;

@@ -1,9 +1,21 @@
 ﻿using System;
-using Smart;
-using Smart.Providers;
+using System.Data.Entity;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Routing;
+using ChattingApp;
+using ChattingApp.Providers;
+using ChattingApp.Repository;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Facebook;
+using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.OAuth;
+using Owin;
 
 [assembly: OwinStartup(typeof(StartUp))]
-namespace Smart
+namespace ChattingApp
 {
     public class StartUp
     {
@@ -72,10 +84,9 @@ namespace Smart
             AutoMapperConfig.Register();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             app.MapSignalR("/signalr", new HubConfiguration());
-
         }
 
 

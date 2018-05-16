@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Smart.Service.Repository;
+using ChattingApp.Repository.Interfaces;
+using ChattingApp.Repository.Models;
+using ChattingApp.Service.Models;
 
-namespace Smart.Service
+namespace ChattingApp.Service
 {
     public class ChatsService : IChatsService
     {

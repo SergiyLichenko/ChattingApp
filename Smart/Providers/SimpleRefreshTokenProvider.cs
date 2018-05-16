@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Smart.Models;
+using ChattingApp.Repository;
+using ChattingApp.Repository.Models;
+using ChattingApp.Repository.Repository;
+using Microsoft.Owin.Security.Infrastructure;
 
-namespace Smart.Providers
+namespace ChattingApp.Providers
 {
     public class SimpleRefreshTokenProvider : IAuthenticationTokenProvider
     {

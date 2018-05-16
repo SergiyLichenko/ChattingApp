@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security.OAuth;
 
-namespace Smart.Providers
+namespace ChattingApp.Providers
 {
     public class ApplicationOAuthBearerAuthenticationProvider : OAuthBearerAuthenticationProvider
     {

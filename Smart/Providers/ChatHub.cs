@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 
-namespace Smart.Providers
+namespace ChattingApp.Providers
 {
     public class ChatHub : Hub
     {

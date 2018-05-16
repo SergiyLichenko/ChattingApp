@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using Smart.Data.Models;
+using System.Data.Entity;
+using System.Linq;
+using ChattingApp.Repository.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Smart.Data
+namespace ChattingApp.Repository
 {
-    /*
-    public class AuthContext : IdentityDbContext<ApplicationUser>, IDataContext
+    public class AuthContext : IdentityDbContext<ApplicationUser>
     {
         public AuthContext()
             : base("name=MessengerConnectionString")
         {
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
         }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Chat> Chats { get; set; }
@@ -29,10 +26,8 @@ namespace Smart.Data
             context.Roles.Add(new IdentityRole("User"));
             context.Roles.Add(new IdentityRole("Moderator"));
             context.Roles.Add(new IdentityRole("Admin"));
-            if (context.Clients.Count() > 0)
-            {
-                return;
-            }
+
+            if (context.Clients.Any()) return;
             context.Clients.AddRange(BuildClientsList());
             context.SaveChanges();
             base.Seed(context);
@@ -47,7 +42,7 @@ namespace Smart.Data
                 { Id = "SMARTMessenger",
                     Secret= EncryptPassword.GetEncryptedPassword("WebMessengerSecret@Smart2016"),
                     Name="AngularJS front-end Application",
-                    ApplicationType =  Models.ApplicationTypes.JavaScript,
+                    ApplicationType =  ApplicationTypes.JavaScript,
                     Active = true,
                     RefreshTokenLifeTime = 7200,
                     AllowedOrigin = "*"
@@ -56,7 +51,7 @@ namespace Smart.Data
                 { Id = "consoleApp",
                     Secret=EncryptPassword.GetEncryptedPassword("DesktopMessengerSecret@Smart2016"),
                     Name="Console Application",
-                    ApplicationType =Models.ApplicationTypes.NativeConfidential,
+                    ApplicationType =ApplicationTypes.NativeConfidential,
                     Active = true,
                     RefreshTokenLifeTime = 14400,
                     AllowedOrigin = "*"
@@ -66,5 +61,4 @@ namespace Smart.Data
             return ClientsList;
         }
     }
-    */
 }

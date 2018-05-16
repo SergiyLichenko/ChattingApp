@@ -1,6 +1,7 @@
-﻿namespace Smart.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChattingApp.Repository.Models
 {
-    /*
     public class Message
     {
         [Key]
@@ -22,5 +23,5 @@
         public System.Guid ChatId { get; set; }
         public Chat Chat { get; set; }
         public bool IsModified { get; set; }
-    }*/
+    }
 }

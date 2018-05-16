@@ -1,8 +1,16 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ChattingApp.Repository.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
 
-namespace Smart
+namespace ChattingApp
 {
 
     public class GmailEmailService : IIdentityMessageService

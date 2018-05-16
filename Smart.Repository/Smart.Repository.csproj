@@ -52,6 +52,10 @@
       <Project>{dcb8c3b1-98c0-49fc-9833-17df6e80a57e}</Project>
       <Name>Smart.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Smart.Service\Smart.Service.csproj">
+      <Project>{85C348FB-1F32-43FD-A30A-65AB3A6E76C8}</Project>
+      <Name>Smart.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

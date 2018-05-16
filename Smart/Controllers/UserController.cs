@@ -1,7 +1,13 @@
 ﻿using System.IO;
-using Image = System.Web.UI.WebControls.Image;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web;
+using System.Web.Http;
+using ChattingApp.Service;
+using ChattingApp.Service.Models;
 
-namespace Smart.Controllers
+namespace ChattingApp.Controllers
 {
     public class UserController : ApiController
     {

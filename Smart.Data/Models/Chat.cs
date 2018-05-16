@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace Smart.Data.Models
+namespace ChattingApp.Repository.Models
 {
-    /*
     public class Chat
     {
         [Key]
@@ -25,5 +25,5 @@ namespace Smart.Data.Models
         {
             Users = new List<ApplicationUser>();
         }
-    }*/
+    }
 }

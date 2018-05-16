@@ -1,11 +1,22 @@
-﻿
-using System;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Smart.Models;
-using Smart.Results;
+using System.Web.Http;
+using ChattingApp.Repository.Models;
+using ChattingApp.Repository.Repository;
+using ChattingApp.Results;
+using ChattingApp.Service;
+using ChattingApp.Service.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Linq;
 
-namespace Smart.Controllers
+namespace ChattingApp.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -36,13 +47,13 @@ namespace Smart.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = _userService.Add(userModel);
+            //IdentityResult result = _userService.Add(userModel);
 
-            IHttpActionResult errorResult = GetErrorResult(result);
+            //IHttpActionResult errorResult = GetErrorResult(result);
 
-            if (errorResult != null)
+            //if (errorResult != null)
             {
-                return errorResult;
+             //   return errorResult;
             }
 
             return Ok();
@@ -87,10 +98,10 @@ namespace Smart.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            IdentityUser user = await _repo.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
+          //  IdentityUser user = await _repo.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
 
-            bool hasRegistered = user != null;
-
+           // bool hasRegistered = user != null;
+            bool hasRegistered = true;
             redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}",
                                             redirectUri,
                                             externalLogin.ExternalAccessToken,

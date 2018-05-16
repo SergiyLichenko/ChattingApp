@@ -1,7 +1,8 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security.Facebook;
 
-namespace Smart.Providers
+namespace ChattingApp.Providers
 {
     public class FacebookAuthProvider : FacebookAuthenticationProvider
     {

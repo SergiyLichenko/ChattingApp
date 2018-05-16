@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Threading.Tasks;
-using Smart.Service.Repository;
+using System.Web;
+using ChattingApp.Repository.Interfaces;
+using ChattingApp.Repository.Models;
+using ChattingApp.Service.Models;
 
-namespace Smart.Service
+namespace ChattingApp.Service
 {
     public class UserService : IUserService
     {
@@ -35,11 +40,11 @@ namespace Smart.Service
             return _mappingSerivce.Map<ApplicationUser, UserViewModel>(removed);
         }
 
-        public async Task<ApplicationUser> FindAsync(UserLoginInfo userLoginInfo)
+       /* public async Task<ApplicationUser> FindAsync(UserLoginInfo userLoginInfo)
         {
             ApplicationUser user = await _userRepository.FindAsync(userLoginInfo);
             return user;
-        }
+        }*/
         public UserViewModel GetByUserNameAndPassword(string username, string password)
         {
             if (username == null || password == null)
@@ -81,11 +86,11 @@ namespace Smart.Service
             ApplicationUser result = null;
             if (!String.IsNullOrEmpty(oldPassword) && newInstance.password == newInstance.confirmPassword)
             {
-                result = _userRepository.GetByUserNameAndPassword(oldUser.UserName, oldPassword);
+               /* result = _userRepository.GetByUserNameAndPassword(oldUser.UserName, oldPassword);
                 if (result != null)
                 {
                     _userRepository.ChangePassword(oldInstance.userName, oldPassword, newInstance.password);
-                }
+                }*/
             }
             if (oldInstance.email != newInstance.email)
             {
@@ -104,8 +109,8 @@ namespace Smart.Service
                 var img = ImageResizer.ProcessImage(newInstance.img, UserImageSize);
                 img = img.Insert(0, "data:image/jpg;base64,");
 
-                result = _userRepository.ChangeImage(result != null ?
-                    result.UserName : oldInstance.userName, img);
+               // result = _userRepository.ChangeImage(result != null ?
+               //     result.UserName : oldInstance.userName, img);
             }
 
             return _mappingSerivce.Map<ApplicationUser, UserViewModel>(result);
@@ -124,24 +129,19 @@ namespace Smart.Service
             throw new NotImplementedException();
         }
 
-        public IdentityResult Add(UserViewModel instance)
+        public void Add(UserViewModel instance)
         {
-            if (instance == null)
-                return null;
+            if (instance == null) return;
 
             ApplicationUser user = _mappingSerivce.Map<UserViewModel, ApplicationUser>(instance);
-            user.Img = GetDefaultImage();
-            user.Img = user.Img.Insert(0, "data:image/png;base64,");
+            //user.Img = GetDefaultImage();
+            //user.Img = user.Img.Insert(0, "data:image/png;base64,");
 
-            return _userRepository.Add(user);
         }
         public bool AddUserToChat(string username, string chatId)
         {
             if (String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(chatId)) return false;
             return _userRepository.AddUserToChat(username, chatId);
         }
-
-
-       
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using System.Web.Http;
+using ChattingApp.Repository.Repository;
 
-namespace Smart.Controllers
+namespace ChattingApp.Controllers
 {
     [RoutePrefix("api/RefreshTokens")]
     public class RefreshTokensController : ApiController

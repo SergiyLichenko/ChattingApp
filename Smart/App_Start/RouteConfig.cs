@@ -1,4 +1,7 @@
-﻿namespace Smart
+﻿using System.Web.Mvc;
+using System.Web.Routing;
+
+namespace ChattingApp
 {
     public class RouteConfig
     {

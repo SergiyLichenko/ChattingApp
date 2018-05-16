@@ -1,6 +1,8 @@
-﻿namespace Smart.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ChattingApp.Repository.Models
 {
-    /*
     [Table("ReferrerMessages")]
     public class ReferrerMessage
     {
@@ -15,6 +17,5 @@
         [Required]
         public System.Guid ChatId { get; set; }
         public Chat Chat { get; set; }
-}
-*/
+    }
 }

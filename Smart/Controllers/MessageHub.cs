@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
+using ChattingApp.Repository;
+using ChattingApp.Repository.Repository;
+using ChattingApp.Service;
+using ChattingApp.Service.Models;
+using Microsoft.AspNet.SignalR;
 using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 
-namespace Smart.Controllers
+namespace ChattingApp.Controllers
 {
 
     public class MessageHub : Hub

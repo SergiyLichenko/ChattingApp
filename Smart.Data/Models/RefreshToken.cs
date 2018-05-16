@@ -1,8 +1,8 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace Smart.Data.Models
+namespace ChattingApp.Repository.Models
 {
-    /*
     public class RefreshToken
     {
         [Key]
@@ -18,5 +18,4 @@ namespace Smart.Data.Models
         [Required]
         public string ProtectedTicket { get; set; }
     }
-    */
 }

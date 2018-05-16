@@ -1,4 +1,4 @@
-﻿namespace Smart.Data.Models
+﻿namespace ChattingApp.Repository.Models
 {
     public enum ApplicationTypes
     {

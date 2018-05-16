@@ -1,6 +1,7 @@
-﻿namespace Smart.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChattingApp.Repository.Models
 {
-    /*
     public class FavouriteMessage
     {
         [Key]
@@ -14,5 +15,5 @@
         [Required]
         public System.Guid UserId { get; set; }
         public ApplicationUser User { get; set; }
-    }*/
+    }
 }

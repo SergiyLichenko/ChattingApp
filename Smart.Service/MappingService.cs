@@ -1,4 +1,6 @@
-﻿namespace Smart.Service
+﻿using AutoMapper;
+
+namespace ChattingApp.Service
 {
     public class MappingService : IMappingService
     {

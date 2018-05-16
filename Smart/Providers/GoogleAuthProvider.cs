@@ -1,7 +1,8 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security.Google;
 
-namespace Smart.Providers
+namespace ChattingApp.Providers
 {
     public class GoogleAuthProvider : IGoogleOAuth2AuthenticationProvider
     {

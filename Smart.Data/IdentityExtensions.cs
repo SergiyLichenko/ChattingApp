@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
 
-namespace Smart.Data
+namespace ChattingApp.Repository
 {
     public static class IdentityExtensions
     {

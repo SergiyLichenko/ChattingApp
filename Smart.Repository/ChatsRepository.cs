@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Smart.Data;
+using Smart.Data.Models;
+using Smart.Service.Repository;
 
 namespace Smart.Repository
 {

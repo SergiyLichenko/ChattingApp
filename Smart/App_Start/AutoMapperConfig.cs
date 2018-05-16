@@ -1,4 +1,7 @@
-﻿namespace Smart
+﻿using ChattingApp.Repository.Models;
+using ChattingApp.Service.Models;
+
+namespace ChattingApp
 {
     public class AutoMapperConfig
     {

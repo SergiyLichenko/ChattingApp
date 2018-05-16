@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using ChattingApp.Service.Models;
 
-namespace Smart.Service
+namespace ChattingApp.Service
 {
     public interface IChatsService : IService<ChatViewModel>
     {

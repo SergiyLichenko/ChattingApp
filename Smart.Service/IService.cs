@@ -1,4 +1,4 @@
-﻿namespace Smart.Service
+﻿namespace ChattingApp.Service
 {
     public interface IService<T>
     {

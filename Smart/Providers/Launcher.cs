@@ -1,4 +1,4 @@
-﻿namespace Smart.Providers
+﻿namespace ChattingApp.Providers
 {
     public class Launcher
     {

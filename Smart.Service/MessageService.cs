@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Smart.Service.Repository;
+using ChattingApp.Repository.Interfaces;
+using ChattingApp.Repository.Models;
+using ChattingApp.Service.Models;
 
-namespace Smart.Service
+namespace ChattingApp.Service
 {
     public class MessageService : IMessageService
     {
@@ -107,7 +109,7 @@ namespace Smart.Service
             List<MessageViewModel> result = messages.Select(x => AutoMapper.Mapper.Map<Message, MessageViewModel>(x)).ToList();
             var response = BuildMessagesResponse(result.OrderBy(x => x.createDate).ToList());
             var allUsers = _chatsRepository.GetAllUsersForChat(id);
-            var images = allUsers.ToDictionary(x => x.Id, x =>
+            /*var images = allUsers.ToDictionary(x => x.Id, x =>
              {
                  var img = ImageResizer.ProcessImage(x.Img, UserImageMessageSize);
                  return img.Insert(0, "data:image/jpg;base64,");
@@ -118,7 +120,7 @@ namespace Smart.Service
                 {
                     response.UserImages.Add(item.Key, item.Value);
                 }
-            }
+            }*/
             return response;
         }
 

@@ -1,7 +1,13 @@
 ﻿using System.Reflection;
-using Smart.Controllers;
+using System.Web.Http;
+using Autofac;
+using Autofac.Integration.WebApi;
+using ChattingApp.Controllers;
+using ChattingApp.Repository;
+using ChattingApp.Repository.Repository;
+using ChattingApp.Service;
 
-namespace Smart
+namespace ChattingApp
 {
     public class AutofacConfig
     {

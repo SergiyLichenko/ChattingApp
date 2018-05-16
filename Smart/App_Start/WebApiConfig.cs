@@ -1,4 +1,9 @@
-﻿namespace Smart
+﻿using System.Linq;
+using System.Net.Http.Formatting;
+using System.Web.Http;
+using Newtonsoft.Json.Serialization;
+
+namespace ChattingApp
 {
     public class WebApiConfig
     {

@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web.Http;
+using ChattingApp.Service;
+using ChattingApp.Service.Models;
 
-namespace Smart.Controllers
+namespace ChattingApp.Controllers
 {
     [RoutePrefix("api/Chats")]
     public class ChatsController : ApiController

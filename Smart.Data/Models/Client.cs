@@ -1,6 +1,7 @@
-﻿namespace Smart.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChattingApp.Repository.Models
 {
-    /*
     public class Client
     {
         [Key]
@@ -15,5 +16,5 @@
         public int RefreshTokenLifeTime { get; set; }
         [MaxLength(100)]
         public string AllowedOrigin { get; set; }
-    }*/
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace Smart.Service
+﻿using ChattingApp.Service.Models;
+
+namespace ChattingApp.Service
 {
     public interface IMessageService : IService<MessageViewModel>
     {

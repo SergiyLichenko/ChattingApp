@@ -1,4 +1,6 @@
-﻿namespace Smart.Controllers
+﻿using System.Web.Mvc;
+
+namespace ChattingApp.Controllers
 {
     //[RequireHttps]
     public class HomeController : Controller

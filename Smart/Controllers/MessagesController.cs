@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Web.Http;
+using ChattingApp.Service;
 
-namespace Smart.Controllers
+namespace ChattingApp.Controllers
 {
     public class MessagesController : ApiController
     {
