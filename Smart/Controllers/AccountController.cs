@@ -1,26 +1,9 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web.Http;
-using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Linq;
-using Smart.App_Start;
-using Smart.Data;
 using Smart.Models;
-using Smart.Models.Entities;
-using Smart.Repository;
 using Smart.Results;
-using Smart.Service;
-using Smart.ViewModels;
 
 namespace Smart.Controllers
 {

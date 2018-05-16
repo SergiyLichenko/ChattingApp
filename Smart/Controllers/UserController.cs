@@ -1,19 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Smart.Repository;
-using Smart.Service;
-using Smart.ViewModels;
+﻿using System.IO;
 using Image = System.Web.UI.WebControls.Image;
 
 namespace Smart.Controllers

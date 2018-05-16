@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using AutoMapper;
-using Smart.Models.Entities;
-using Smart.Repository;
-using Smart.ViewModels;
+using Smart.Service.Repository;
 
 namespace Smart.Service
 {

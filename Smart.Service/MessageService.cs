@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using Smart.Models.Entities;
-using Smart.Repository;
-using Smart.ViewModels;
+using Smart.Service.Repository;
 
 namespace Smart.Service
 {

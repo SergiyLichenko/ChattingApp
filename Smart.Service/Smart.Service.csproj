@@ -38,26 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Http.Abstractions">
-      <HintPath>..\Smart\Bin\Microsoft.AspNet.Http.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO" />
-    <Reference Include="System.Web" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ChatsService.cs" />
     <Compile Include="IChatsService.cs" />
     <Compile Include="IFavouriteMessageService.cs" />
@@ -69,24 +49,12 @@
     <Compile Include="MappingService.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IChatsRepository.cs" />
+    <Compile Include="Repository\IFavouriteMessageRepository.cs" />
+    <Compile Include="Repository\IMessageRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="UserService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Smart.Entities\Smart.Entities.csproj">
-      <Project>{a6294f53-9e2c-48e2-9e50-b3f517088d03}</Project>
-      <Name>Smart.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Smart.Repository\Smart.Repository.csproj">
-      <Project>{5E084662-8407-48C8-95F1-6FDBFBFC055B}</Project>
-      <Name>Smart.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Smart.ViewModels\Smart.ViewModels.csproj">
-      <Project>{0004118A-529C-47FE-8968-F9A74A858C48}</Project>
-      <Name>Smart.ViewModels</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

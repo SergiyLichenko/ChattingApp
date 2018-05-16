@@ -38,41 +38,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Collections.Concurrent" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="AuthContext.cs" />
     <Compile Include="EncryptPassword.cs" />
-    <Compile Include="IDataContext.cs" />
     <Compile Include="IdentityExtensions.cs" />
+    <Compile Include="Models\ApplicationTypes.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Chat.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\FavouriteMessage.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\ReferrerMessage.cs" />
+    <Compile Include="Models\RefreshToken.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Smart.Entities\Smart.Entities.csproj">
-      <Project>{a6294f53-9e2c-48e2-9e50-b3f517088d03}</Project>
-      <Name>Smart.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mappings\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,21 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
-using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Smart.Data;
-using Smart.Models.Entities;
-using Smart.Repository;
-using Smart.ViewModels;
+using Smart.Service.Repository;
 
 namespace Smart.Service
 {

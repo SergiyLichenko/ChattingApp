@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.AspNet.Identity;
-
-namespace Smart.Service
+﻿namespace Smart.Service
 {
     public interface IService<T>
     {

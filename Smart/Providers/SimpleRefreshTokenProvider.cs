@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using Microsoft.Owin.Security.Infrastructure;
-using Smart.Entities;
 using Smart.Models;
-using Smart.Repository;
 
 namespace Smart.Providers
 {

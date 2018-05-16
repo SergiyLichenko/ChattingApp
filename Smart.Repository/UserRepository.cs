@@ -1,15 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Smart.Data;
-using Smart.Entities;
-using Smart.Models.Contexts;
-using Smart.Models.Entities;
 
 namespace Smart.Repository
 {

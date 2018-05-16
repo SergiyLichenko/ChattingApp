@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Smart.Data;
-using Smart.Entities;
-using Smart.Models;
-using Smart.Models.Contexts;
-using Smart.Models.Entities;
+﻿using System.Collections.Generic;
+using Smart.Data.Models;
 
 namespace Smart.Data
 {
+    /*
     public class AuthContext : IdentityDbContext<ApplicationUser>, IDataContext
     {
         public AuthContext()
@@ -28,7 +19,6 @@ namespace Smart.Data
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        //   public DbSet<ReferrerMessage> ReferrerMessages { get; set; }
         public DbSet<FavouriteMessage> FavouriteMessages { get; set; }
     }
 
@@ -76,5 +66,5 @@ namespace Smart.Data
             return ClientsList;
         }
     }
-
+    */
 }

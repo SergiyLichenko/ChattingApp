@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Smart.Data;
-using Smart.Models;
-using Smart.Models.Entities;
-using Smart.ViewModels;
-
-namespace Smart.App_Start
+﻿namespace Smart
 {
     public class AutoMapperConfig
     {

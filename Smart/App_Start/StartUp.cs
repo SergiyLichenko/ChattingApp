@@ -1,31 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Transports;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Facebook;
-using Microsoft.Owin.Security.Google;
-using Microsoft.Owin.Security.OAuth;
-using Owin;
-using Smart.App_Start;
-using Smart.Controllers;
-using Smart.Data;
-using Smart.Models;
-using Smart.Models.Contexts;
+using Smart;
 using Smart.Providers;
-using Smart.Repository;
-using Smart.Service;
 
-[assembly: OwinStartup(typeof(Smart.App_Start.StartUp))]
-namespace Smart.App_Start
+[assembly: OwinStartup(typeof(StartUp))]
+namespace Smart
 {
     public class StartUp
     {

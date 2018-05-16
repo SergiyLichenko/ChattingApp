@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Smart.Data;
-using Smart.Models.Contexts;
-using Smart.Models.Entities;
 
 namespace Smart.Repository
 {

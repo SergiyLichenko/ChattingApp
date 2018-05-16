@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using Microsoft.Owin.Security.OAuth;
 
-namespace Smart.Controllers
+namespace Smart.Providers
 {
     public class ApplicationOAuthBearerAuthenticationProvider : OAuthBearerAuthenticationProvider
     {

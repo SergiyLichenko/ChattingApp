@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace Smart.Service
+﻿namespace Smart.Service
 {
     public class MappingService : IMappingService
     {

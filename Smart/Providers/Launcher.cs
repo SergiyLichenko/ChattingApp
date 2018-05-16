@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Smart.Entities;
-using Smart.Models.Contexts;
-
-namespace Smart.Providers
+﻿namespace Smart.Providers
 {
     public class Launcher
     {

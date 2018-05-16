@@ -1,22 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Json;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Helpers;
-using System.Web.Mvc;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using Microsoft.AspNet.SignalR.Owin;
-using Microsoft.Owin.Security.DataHandler;
-using Microsoft.Owin.Security.DataProtection;
-using Smart.Data;
-using Smart.Repository;
-using Smart.Service;
-using Smart.ViewModels;
 using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 
 namespace Smart.Controllers

@@ -1,7 +1,4 @@
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Smart.Data;
-using Smart.ViewModels;
 
 namespace Smart.Service
 {

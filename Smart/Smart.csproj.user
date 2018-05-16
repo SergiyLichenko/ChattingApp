@@ -7,6 +7,9 @@
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <ProjectView>ShowAllFiles</ProjectView>
     <NameOfLastUsedPublishProfile>ChattingApp</NameOfLastUsedPublishProfile>
+    <Use64BitIISExpress />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

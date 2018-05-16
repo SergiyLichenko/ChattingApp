@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Http;
-using Autofac;
-using Autofac.Integration.WebApi;
+﻿using System.Reflection;
 using Smart.Controllers;
-using Smart.Data;
-using Smart.Repository;
-using Smart.Service;
 
-namespace Smart.App_Start
+namespace Smart
 {
     public class AutofacConfig
     {
