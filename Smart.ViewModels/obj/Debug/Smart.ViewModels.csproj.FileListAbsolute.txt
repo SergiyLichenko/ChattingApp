@@ -8,3 +8,9 @@ C:\Projects\ChatMy\Smart.ViewModels\bin\Debug\Smart.ViewModels.pdb
 C:\Projects\ChatMy\Smart.ViewModels\obj\Debug\Smart.ViewModels.csprojResolveAssemblyReference.cache
 C:\Projects\ChatMy\Smart.ViewModels\obj\Debug\Smart.ViewModels.dll
 C:\Projects\ChatMy\Smart.ViewModels\obj\Debug\Smart.ViewModels.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.ViewModels\bin\Debug\Smart.ViewModels.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.ViewModels\bin\Debug\Smart.ViewModels.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.ViewModels\obj\Debug\Smart.ViewModels.csprojResolveAssemblyReference.cache
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.ViewModels\obj\Debug\Smart.ViewModels.csproj.CoreCompileInputs.cache
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.ViewModels\obj\Debug\Smart.ViewModels.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.ViewModels\obj\Debug\Smart.ViewModels.pdb

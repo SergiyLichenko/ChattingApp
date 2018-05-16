@@ -32,3 +32,23 @@ C:\Projects\ChatMy\Smart.Repository\bin\Debug\ru\EntityFramework.resources.dll
 C:\Projects\ChatMy\Smart.Repository\obj\Debug\Smart.Repository.csprojResolveAssemblyReference.cache
 C:\Projects\ChatMy\Smart.Repository\obj\Debug\Smart.Repository.dll
 C:\Projects\ChatMy\Smart.Repository\obj\Debug\Smart.Repository.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Repository.dll.config
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Repository.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Repository.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\EntityFramework.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Data.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Entities.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Data.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Data.dll.config
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Entities.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Smart.Entities.dll.config
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\EntityFramework.xml
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\bin\Debug\ru\EntityFramework.resources.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\obj\Debug\Smart.Repository.csprojResolveAssemblyReference.cache
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\obj\Debug\Smart.Repository.csproj.CoreCompileInputs.cache
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\obj\Debug\Smart.Repository.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Repository\obj\Debug\Smart.Repository.pdb

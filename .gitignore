@@ -79,3 +79,5 @@ _[Ss]cripts
 /.vs/Smart/v15/Server/sqlite3/storage.ide
 /.vs/Smart/v15/Server/sqlite3/db.lock
 /.vs/config/applicationhost.config
+*.dll
+*.pdb

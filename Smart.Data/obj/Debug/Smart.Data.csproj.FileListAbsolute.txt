@@ -28,3 +28,20 @@ C:\Projects\ChatMy\Smart.Data\bin\Debug\ru\EntityFramework.resources.dll
 C:\Projects\ChatMy\Smart.Data\obj\Debug\Smart.Data.csprojResolveAssemblyReference.cache
 C:\Projects\ChatMy\Smart.Data\obj\Debug\Smart.Data.dll
 C:\Projects\ChatMy\Smart.Data\obj\Debug\Smart.Data.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Smart.Data.dll.config
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Smart.Data.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Smart.Data.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\EntityFramework.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Smart.Entities.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Smart.Entities.pdb
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Smart.Entities.dll.config
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\EntityFramework.xml
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\bin\Debug\ru\EntityFramework.resources.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\obj\Debug\Smart.Data.csprojResolveAssemblyReference.cache
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\obj\Debug\Smart.Data.csproj.CoreCompileInputs.cache
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\obj\Debug\Smart.Data.dll
+C:\E\КПИ\ІПСА\4 Курс\Диплом\ChattingApp\ChattingApp\Smart.Data\obj\Debug\Smart.Data.pdb
