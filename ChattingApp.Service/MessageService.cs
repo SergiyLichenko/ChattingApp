@@ -111,8 +111,8 @@ namespace ChattingApp.Service
             var allUsers = _chatsRepository.GetAllUsersForChat(id);
             /*var images = allUsers.ToDictionary(x => x.Id, x =>
              {
-                 var img = ImageResizer.ProcessImage(x.Img, UserImageMessageSize);
-                 return img.Insert(0, "data:image/jpg;base64,");
+                 var Img = ImageResizer.ProcessImage(x.Img, UserImageMessageSize);
+                 return Img.Insert(0, "data:image/jpg;base64,");
              });
             foreach (var item in images)
             {
@@ -137,14 +137,14 @@ namespace ChattingApp.Service
             foreach (var item in messages)
             {
                 var temp = item;
-                temp.user.img = ImageResizer.ProcessImage(temp.user.img, UserImageMessageSize);
-                temp.user.img = temp.user.img.Insert(0, "data:image/jpg;base64,");
-                if (!result.UserImages.ContainsKey(temp.user.id.ToString()))
+                temp.user.Img = ImageResizer.ProcessImage(temp.user.Img, UserImageMessageSize);
+                temp.user.Img = temp.user.Img.Insert(0, "data:image/jpg;base64,");
+                if (!result.UserImages.ContainsKey(temp.user.Id.ToString()))
                 {
-                    result.UserImages.Add(temp.user.id.ToString(), temp.user.img);
+                    result.UserImages.Add(temp.user.Id.ToString(), temp.user.Img);
                 }
 
-                temp.user.img = null;
+                temp.user.Img = null;
                 temp.chat.Img = null;
                 result.Messages.Add(item);
             }

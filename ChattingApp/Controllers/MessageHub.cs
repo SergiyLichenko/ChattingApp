@@ -16,13 +16,13 @@ namespace ChattingApp.Controllers
     public class MessageHub : Hub
     {
         private IMessageService _messageService;
-        private IChatsService _chatsService;
+        private IChatService _chatService;
         private IUserService _userService;
         private readonly DataContractJsonSerializer _serializer = new DataContractJsonSerializer(typeof(MessageViewModel));
         public MessageHub()
         {
             this._messageService = new MessageService(new MessageRepository(new AuthContext()), new MappingService(), new ChatsRepository(new AuthContext()));
-            _chatsService = new ChatsService(new ChatsRepository(new AuthContext()), new UserRepository(), new MappingService(), new UserService(new UserRepository(), new MappingService()));
+            _chatService = new ChatService(new ChatsRepository(new AuthContext()), new UserRepository(), new MappingService(), new UserService(new UserRepository(), new MappingService()));
             _userService = new UserService(new UserRepository(), new MappingService());
         }
         private static Dictionary<string, string> _users_ConnectionIds = new Dictionary<string, string>();
@@ -56,12 +56,12 @@ namespace ChattingApp.Controllers
             {
                 if (_userService.AddUserToChat(userName, chat.Id.ToString()))
                 {
-                    var c = _chatsService.Get(chat.Id.ToString());
+                    var c = _chatService.Get(chat.Id.ToString());
                     var user = _userService.GetUserByName(userName);
 
                     foreach (var item in c.Users)
                     {
-                        var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.userName)).Key;
+                        var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.UserName)).Key;
                         if (result != null)
                         {
                             Clients.Client(result).OnAddUserToChat(user);
@@ -84,17 +84,17 @@ namespace ChattingApp.Controllers
 
             if (createdMessage != null)
             {
-                createdMessage.user.img = null;
+                createdMessage.user.Img = null;
                 createdMessage.chat.Img = null;
                 createdMessage.chat.Users = createdMessage.chat.Users.Select(x =>
                 {
-                    x.img = null;
+                    x.Img = null;
                     return x;
                 }).ToList();
 
                 foreach (var item in createdMessage.chat.Users)
                 {
-                    var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.userName)).Key;
+                    var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.UserName)).Key;
                     if (result != null)
                     {
                         Clients.Client(result).OnMessage(createdMessage);
@@ -110,16 +110,16 @@ namespace ChattingApp.Controllers
 
             if (messageViewModel != null)
             {
-                messageViewModel.user.img = null;
+                messageViewModel.user.Img = null;
                 messageViewModel.chat.Img = null;
                 messageViewModel.chat.Users = messageViewModel.chat.Users.Select(x =>
                 {
-                    x.img = null;
+                    x.Img = null;
                     return x;
                 }).ToList();
                 foreach (var item in messageViewModel.chat.Users)
                 {
-                    var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.userName)).Key;
+                    var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.UserName)).Key;
                     if (result != null)
                     {
                         Clients.Client(result).OnUpdateMessage(messageViewModel);
@@ -138,8 +138,8 @@ namespace ChattingApp.Controllers
             if (message == null)
                 return;
             if (!_users_ConnectionIds.ContainsKey(Context.ConnectionId))
-                _users_ConnectionIds.Add(Context.ConnectionId, message.user.userName);
-            if (!message.user.userName.Equals(_users_ConnectionIds[Context.ConnectionId])) return;
+                _users_ConnectionIds.Add(Context.ConnectionId, message.user.UserName);
+            if (!message.user.UserName.Equals(_users_ConnectionIds[Context.ConnectionId])) return;
 
             MessageViewModel deletedMessage = _messageService.Remove(message);
             if (deletedMessage != null)
@@ -151,7 +151,7 @@ namespace ChattingApp.Controllers
                     {
                         deletedMessage.chat.Users = deletedMessage.chat.Users.Select(x =>
                         {
-                            x.img = null;
+                            x.Img = null;
                             return x;
                         }).ToList();
                     }
@@ -159,7 +159,7 @@ namespace ChattingApp.Controllers
 
                 foreach (var item in deletedMessage.chat.Users)
                 {
-                    var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.userName)).Key;
+                    var result = _users_ConnectionIds.SingleOrDefault(x => x.Value.Equals(item.UserName)).Key;
                     if (result != null)
                     {
                         Clients.Client(result).OnDeleteMessage(deletedMessage);

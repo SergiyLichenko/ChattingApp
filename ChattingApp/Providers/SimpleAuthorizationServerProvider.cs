@@ -26,7 +26,7 @@ namespace ChattingApp.Providers
 
                 if (user == null)
                 {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    context.SetError("invalid_grant", "The user name or Password is incorrect.");
                     return;
                 }
             }
@@ -42,7 +42,7 @@ namespace ChattingApp.Providers
                         "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
                     },
                     {
-                        "userName", context.UserName
+                        "UserName", context.UserName
                     }
                 });
 

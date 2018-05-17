@@ -8,7 +8,7 @@ namespace ChattingApp.Service.Models
         public string Login { get; set; }
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Enter password please")]
+        [Required(ErrorMessage = "Enter Password please")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]

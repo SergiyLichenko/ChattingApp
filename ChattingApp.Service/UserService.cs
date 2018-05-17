@@ -32,7 +32,7 @@ namespace ChattingApp.Service
 
         public UserViewModel Remove(UserViewModel instance)
         {
-            if (instance == null || instance.id.ToString().Equals(Guid.Empty.ToString()))
+            if (instance == null || instance.Id.ToString().Equals(Guid.Empty.ToString()))
                 return null;
             ApplicationUser toRemove = _mappingSerivce.Map<UserViewModel, ApplicationUser>(instance);
             ApplicationUser removed = _userRepository.Remove(toRemove);
@@ -84,33 +84,33 @@ namespace ChattingApp.Service
             ApplicationUser newUser = _mappingSerivce.Map<UserViewModel, ApplicationUser>(newInstance);
 
             ApplicationUser result = null;
-            if (!String.IsNullOrEmpty(oldPassword) && newInstance.password == newInstance.confirmPassword)
+            if (!String.IsNullOrEmpty(oldPassword) && newInstance.Password == newInstance.ConfirmPassword)
             {
                 /* result = _userRepository.GetByUserNameAndPassword(oldUser.UserName, oldPassword);
                  if (result != null)
                  {
-                     _userRepository.ChangePassword(oldInstance.userName, oldPassword, newInstance.password);
+                     _userRepository.ChangePassword(oldInstance.UserName, oldPassword, newInstance.Password);
                  }*/
             }
-            if (oldInstance.email != newInstance.email)
+            if (oldInstance.Email != newInstance.Email)
             {
-                result = _userRepository.ChangeEmail(oldInstance.userName, newInstance.email);
+                result = _userRepository.ChangeEmail(oldInstance.UserName, newInstance.Email);
             }
-            if (oldInstance.userName != newInstance.userName)
+            if (oldInstance.UserName != newInstance.UserName)
             {
-                result = _userRepository.ChangeUsername(oldInstance.userName, newInstance.userName);
+                result = _userRepository.ChangeUsername(oldInstance.UserName, newInstance.UserName);
             }
-            if (oldInstance.img != newInstance.img)
+            if (oldInstance.Img != newInstance.Img)
             {
-                if (newInstance.img == null)
+                if (newInstance.Img == null)
                 {
-                    newInstance.img = GetDefaultImage();
+                    newInstance.Img = GetDefaultImage();
                 }
-                var img = ImageResizer.ProcessImage(newInstance.img, UserImageSize);
+                var img = ImageResizer.ProcessImage(newInstance.Img, UserImageSize);
                 img = img.Insert(0, "data:image/jpg;base64,");
 
                 // result = _userRepository.ChangeImage(result != null ?
-                //     result.UserName : oldInstance.userName, img);
+                //     result.UserName : oldInstance.UserName, Img);
             }
 
             return _mappingSerivce.Map<ApplicationUser, UserViewModel>(result);
@@ -133,8 +133,8 @@ namespace ChattingApp.Service
         {
             if (instance == null) return;
 
-            instance.img = GetDefaultImage();
-            instance.img = instance.img.Insert(0, "data:image/png;base64,");
+            instance.Img = GetDefaultImage();
+            instance.Img = instance.Img.Insert(0, "data:image/png;base64,");
             ApplicationUser user = _mappingSerivce.Map<UserViewModel, ApplicationUser>(instance);
             _userRepository.Add(user);
         }

@@ -7,13 +7,13 @@ using ChattingApp.Service.Models;
 
 namespace ChattingApp.Service
 {
-    public class ChatsService : IChatsService
+    public class ChatService : IChatService
     {
         private IChatsRepository _chatsRepository;
         private readonly IUserRepository _userRepository;
         private IMappingService _mappingService;
         private IUserService _userService;
-        public ChatsService(IChatsRepository chatsRepository,
+        public ChatService(IChatsRepository chatsRepository,
             IUserRepository userRepository,
             IMappingService mappingService,
             IUserService userService)

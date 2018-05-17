@@ -12,11 +12,11 @@ namespace ChattingApp.Controllers
     [RoutePrefix("api/Chats")]
     public class ChatsController : ApiController
     {
-        private IChatsService _chatsService;
+        private IChatService _chatService;
 
-        public ChatsController(IChatsService chatsService)
+        public ChatsController(IChatService chatService)
         {
-            _chatsService = chatsService;
+            _chatService = chatService;
         }
 
         [HttpGet]
@@ -24,7 +24,7 @@ namespace ChattingApp.Controllers
         {
 
             //Get all chats by username
-            List<ChatViewModel> chats = _chatsService.GetAllChats(id);
+            List<ChatViewModel> chats = _chatService.GetAllChats(id);
             return Request.CreateResponse(HttpStatusCode.OK, chats);
         }
 
@@ -33,7 +33,7 @@ namespace ChattingApp.Controllers
         public HttpResponseMessage GetAll()
         {
             //Get all chats by username
-            List<ChatViewModel> chats = _chatsService.GetAll();
+            List<ChatViewModel> chats = _chatService.GetAll();
             var response = Request.CreateResponse(HttpStatusCode.OK, chats);
             response.Headers.CacheControl = new CacheControlHeaderValue()
             {
@@ -48,7 +48,7 @@ namespace ChattingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                ChatViewModel chat = _chatsService.Add(newChat);
+                ChatViewModel chat = _chatService.Add(newChat);
                 if (chat != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, chat);
@@ -66,7 +66,7 @@ namespace ChattingApp.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
             }
-            bool result = _chatsService.Quit(request.ChatId, request.Username);
+            bool result = _chatService.Quit(request.ChatId, request.Username);
 
             if (result)
             {
@@ -84,7 +84,7 @@ namespace ChattingApp.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
-            var updated = _chatsService.Update(chat);
+            var updated = _chatService.Update(chat);
             if (updated != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, updated);
@@ -98,7 +98,7 @@ namespace ChattingApp.Controllers
         {
             if (chat.Id.ToString() != string.Empty && chat.AuthorName != null)
             {
-                var removed = _chatsService.Remove(chat);
+                var removed = _chatService.Remove(chat);
                 if (chat != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK);

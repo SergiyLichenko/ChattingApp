@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Net.Http.Formatting;
-using System.Web.Http;
-using Newtonsoft.Json.Serialization;
+﻿using System.Web.Http;
 
 namespace ChattingApp
 {
@@ -9,24 +6,13 @@ namespace ChattingApp
     {
         public static void Register(HttpConfiguration config)
         {
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}/{uniqueId}",
+                routeTemplate: "api/{controller}/{Id}/{uniqueId}",
                 defaults: new {id = RouteParameter.Optional, uniqueId = RouteParameter.Optional}
                 );
-
-            // Controllers with Actions
-            // To handle routes like `/api/VTRouting/route`
-
-
-            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-
         }
     }
 }

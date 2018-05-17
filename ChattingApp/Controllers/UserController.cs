@@ -12,11 +12,11 @@ namespace ChattingApp.Controllers
     public class UserController : ApiController
     {
         private IUserService _userService;
-        private IChatsService _chatsService;
-        public UserController(IUserService userService, IChatsService chatsService)
+        private IChatService _chatService;
+        public UserController(IUserService userService, IChatService chatService)
         {
             _userService = userService;
-            _chatsService = chatsService;
+            _chatService = chatService;
         }
 
         [HttpPost]
@@ -61,10 +61,10 @@ namespace ChattingApp.Controllers
             if (ModelState.IsValid)
             {
                 _userService.AddUserToChat(obj.UserName, obj.ChatId);
-                var chat = _chatsService.Get(obj.ChatId);
+                var chat = _chatService.Get(obj.ChatId);
                 var user = _userService.GetUserByName(obj.UserName);
                 chat.Img = null;
-                user.img = null;
+                user.Img = null;
                 var response = new AddUserToChatControllerResponse()
                 {
                     User = user,

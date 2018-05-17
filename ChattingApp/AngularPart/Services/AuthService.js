@@ -70,7 +70,7 @@ app.factory("authService", ["$http", "$q", '$injector', "localStorageService", "
 
             logOut();
 
-            return $http.post(serviceBase + "api/Account/Register", registration).then(function (response) {
+            return $http.post(serviceBase + "api/Account/SignUp", registration).then(function (response) {
                 return response;
             });
 

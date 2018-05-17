@@ -3,7 +3,7 @@ using ChattingApp.Service.Models;
 
 namespace ChattingApp.Service
 {
-    public interface IChatsService : IService<ChatViewModel>
+    public interface IChatService : IService<ChatViewModel>
     {
         List<ChatViewModel> GetAllChats(string userName);
         ChatViewModel Add(ChatViewModel instance);

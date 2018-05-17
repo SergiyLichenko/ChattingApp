@@ -32,7 +32,7 @@ namespace ChattingApp.Controllers
             {
                 return Ok();
             }
-            return BadRequest("Token id does not exist");
+            return BadRequest("Token Id does not exist");
 
         }
 
