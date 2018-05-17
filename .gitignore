@@ -74,10 +74,6 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over
 *.cache
-/.vs/Smart/v15/Server/sqlite3/storage.ide-wal
-/.vs/Smart/v15/Server/sqlite3/storage.ide-shm
-/.vs/Smart/v15/Server/sqlite3/storage.ide
-/.vs/Smart/v15/Server/sqlite3/db.lock
-/.vs/config/applicationhost.config
 *.dll
 *.pdb
+/.vs

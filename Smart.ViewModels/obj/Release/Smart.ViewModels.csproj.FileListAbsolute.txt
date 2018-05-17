@@ -1,5 +1,0 @@
-C:\Projects\ChatMy\Smart.ViewModels\bin\Release\Smart.ViewModels.dll
-C:\Projects\ChatMy\Smart.ViewModels\bin\Release\Smart.ViewModels.pdb
-C:\Projects\ChatMy\Smart.ViewModels\obj\Release\Smart.ViewModels.csprojResolveAssemblyReference.cache
-C:\Projects\ChatMy\Smart.ViewModels\obj\Release\Smart.ViewModels.dll
-C:\Projects\ChatMy\Smart.ViewModels\obj\Release\Smart.ViewModels.pdb
