@@ -12,7 +12,7 @@
         <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
     </div>
     <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
-    <div data-ng-hide="message == ''" class="alert alert-danger">
+    <div ng-if="message" class="alert alert-danger">
         {{message}}
     </div>
 </form>

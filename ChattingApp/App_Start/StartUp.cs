@@ -5,6 +5,7 @@ using System.Web.Routing;
 using ChattingApp;
 using ChattingApp.Providers;
 using ChattingApp.Repository;
+using ChattingApp.Repository.Repository;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
@@ -21,8 +22,7 @@ namespace ChattingApp
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                Provider = new SimpleAuthorizationServerProvider(),
-                RefreshTokenProvider = new SimpleRefreshTokenProvider()
+                Provider = new SimpleAuthorizationServerProvider(new UserRepository()),
             };
 
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
@@ -32,7 +32,7 @@ namespace ChattingApp
         {
             HttpConfiguration config = new HttpConfiguration();
 
-            Database.SetInitializer(new MyInitializer());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AuthContext>());
             AutofacConfig.Register(config);
             AutoMapperConfig.Register();
             AreaRegistration.RegisterAllAreas();

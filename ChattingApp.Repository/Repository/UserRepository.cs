@@ -22,24 +22,21 @@ namespace ChattingApp.Repository.Repository
 
         }
 
-        public int Count => _ctx.Users.Count();
-
         public ApplicationUser Get(string id)
         {
             return _userManager.FindById(id);
         }
 
-        public bool Remove(ApplicationUser instance)
+        public ApplicationUser Remove(ApplicationUser instance)
         {
             try
             {
                 _userManager.Delete(instance);
-                return true;
             }
             catch (Exception ex)
             {
-                return false;
             }
+            return null;
         }
 
         public ApplicationUser Update(ApplicationUser instance)
@@ -55,17 +52,11 @@ namespace ChattingApp.Repository.Repository
             }
         }
 
-        public ApplicationUser GetByUserNameAndPassword(string userName, string password)
-        {
-            ApplicationUser user = _userManager.Find(userName, password);
-            return user;
-        }
-
         public bool AddImage(string userId, byte[] imageByteArray)
         {
             try
             {
-                
+
                 return true;
             }
             catch (Exception)
@@ -89,11 +80,7 @@ namespace ChattingApp.Repository.Repository
                 Email = instance.Email,
                 Img = instance.Img
             };
-            IdentityResult result = _userManager.Create(user, instance.PasswordHash);
-            
-            string id = _userManager.Find(instance.UserName, instance.PasswordHash).Id;
-            _userManager.AddToRole(id, "User");
-
+            _userManager.Create(user, instance.PasswordHash);
         }
 
         public bool AddUserToChat(string username, string chatId)
@@ -101,7 +88,7 @@ namespace ChattingApp.Repository.Repository
             try
             {
                 var chat = _ctx.Chats.FirstOrDefault(x => x.Id.Equals(new Guid(chatId)));
-                var selectedUser =  _ctx.Users.Include("Chats").FirstOrDefault(x => x.UserName.Equals(username));
+                var selectedUser = _ctx.Users.Include("Chats").FirstOrDefault(x => x.UserName.Equals(username));
                 selectedUser.Chats.Add(chat);
 
                 int count = _ctx.SaveChanges();
@@ -122,7 +109,7 @@ namespace ChattingApp.Repository.Repository
             }
             catch (Exception)
             {
-                    
+
                 throw;
             }
         }
@@ -172,98 +159,12 @@ namespace ChattingApp.Repository.Repository
                 throw;
             }
         }
-        public async Task<ApplicationUser> FindAsync(UserLoginInfo loginInfo)
+        public async Task<ApplicationUser> FindAsync(string userName, string password)
         {
-            ApplicationUser user = await _userManager.FindAsync(loginInfo);
+            if (string.IsNullOrEmpty(userName)) throw new ArgumentException(nameof(userName));
+            if (string.IsNullOrEmpty(password)) throw new ArgumentException(nameof(password));
 
-            return user;
-        }
-
-        public async Task<IdentityResult> CreateAsync(ApplicationUser user)
-        {
-            IdentityResult result = await _userManager.CreateAsync(user);
-
-            return result;
-        }
-
-        public async Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login)
-        {
-            var result = await _userManager.AddLoginAsync(userId, login);
-
-            return result;
-        }
-
-        public List<Chat> GetUserChats(ApplicationUser user)
-        {
-            List<Chat> result = new List<Chat>();
-            return result;
-        } 
-
-        public void Dispose()
-        {
-            _userManager.Dispose();
-            _ctx.Dispose();
-
-        }
-
-        public Client FindClient(string clientId)
-        {
-            var client = _ctx.Clients.Find(clientId);
-
-            return client;
-        }
-
-        public async Task<bool> AddRefreshToken(RefreshToken token)
-        {
-
-            var existingToken =
-                _ctx.RefreshTokens
-                    .SingleOrDefault(r => r.Subject == token.Subject && r.ClientId == token.ClientId);
-
-            if (existingToken != null)
-            {
-                var result = await RemoveRefreshToken(existingToken);
-            }
-
-            _ctx.RefreshTokens.AddRange(new [] {token });
-
-            return await _ctx.SaveChangesAsync() > 0;
-        }
-
-        public async Task<bool> RemoveRefreshToken(string refreshTokenId)
-        {
-            var refreshToken = await _ctx.RefreshTokens.FindAsync(refreshTokenId);
-
-            if (refreshToken != null)
-            {
-                _ctx.RefreshTokens.RemoveRange(new [] {refreshToken });
-                return await _ctx.SaveChangesAsync() > 0;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> RemoveRefreshToken(RefreshToken refreshToken)
-        {
-            _ctx.RefreshTokens.RemoveRange(new [] {refreshToken });
-            return await _ctx.SaveChangesAsync() > 0;
-        }
-
-        public async Task<RefreshToken> FindRefreshToken(string refreshTokenId)
-        {
-            var refreshToken = await _ctx.RefreshTokens.FindAsync(refreshTokenId);
-
-            return refreshToken;
-        }
-
-        public List<RefreshToken> GetAllRefreshTokens()
-        {
-            return _ctx.RefreshTokens.ToList();
-        }
-
-        ApplicationUser IRepository<ApplicationUser>.Remove(ApplicationUser instance)
-        {
-            throw new NotImplementedException();
+            return await _userManager.FindAsync(userName, password);
         }
     }
 }

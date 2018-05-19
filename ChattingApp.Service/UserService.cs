@@ -49,11 +49,12 @@ namespace ChattingApp.Service
         {
             if (username == null || password == null)
                 return null;
-            ApplicationUser result = ((IUserRepository)_userRepository).
-                GetByUserNameAndPassword(username, password);
+            return null;
+            //ApplicationUser result = ((IUserRepository)_userRepository).
+            //    FindAsync(new username, password);
 
-            UserViewModel userViewModel = _mappingSerivce.Map<ApplicationUser, UserViewModel>(result);
-            return userViewModel;
+            //UserViewModel userViewModel = _mappingSerivce.Map<ApplicationUser, UserViewModel>(result);
+            //return userViewModel;
         }
 
         public bool AddImage(string userId, byte[] imageByteArray)

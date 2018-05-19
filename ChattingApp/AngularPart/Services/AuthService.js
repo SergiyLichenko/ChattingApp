@@ -10,38 +10,29 @@ app.factory("authService", ["$http", "$q", '$injector', "localStorageService", "
             userName: ""
         };
 
-        var externalAuthData = {
-            provider: "",
-            userName: "",
-            externalAccessToken: ""
-        };
-
         var logOut = function () {
-
             localStorageService.remove("authorizationData");
 
             authentication.isAuth = false;
             authentication.userName = "";
-
         };
 
         var login = function (loginData) {
 
             var data = "grant_type=password&username=" + loginData.userName + "&password=" +
-                loginData.password + "&client_id=" + webMessengerSettings.clientId;;
+                loginData.password + "&client_id=" + loginData.userName;;
 
             var deferred = $q.defer();
 
-            //$http = $http || $injector.get('$http');
-            $http.post(serviceBase + "/token", data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })//{ grant_type: "password", username: loginData.userName, password: loginData.password })
+            $http.post(serviceBase + "/token", data,
+                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
             .then(function (result) {
                 if (result.status !== 200) return;
 
                 chatsHubService.setTokenCookie(result.data.access_token);
                 localStorageService.set("authorizationData", {
                     token: result.data.access_token,
-                    userName: loginData.userName,
-                    refreshToken: result.data.refresh_token
+                    userName: loginData.userName
                 });
 
                 authentication.isAuth = true;
@@ -49,9 +40,9 @@ app.factory("authService", ["$http", "$q", '$injector', "localStorageService", "
 
                 deferred.resolve(data);
 
-            }, function (err, status) {
+            }, function (err) {
                 logOut();
-                deferred.reject(err);
+                deferred.reject(err.data);
             });
             return deferred.promise;
         };

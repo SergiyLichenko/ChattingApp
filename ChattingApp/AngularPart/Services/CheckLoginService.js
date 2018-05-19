@@ -6,11 +6,13 @@ app.factory('checkLoginService', [ '$state', 'localStorageService',
                 return null;
             return localStorageService.get("authorizationData").userName;
         }
+       
         var checkLogin = function () {
             if (angular.isUndefined(getCurrentUsername()) || getCurrentUsername() === null) {
                 $state.go('login');
             } 
         }
+
         return {
             checkLogin : checkLogin
         };
