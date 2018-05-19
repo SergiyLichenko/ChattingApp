@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('EditChatController', ['$scope', '$state', 'userService', 'localStorageService', '$uibModal',
-    '$log', 'chatsService',
-    function ($scope, $state, userService, localStorageService, $uibModal, $log, chatsService) {
+    '$log', 'chatService',
+    function ($scope, $state, userService, localStorageService, $uibModal, $log, chatService) {
 
         $scope.open = function (size, currentChat) {
 
@@ -32,7 +32,7 @@ app.controller('EditChatController', ['$scope', '$state', 'userService', 'localS
 
 app.controller('EditChatControllerInstance',
 
-    function ($scope, $state, chatsService, localStorageService, $uibModal,
+    function ($scope, $state, chatService, localStorageService, $uibModal,
         $uibModalInstance, FileUploader, currentChat, $timeout) {
         $scope.currentChat = angular.copy(currentChat);
         $scope.uploader = new FileUploader({
@@ -47,7 +47,7 @@ app.controller('EditChatControllerInstance',
 
         $scope.quitChat = function (username) {
             var tempUser = username;
-            chatsService.quitChat($scope.currentChat.id, username).then(function (result) {
+            chatService.quitChat($scope.currentChat.id, username).then(function (result) {
                 if (result) {
                     var index = $scope.users.indexOf(tempUser);
                     $scope.users.splice(index, 1);
@@ -64,7 +64,7 @@ app.controller('EditChatControllerInstance',
             return localStorageService.get("authorizationData").userName;
         }
         $scope.editChat = function (chat) {
-            chatsService.editChat(chat);
+            chatService.editChat(chat);
         }
         $scope.ok = function (chat) {
             if ($scope.uploader.queue.length > 0) {

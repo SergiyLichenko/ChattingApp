@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.factory('chatsHubService', ['$http', 'localStorageService','$q',
+app.factory('chatHubService', ['$http', 'localStorageService','$q',
     function ($http, localStorageService, $q) {
     var chatsHub = {};
     chatsHub.messages = [];

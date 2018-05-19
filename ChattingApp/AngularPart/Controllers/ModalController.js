@@ -85,18 +85,18 @@
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-app.controller('ModalInstanceCtrl', ['chatsHubService', '$uibModalInstance', 'userName', 'userService', 'chatsService', 'FileUploader',
-    function (chatsHubService, $uibModalInstance, userName, userService, chatsService, FileUploader) {
+app.controller('ModalInstanceCtrl', ['chatHubService', '$uibModalInstance', 'userName', 'userService', 'chatService', 'FileUploader',
+    function (chatHubService, $uibModalInstance, userName, userService, chatService, FileUploader) {
         var $ctrl = this;
         $ctrl.userName = userName;
         $.connection.hub.start()
             .done(function (data) {
                 if (data && data.token) {
-                    chatsHubService.setTokenCookie(data.token);
-                    chatsHubService.registerMe();
+                    chatHubService.setTokenCookie(data.token);
+                    chatHubService.registerMe();
                 }
             });
-        $ctrl.busyPromise = chatsService.getAllChats().then(function (result) {
+        $ctrl.busyPromise = chatService.getAllChats().then(function (result) {
             $ctrl.chats = result.data;
         });
         $ctrl.uploader = new FileUploader({

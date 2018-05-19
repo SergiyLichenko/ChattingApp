@@ -1,41 +1,23 @@
 ﻿'use strict';
-app.controller('SignUpController', ['$scope', '$state', '$timeout', 'authService',
-    function ( $scope, $state, $timeout, authService) {
-     
-        $scope.savedSuccessfully = false;
-        $scope.message = "";
+app.controller('SignUpController', ['$scope', '$state', 'authService',
+    function ($scope, $state, authService) {
+        $scope.registration = {};
 
-        var startTimer = function () {
-            var timer = $timeout(function () {
-                $timeout.cancel(timer);
-                $state.go('login');
-            }, 2000);
+        var getErrorMessage = function (response) {
+            var errors = [];
+            for (var key in response.data.ModelState)
+                if (response.data.ModelState.hasOwnProperty(key))
+                    for (var i = 0; i < response.data.ModelState[key].length; i++)
+                        errors.push(response.data.ModelState[key][i]);
+            return errors.join(' ');
         }
 
-        $scope.registration = {
-            userName: "",
-            password: "",
-            confirmPassword: "",
-            email: ""
-        };
-
         $scope.signUp = function () {
-
-            authService.saveRegistration($scope.registration).then(function (response) {
-
-                $scope.savedSuccessfully = true;
-                $scope.message = "user has been registered successfully, you will be redicted to login page in 2 seconds.";
-                startTimer();
-
-            },
-             function (response) {
-                 var errors = [];
-                 for (var key in response.data.modelState) {
-                     for (var i = 0; i < response.data.modelState[key].length; i++) {
-                         errors.push(response.data.modelState[key][i]);
-                     }
-                 }
-                 $scope.message = "Failed to register user due to:" + errors.join(' ');
-             });
+            authService.signUp($scope.registration).then(function () {
+                $state.go('login');
+            }, function (response) {
+                var erorMessage = getErrorMessage(response);
+                $scope.message = "Failed to register user due to:" + erorMessage;
+            });
         };
     }]);

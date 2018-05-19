@@ -10,11 +10,11 @@ using ChattingApp.Service.Models;
 namespace ChattingApp.Controllers
 {
     [RoutePrefix("api/Chats")]
-    public class ChatsController : ApiController
+    public class ChatController : ApiController
     {
         private IChatService _chatService;
 
-        public ChatsController(IChatService chatService)
+        public ChatController(IChatService chatService)
         {
             _chatService = chatService;
         }

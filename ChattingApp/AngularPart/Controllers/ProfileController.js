@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('ProfileController', ['$scope', '$state', 'userService', 'localStorageService', '$uibModal',
-    '$log', 'chatsService',
-    function ($scope, $state, userService, localStorageService, $uibModal, $log, chatsService) {
+    '$log', 'chatService',
+    function ($scope, $state, userService, localStorageService, $uibModal, $log, chatService) {
 
         $scope.open = function (size, username) {
             $scope.username = username;

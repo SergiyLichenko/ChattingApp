@@ -1,9 +1,9 @@
 ﻿'use strict';
-app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', function ($location, $http, localStorageService, $q) {
+app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', function ($location, $http, localStorageService, $q) {
 
-    var chatsServiceFactory = {};
+    var chatServiceFactory = {};
 
-    chatsServiceFactory.getChats = function () {
+    chatServiceFactory.getChats = function () {
         var deferred = $q.defer();
         var loginData = localStorageService.get("authorizationData");
         if (loginData != null) {
@@ -15,7 +15,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     };
 
-    chatsServiceFactory.createChat = function (chat) {
+    chatServiceFactory.createChat = function (chat) {
         var deferred = $q.defer();
         $.post("api/Chats/", chat)
             .done(function (result) {
@@ -24,7 +24,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     };
 
-    chatsServiceFactory.deleteChat = function (chat) {
+    chatServiceFactory.deleteChat = function (chat) {
         var deferred = $q.defer();
         chat.img = null;
         $http.post("api/Chats/delete", chat).then(function (results) {
@@ -33,7 +33,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     };
 
-    chatsServiceFactory.addUserToChat = function (chatId, userName) {
+    chatServiceFactory.addUserToChat = function (chatId, userName) {
         var deferred = $q.defer();
         var obj = {};
         obj.chatId = chatId;
@@ -46,7 +46,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     };
 
-    chatsServiceFactory.getMessagesForChat = function (chatId) {
+    chatServiceFactory.getMessagesForChat = function (chatId) {
         var deferred = $q.defer();
 
         var uuid = guid();
@@ -56,7 +56,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     };
 
-    chatsServiceFactory.quitChat = function (chatId, username) {
+    chatServiceFactory.quitChat = function (chatId, username) {
         var deferred = $q.defer();
         var uuid = guid();
         if (!username) {
@@ -72,7 +72,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     };
 
-    chatsServiceFactory.uploadFile = function (data, userName) {
+    chatServiceFactory.uploadFile = function (data, userName) {
         var deferred = $q.defer();
 
         $http.post("api/user/FileUpload/", JSON.stringify({ photo: data, userName: userName }))
@@ -82,7 +82,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     }
 
-    chatsServiceFactory.makeFavourite = function (id) {
+    chatServiceFactory.makeFavourite = function (id) {
         var deferred = $q.defer();
 
         $.post("api/Messages/" + id).done(function (results) {
@@ -93,7 +93,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
 
     
 
-    chatsServiceFactory.getAllChats = function () {
+    chatServiceFactory.getAllChats = function () {
         var deferred = $q.defer();
         $http.get("api/Chats/All?" + guid()).then(function (results) {
             deferred.resolve(results);
@@ -101,7 +101,7 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return deferred.promise;
     };
 
-    chatsServiceFactory.editChat = function (chat) {
+    chatServiceFactory.editChat = function (chat) {
         var deferred = $q.defer();
         $http.post("api/Chats/edit", chat).then(function (results) {
             deferred.resolve(results);
@@ -130,9 +130,9 @@ app.factory('chatsService', ['$location', '$http', 'localStorageService', '$q', 
         return currCode;
     }
 
-    chatsServiceFactory.setCode = setCode;
-    chatsServiceFactory.getCode = getCode;
+    chatServiceFactory.setCode = setCode;
+    chatServiceFactory.getCode = getCode;
 
-    return chatsServiceFactory;
+    return chatServiceFactory;
 
 }]);

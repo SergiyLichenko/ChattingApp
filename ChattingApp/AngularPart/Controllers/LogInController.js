@@ -8,7 +8,7 @@ app.controller('LogInController', ['$scope', '$state', 'authService', 'localStor
                 localStorageService.set("authorizationData", {
                     userName: $scope.loginData.userName
                 });
-                $state.go('chats');
+                $state.go('chat');
             }, function (err) {
                 $scope.message = err.error_description;
             });

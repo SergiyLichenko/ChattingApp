@@ -1,10 +1,10 @@
 ﻿'use strict';
-app.controller('ChatsController', ['$templateCache', '$state',
-    '$scope', '$sce', 'chatsHubService', 'userService', 'chatsService',
-    'localStorageService', '$timeout', 'checkLoginService', 'authService',
-    function ($templateCache, $state, $scope, $sce, chatsHubService, userService,
-        chatsService, localStorageService, $timeout, checkLoginService, authService) {
-        checkLoginService.checkLogin();
+app.controller('ChatController', ['$templateCache', '$state',
+    '$scope', '$sce', 'chatHubService', 'userService', 'chatService',
+    'localStorageService', '$timeout',  'authService',
+    function ($templateCache, $state, $scope, $sce, chatHubService, userService,
+        chatService, localStorageService, $timeout, authService) {
+     
 
         $scope.logOut = function () {
             authService.logOut();
@@ -21,7 +21,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
         $scope.currentChat = {};
         $scope.currentMessageText = "";
     
-        chatsHubService.start();
+        chatHubService.start();
 
 
         var selectFirst = function () {
@@ -36,7 +36,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
             }
         }
         $scope.templateUrl = $templateCache.get('background.html');
-        $scope.busyPromise = chatsService.getChats().then(function (result) {
+        $scope.busyPromise = chatService.getChats().then(function (result) {
             $scope.chats = result.data;
             if (result.data[0] != null) {
                 $scope.currentChat.chat = result.data[0];
@@ -55,7 +55,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
                     userName: localStorageService.get("authorizationData").userName
                 }
             };
-            chatsHubService.sendMessage(message);
+            chatHubService.sendMessage(message);
             $scope.currentMessageText = "";
         };
         $scope.getUserPhoto = function (id) {
@@ -94,22 +94,22 @@ app.controller('ChatsController', ['$templateCache', '$state',
         }
 
         $scope.deleteChat = function (chat) {
-            chatsService.deleteChat(chat).then(function (obj) {
+            chatService.deleteChat(chat).then(function (obj) {
                 $scope.chatsLoad();
             });
         }
         $scope.createChat = function (chat) {
-            chatsService.createChat(chat).then(function (obj) {
+            chatService.createChat(chat).then(function (obj) {
                 $scope.chatsLoad();
             });
         }
         $scope.addUserToChat = function (chat, username) {
             chat.img = null;
-            chatsHubService.userToChat(chat, username);
+            chatHubService.userToChat(chat, username);
             $scope.chatsLoad();
         }
         $scope.chatsLoad = function () {
-            chatsService.getChats().then(function (result) {
+            chatService.getChats().then(function (result) {
                 $scope.chats = result.data;
                 selectFirst();
             });
@@ -117,14 +117,14 @@ app.controller('ChatsController', ['$templateCache', '$state',
         //$.connection.hub.start()
         //    .done(function (data) {
         //        if (data && data.token) {
-        //            chatsHubService.setTokenCookie(data.token);
-        //            chatsHubService.registerMe();
+        //            chatHubService.setTokenCookie(data.token);
+        //            chatHubService.registerMe();
         //        }
         //    });
 
         $scope.getMessagesForChat = function (chat) {
             $scope.currentChat.chat = chat;
-            $scope.messagesBusyPromise = chatsService.getMessagesForChat(chat.id)
+            $scope.messagesBusyPromise = chatService.getMessagesForChat(chat.id)
                 .then(function (result) {
                     if (result.messages.length > 0 &&
                         result.messages[0].chat.id === $scope.currentChat.chat.id) {
@@ -155,7 +155,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
             for (var i = 0; i < $scope.currentChat.messages.length; i++) {
                 if ($scope.currentChat.messages[i].id === message.id) {
                     if ($scope.currentChat.messages[i].user.userName === localStorageService.get("authorizationData").userName) {
-                        chatsHubService.deleteMessage(message);
+                        chatHubService.deleteMessage(message);
                     }
                 }
             }
@@ -166,11 +166,11 @@ app.controller('ChatsController', ['$templateCache', '$state',
                 message.chat = {
                     id: $scope.currentChat.id
                 }
-                chatsHubService.updateMessage(message);
+                chatHubService.updateMessage(message);
             }
         }
         $scope.quitChat = function (chatid) {
-            $scope.busyPromise = chatsService.quitChat(chatid).then(function (result) {
+            $scope.busyPromise = chatService.quitChat(chatid).then(function (result) {
                 if (result) {
                     $scope.chatsLoad();
                 }
@@ -179,7 +179,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
         }
 
 
-        chatsHubService.messageCallback = function (message) {
+        chatHubService.messageCallback = function (message) {
             if ($scope.currentChat.messages == null || angular.isUndefined($scope.currentChat.messages)) createDefaultMessages();
             $scope.currentChat.messages.push(message);
             $scope.currentChat.countAll++;
@@ -193,7 +193,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
             $scope.currentChat.countAll = 0;
             $scope.currentChat.usersCount = 1;
         };
-        chatsHubService.messageDeleteCallback = function (message) {
+        chatHubService.messageDeleteCallback = function (message) {
             if ($scope.currentChat.messages == null || angular.isUndefined($scope.currentChat.messages)) createDefaultMessages();
             for (var i = 0; i < $scope.currentChat.messages.length; i++) {
                 if ($scope.currentChat.messages[i].id === message.id) {
@@ -206,7 +206,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
                 $scope.$applyAsync();
             });
         }
-        chatsHubService.messageUpdateCallback = function (message) {
+        chatHubService.messageUpdateCallback = function (message) {
             if ($scope.currentChat.messages == null || angular.isUndefined($scope.currentChat.messages)) createDefaultMessages();
             angular.forEach($scope.currentChat.messages, function (item) {
                 if (item.id === message.id) {
@@ -218,7 +218,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
                 $scope.$applyAsync();
             });
         }
-        chatsHubService.onAddUserToChatCallback = function (user) {
+        chatHubService.onAddUserToChatCallback = function (user) {
             if ($scope.currentChat.messages == null || angular.isUndefined($scope.currentChat.messages)) createDefaultMessages();
 
             $scope.currentChat.userImages[user.id] = user.img;
@@ -238,7 +238,7 @@ app.controller('ChatsController', ['$templateCache', '$state',
 
 
         $scope.makeFavourite = function (message) {
-            chatsService.makeFavourite(message.id);
+            chatService.makeFavourite(message.id);
         }
 
     }
