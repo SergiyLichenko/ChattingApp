@@ -5,10 +5,12 @@ using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Repository.Interfaces
 {
-    public interface IChatRepository : IRepository<Chat>
+    public interface IChatRepository 
     {
         Task<List<Chat>> GetAllAsync();
+        Task<Chat> GetByIdAsync(int id);
         Task AddAsync(Chat instance);
+        Task UpdateAsync(Chat chat);
 
         List<Chat> GetAllChatsByUsername(string userName);
         

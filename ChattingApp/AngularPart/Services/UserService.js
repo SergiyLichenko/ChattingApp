@@ -4,6 +4,17 @@ app.factory('userService', ['$location', '$http', 'localStorageService', '$q',
 
         var userServiceFactory = {};
 
+        userServiceFactory.getCurrent = function () {
+            return $http.get("api/user/current").then(function (result) {
+                return result.data;
+            });
+        }
+
+
+
+
+
+
         userServiceFactory.getUserByName = function (name) {
             var deffered = $q.defer();
             if (name != null) {

@@ -1,96 +1,39 @@
 ﻿'use strict';
 
-app.controller('EditChatController', ['$scope', '$state', 'userService', 'localStorageService', '$uibModal',
-    '$log', 'chatService',
-    function ($scope, $state, userService, localStorageService, $uibModal, $log, chatService) {
-
-        $scope.open = function (size, currentChat) {
-
-            $scope.modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'AngularPart/Views/EditChat.html',
-                controller: 'EditChatControllerInstance',
-                size: size,
-                windowClass: 'app-modal-window',
-                resolve: {
-                    currentChat: function () {
-                        return currentChat;
-                    }
-                }
-            });
-
-
-            $scope.modalInstance.result.then(function (ctrl) {
-
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        }
-    }]);
-
-app.controller('EditChatControllerInstance',
-
-    function ($scope, $state, chatService, localStorageService, $uibModal,
-        $uibModalInstance, FileUploader, currentChat, $timeout) {
-        $scope.currentChat = angular.copy(currentChat);
-        $scope.uploader = new FileUploader({
-            queueLimit: 1
-        });
+app.controller('EditChatModalController',
+    ['$scope', 'chatService', 'localStorageService', '$uibModalInstance', 'currentChat',
+    function ($scope, chatService, localStorageService, $uibModalInstance, currentChat) {
         $scope.isReadonly = true;
-        $scope.users = [];
-        angular.forEach(currentChat.users, function (value, key) {
-            $scope.users.push(value.userName);
-        });
-        $scope.selectedUser = $scope.users[0];
+        $scope.currentChat = currentChat;
+        $scope.currentUser = localStorageService.get('user');
 
-        $scope.quitChat = function (username) {
-            var tempUser = username;
-            chatService.quitChat($scope.currentChat.id, username).then(function (result) {
-                if (result) {
-                    var index = $scope.users.indexOf(tempUser);
-                    $scope.users.splice(index, 1);
-                    if ($scope.users.length > 0) {
-                        $scope.selectedUser = $scope.users[0];
-                    }
-                    $timeout(function () {
-                        $scope.$applyAsync();
-                    });
-                };
+        $scope.getAuthor = function () {
+            var index = currentChat.users.findIndex(x => x.id === currentChat.authorId);
+            return currentChat.users[index];
+        }
+
+        $scope.quitChat = function (user) {
+            var index = currentChat.users.findIndex(x=> x.id === user.id);
+            if (index !== -1) currentChat.users.splice(index, 1);
+        }
+
+        $scope.ok = function () {
+            chatService.update($scope.currentChat).then(function () {
+                $uibModalInstance.close();
             });
-        }
-        $scope.getCurrentUser = function() {
-            return localStorageService.get("authorizationData").userName;
-        }
-        $scope.editChat = function (chat) {
-            chatService.editChat(chat);
-        }
-        $scope.ok = function (chat) {
-            if ($scope.uploader.queue.length > 0) {
-                chat.img = $scope.uploader.queue[0].image.src;
-            }
-            $scope.editChat(chat);
-            $uibModalInstance.close(this);
         };
 
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss();
         };
 
-        $scope.open = function (size) {
-            $scope.modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'AngularPart/Views/EditChat.html',
-                controller: 'ProfileController',
-                size: size
-            });
-            $scope.modalInstance.result.then(function (ctrl) {
+        $scope.processImage = function (image) {
+            var reader = new FileReader();
 
-            }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
+            reader.addEventListener("load", function () {
+                $scope.currentChat.img = reader.result;
+            }, false);
+
+            reader.readAsDataURL(image);
         }
-    });
+    }]);

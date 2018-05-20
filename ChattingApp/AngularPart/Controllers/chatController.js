@@ -1,13 +1,17 @@
 ﻿'use strict';
 app.controller('ChatController', ['$templateCache', '$state',
     '$scope', '$sce', 'chatHubService', 'userService', 'chatService',
-    'localStorageService', '$timeout',  'authService', 'chats',
+    'localStorageService', '$timeout', 'authService', 'chats',
     function ($templateCache, $state, $scope, $sce, chatHubService, userService,
         chatService, localStorageService, $timeout, authService, chats) {
 
-        
+        $scope.quitChat = function (chat) {
+            var currentUser = localStorageService.get('user');
+            var index = chat.users.findIndex(x=>x.id === currentUser.id);
+            if (index !== -1) chat.users.splice(index, 1);
 
-
+            $scope.busyPromise = chatService.update(chat);
+        }
 
 
 
@@ -31,8 +35,8 @@ app.controller('ChatController', ['$templateCache', '$state',
         }
 
 
-       
-    
+
+
         chatHubService.start();
 
 
@@ -48,7 +52,7 @@ app.controller('ChatController', ['$templateCache', '$state',
             }
         }
         $scope.templateUrl = $templateCache.get('background.html');
-        
+
 
 
         $scope.sendMessage = function () {
@@ -175,14 +179,7 @@ app.controller('ChatController', ['$templateCache', '$state',
                 chatHubService.updateMessage(message);
             }
         }
-        $scope.quitChat = function (chatid) {
-            $scope.busyPromise = chatService.quitChat(chatid).then(function (result) {
-                if (result) {
-                    $scope.chatsLoad();
-                }
 
-            });
-        }
 
 
         chatHubService.messageCallback = function (message) {
@@ -247,7 +244,7 @@ app.controller('ChatController', ['$templateCache', '$state',
             chatService.makeFavourite(message.id);
         }
 
-        var onLoad = function() {
+        var onLoad = function () {
             if (chats.length) {
                 $scope.currentChat.chat = chats[0];
                 $scope.getMessagesForChat($scope.currentChat.chat);

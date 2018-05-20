@@ -1,9 +1,4 @@
-﻿
-
-<script src="../../Scripts/jquery-3.1.0.js"></script>
-<script src="../../Scripts/jquery.signalR-2.2.1.js"></script>
-<script src='/signalr/js'></script>
-<div style="margin-top: -50px">
+﻿<div style="margin-top: -50px">
     <button id="logout-btn" class="btn btn-raised btn-primary" style="float: right; margin-right: 1%"
             data-ng-click="logOut()">
         LogOut
@@ -18,10 +13,10 @@
                 <button id="single-button" type="button" style="width: 100%" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
                     Smart chat <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" style="width: 100%" uib-dropdown-menu role="menu" aria-labelledby="single-button" data-ng-controller="MenuController as $ctrl">
+                <ul class="dropdown-menu" style="width: 100%" uib-dropdown-menu role="menu" aria-labelledby="single-button" data-ng-controller="ModalController as $ctrl">
                     <li role="menuitem" style="width: 100%; margin-top: -5px">
                         <button type="button" style="width: 100%" class="btn btn-info"
-                                ng-click="$ctrl.open('lg', 'join')">
+                                ng-click="$ctrl.openJoinChatModal()">
                             Join chat
                         </button>
                     </li>
@@ -60,14 +55,14 @@
             </button><br />
             <button id="login-btn" class="btn btn-raised btn-success" style="float: right; clear: right; margin-right: 20px; margin-top: 20px"
                     ng-show="currentChat.chat.id"
-                    ng-click="quitChat(currentChat.chat.id)">
+                    ng-click="quitChat(currentChat.chat)">
                 Quit chat
             </button>
-            <button ng-controller="EditChatController"
+            <button data-ng-controller="ModalController as $ctrl"
                     class="btn btn-raised btn-success"
                     style="float: right; clear: right; margin-right: 20px; margin-top: 20px"
                     ng-show="currentChat.chat.id"
-                    ng-click="open('lg', currentChat.chat)">
+                    ng-click="$ctrl.openEditChatModal(currentChat.chat)">
                 Edit chat
             </button>
             <div class="top" style="margin-top: 30px; height: 5%">

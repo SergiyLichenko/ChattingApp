@@ -201,7 +201,7 @@
     <OptionsSetting value="true" Id="AddAsync" />
     <OptionsSetting value="true" Id="Remove" />
     <OptionsSetting value="true" Id="Checkout" />
-    <OptionsSetting value="true" Id="Update" />
+    <OptionsSetting value="true" Id="UpdateAsync" />
     <OptionsSetting value="true" Id="Status" />
     <OptionsSetting value="true" Id="Edit" />
     <ConfirmationsSetting value="0" Id="AddAsync" />

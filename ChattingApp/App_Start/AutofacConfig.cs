@@ -19,7 +19,7 @@ namespace ChattingApp
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterWebApiFilterProvider(config);
 
-            builder.RegisterType<AuthContext>().As<IAuthContext>();
+            builder.RegisterType<AuthContext>().As<IAuthContext>().SingleInstance();
 
             builder.RegisterType<ChatRepository>().As<IChatRepository>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();

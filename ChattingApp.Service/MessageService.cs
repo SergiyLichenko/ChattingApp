@@ -50,7 +50,7 @@ namespace ChattingApp.Service
             Message message = _mappingService.Map<MessageViewModel, Message>(instance);
             message.IsModified = true;
 
-            Message result = _messageRepository.Update(message);
+            Message result = _messageRepository.UpdateAsync(message);
             return _mappingService.Map<Message, MessageViewModel>(result);
         }
 

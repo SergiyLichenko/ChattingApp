@@ -4,13 +4,16 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
     var chatServiceFactory = {};
 
     chatServiceFactory.getAll = function () {
-        return $http.get("api/Chat/all");
+        return $http.get("api/chat/all");
     };
 
-    chatServiceFactory.createChat = function (chat) {
-        return $http.post("api/Chat/", chat);
+    chatServiceFactory.create = function (chat) {
+        return $http.post("api/chat/", chat);
     };
 
+    chatServiceFactory.update = function (chat) {
+        return $http.put("api/chat/", chat);
+    };
 
 
 
@@ -109,13 +112,7 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
 
     
 
-    chatServiceFactory.editChat = function (chat) {
-        var deferred = $q.defer();
-        $http.post("api/Chat/edit", chat).then(function (results) {
-            deferred.resolve(results);
-        });
-        return deferred.promise;
-    };
+    
 
     function guid() {
         function s4() {

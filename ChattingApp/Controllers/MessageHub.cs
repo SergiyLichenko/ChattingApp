@@ -23,7 +23,7 @@ namespace ChattingApp.Controllers
         {
            // this._messageService = new MessageService(new MessageRepository(new AuthContext()), new MappingService(), new ChatRepository(new AuthContext()));
             //_chatService = new ChatService(new ChatRepository(new AuthContext()), new UserRepository(), new MappingService(), new UserService(new UserRepository(), new MappingService()));
-            _userService = new UserService(new UserRepository(), new MappingService());
+           // _userService = new UserService(new UserRepository(), new MappingService());
         }
         private static Dictionary<string, string> _users_ConnectionIds = new Dictionary<string, string>();
         public override Task OnConnected() => base.OnConnected();

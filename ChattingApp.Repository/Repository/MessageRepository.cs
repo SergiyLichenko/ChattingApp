@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
@@ -38,20 +39,20 @@ namespace ChattingApp.Repository.Repository
                         message.Chat = _context.Chats.Single(x => x.Id == message.Chat.Id);
                         return message;
                     }
-                    var deleted = _context.Messages.RemoveRange(new [] {toDelete });
+                    //var deleted = _context.Messages.RemoveRange(new [] {toDelete });
 
                     _context.SaveChanges();
-                    return deleted.Single();
+                //    return deleted.Single();
                 }
             }
             catch (Exception)
             {
                 return null;
             }
-
+            return null;
         }
 
-        public Message Update(Message instance)
+        public Message UpdateAsync(Message instance)
         {
             try
             {
@@ -86,7 +87,7 @@ namespace ChattingApp.Repository.Repository
                     instance.User = user;
                     instance.Chat = chat;
                     instance.UserId = new Guid(user.Id);
-                    _context.Messages.AddRange(new [] {instance });
+                 //   _context.Messages.AddRange(new [] {instance });
                     int count = _context.SaveChanges();
                     return instance;
                 }

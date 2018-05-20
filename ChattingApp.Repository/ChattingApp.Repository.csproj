@@ -39,7 +39,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AuthContext.cs" />
-    <Compile Include="EncryptPassword.cs" />
+    <Compile Include="Helpers\EncryptPassword.cs" />
+    <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="IAuthContext.cs" />
     <Compile Include="Interfaces\IChatRepository.cs" />
     <Compile Include="Interfaces\IMessageRepository.cs" />

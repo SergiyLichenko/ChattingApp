@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace ChattingApp.Repository
+namespace ChattingApp.Repository.Helpers
 {
     public static class EncryptPassword
     {

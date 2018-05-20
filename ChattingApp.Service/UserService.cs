@@ -75,7 +75,7 @@ namespace ChattingApp.Service
                 return instance;
             ApplicationUser user = _mappingSerivce.Map<UserViewModel, ApplicationUser>(instance);
 
-            ApplicationUser result = _userRepository.Update(user);
+            ApplicationUser result = _userRepository.UpdateAsync(user);
             return _mappingSerivce.Map<ApplicationUser, UserViewModel>(result);
         }
 

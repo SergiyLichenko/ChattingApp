@@ -1,5 +1,4 @@
-﻿
-<li>
+﻿<li>
     <form name="myForm">
         <div class="modal-header">
             <h2 class="modal-title" align="center" id="modal-title">Edit chat</h2>
@@ -7,44 +6,29 @@
         <br />
         <table>
             <tr>
-                <td rowspan="3" style="max-width: 300px;">
-                    <div ng-if="uploader.queue.length > 0"
-                         class="form-group label-static left-chat-form" style="float: left; margin-left: 10px; ">
-                        <ul>
-                            <li ng-repeat="item in uploader.queue">
-                                <img width="{{item.image.width}}" ng-show="uploader.isHTML5"
-                                     style="max-width: 300px;"
-                                     ng-thumb="{ file: uploader.queue[0]._file, height: 100 }"
-                                     height="{{item.image.height}}"
-                                     ng-src="{{item.image.src}}">
-                            </li>
-                        </ul>
-                    </div>
-                    <div ng-if="uploader.queue.length === 0" class="form-group label-static left-chat-form"
-                         style="float: left; margin-left: 10px">
-                        <div ng-show="uploader.queue.length === 0">
-                            <img ng-src="{{currentChat.img}}" style="float: left; max-width: 300px; max-height: 300px">
-                            <br /><br /><br /><br /><br />
-                            <br /><br /><br /><br /><br /><br />
-                            <div class="demo-section k-header">
-                                <label for="file">
-                                    <h2 style="margin-left: 70px; margin-top: 20px; padding-right: 30px"
-                                        ng-if="!isReadonly">
-                                        Click here...
-                                    </h2>
-                                </label>
-
-                                <input type="file" id="file" ng-hide="true" nv-file-select uploader="uploader"
-                                       height="150" width="150" ng-if="!isReadonly" />
-                            </div>
-                        </div>
+                <td style="max-width: 300px; padding-left: 40px; padding-top: 20px;">
+                    <div>
+                        <blockquote style="display: inline-block; max-width: 100%; float: left; border-left: 5px solid #64b5f6;">
+                            <header style="display: inline-block" class="info">
+                                <img ngf-thumbnail="currentChat.img" />
+                                
+                                <br/>
+                                <br/>
+                                <input ng-if="!isReadonly" type="file" ngf-select ng-model="selectedFile" ng-change="processImage(selectedFile)" 
+                                       name="file" ngf-pattern="'image/*'"
+                                       ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+                                       ngf-resize="{width: 200, height: 200}"/><br/>
+                            </header>
+                        </blockquote>
                     </div>
                 </td>
+            </tr>
+            <tr>
                 <td style="padding-left: 40px; padding-top: 20px;">
-                    <blockquote style="display: inline-block; max-width: 100%;  float: left;  border-left: 5px solid #64b5f6;">
+                    <blockquote style="display: inline-block; max-width: 100%; float: left; border-left: 5px solid #64b5f6;">
                         <header style="display: inline-block" class="info">
                             <h3>
-                                Author: <b class="user" style="margin-left: 10px">Sergiy Lichenko</b>
+                                Author: <b class="user" style="margin-left: 10px">{{getAuthor().userName}}</b>
                             </h3>
                         </header>
                     </blockquote>
@@ -63,7 +47,7 @@
             </tr>
             <tr>
                 <td style="padding-left: 40px;">
-                    <blockquote style="display: inline-block;  float: left; border-left: 5px solid #64b5f6;">
+                    <blockquote style="display: inline-block; float: left; border-left: 5px solid #64b5f6;">
                         <div style="display: inline-block" class="info">
                             <h3>Creatinon date:</h3>
                         </div>
@@ -82,42 +66,45 @@
                    ng-model="currentChat.title"
                    name="title" />
             <div class="text-danger"
-                 ng-show="myForm.userName.$invalid">
+                 ng-show="myForm.title.$invalid">
                 Required
             </div>
             <br />
 
             <h3 style="display: inline-block">Users</h3><br />
             <div class="form-group">
-                <select style="font-weight: bold; font-size: 16px" class="form-control" ng-model="selectedUser" 
-                        ng-options="o as o for o in users"></select>
+                <select style="font-weight: bold; font-size: 16px" class="form-control" ng-model="selectedUser"
+                        ng-disabled="isReadonly"
+                        ng-options="user.userName for user in currentChat.users"></select>
             </div>
-            <button ng-if="currentChat.authorName===getCurrentUser()"
+            
+            <button ng-if="currentUser.id === currentChat.authorId && selectedUser"
                     class="btn btn-raised btn-success"
                     style="float: left; font-size: 15px" type="button"
                     ng-click="quitChat(selectedUser)">
                 Delete selected user
             </button>
         </div>
-        <br/>
-        <br/>
-        <br/>
         <br />
-        <br/>
-       
+        <br />
+        <br />
+        <br />
+        <br />
+
         <div class="modal-footer">
-            <button 
-                    class="btn btn-raised btn-success"
+            <button class="btn btn-raised btn-success"
                     style="float: left; font-size: 20px" type="button"
-                    ng-click="isReadonly = !isReadonly; usernameTemp = user.userName">
+                    ng-click="isReadonly = !isReadonly">
                 Edit
             </button>
             <button class="btn btn-success" style="font-size: 20px" type="button"
-                    ng-if="!isReadonly && !myForm.$invalid" ng-click="ok(currentChat)">
+                    ng-if="!isReadonly && !myForm.$invalid" ng-click="ok()">
                 Ok
             </button>
             <button class="btn btn-warning" style="font-size: 20px" type="button"
-                     ng-click="cancel()">Cancel</button>
+                    ng-click="cancel()">
+                Cancel
+            </button>
         </div>
     </form>
 </li>

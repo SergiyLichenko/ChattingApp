@@ -55,8 +55,9 @@ namespace ChattingApp.Service
 
             Chat chat = _mappingService.Map<ChatViewModel, Chat>(instance);
 
-            Chat result = _chatRepository.Remove(chat);
-            return _mappingService.Map<Chat, ChatViewModel>(result);
+          //  Chat result = _chatRepository.Remove(chat);
+           // return _mappingService.Map<Chat, ChatViewModel>(result);
+            return null;
         }
 
         public ChatViewModel Update(ChatViewModel instance)

@@ -13,19 +13,18 @@ namespace ChattingApp.Repository.Repository
     public class UserRepository : IUserRepository
     {
         private UserManager<ApplicationUser> _userManager;
-        private AuthContext _ctx;
+        private IAuthContext _authContext;
 
-        public UserRepository()
+        public UserRepository(IAuthContext authContext)
         {
-            _ctx = new AuthContext();
-            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
-
+            _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>((AuthContext)authContext));
         }
 
         public async Task<ApplicationUser> GetByIdAsync(string id)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException(nameof(id));
-
+            
             return await _userManager.FindByIdAsync(id);
         }
 
@@ -41,7 +40,7 @@ namespace ChattingApp.Repository.Repository
             return null;
         }
 
-        public ApplicationUser Update(ApplicationUser instance)
+        public ApplicationUser UpdateAsync(ApplicationUser instance)
         {
             try
             {
@@ -89,11 +88,11 @@ namespace ChattingApp.Repository.Repository
         {
             try
             {
-                var chat = _ctx.Chats.FirstOrDefault(x => x.Id.Equals(new Guid(chatId)));
-                var selectedUser = _ctx.Users.Include("Chats").FirstOrDefault(x => x.UserName.Equals(username));
-                selectedUser.Chats.Add(chat);
+                var chat = _authContext.Chats.FirstOrDefault(x => x.Id.Equals(new Guid(chatId)));
+                //var selectedUser = _authContext.Users.Include("Chats").FirstOrDefault(x => x.UserName.Equals(username));
+                //selectedUser.Chats.Add(chat);
 
-                int count = _ctx.SaveChanges();
+                //int count = _authContext.SaveChanges();
                 return true;
             }
             catch (Exception)

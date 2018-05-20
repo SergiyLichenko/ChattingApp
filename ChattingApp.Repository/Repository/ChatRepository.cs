@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using Microsoft.AspNet.Identity;
@@ -21,7 +22,15 @@ namespace ChattingApp.Repository.Repository
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
-        public async Task<List<Chat>> GetAllAsync() => await _authContext.Chats.ToListAsync();
+        public async Task<List<Chat>> GetAllAsync() =>
+            await _authContext.Chats.Include(x => x.Users).ToListAsync();
+
+        public Task<Chat> GetByIdAsync(int id)
+        {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
+            return _authContext.Chats.Include(x => x.Users)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
 
         public async Task AddAsync(Chat chat)
         {
@@ -38,17 +47,40 @@ namespace ChattingApp.Repository.Repository
             await _authContext.SaveChangesAsync();
         }
 
-        public Chat GetByIdAsync(string id)
+        public async Task UpdateAsync(Chat chat)
         {
-            try
+            if (chat == null) throw new ArgumentNullException(nameof(chat));
+
+            var chatEntity = await GetByIdAsync(chat.Id);
+            if (chatEntity == null) throw new InvalidOperationException();
+
+            var deletedUsers = chatEntity.Users
+                .Except(chat.Users, user => user.Id).ToList();
+            var addedUsers = chat.Users.Except(chatEntity.Users, x => x.Id).ToList();
+            
+            _authContext.Entry(chatEntity).CurrentValues.SetValues(chat);
+
+            foreach (var user in deletedUsers)
+                user.Chats.Remove(chatEntity);
+
+            foreach (var user in addedUsers)
             {
-                return _authContext.Chats.Include("Users").SingleOrDefault(x => x.Id.ToString().Equals(id));
+                var existingUser = await _userRepository.GetByIdAsync(user.Id);
+                existingUser.Chats.Add(chatEntity);
             }
-            catch (Exception)
-            {
-                return null;
-            }
+
+            await _authContext.SaveChangesAsync();
         }
+
+
+
+
+
+
+
+
+
+
 
         public Chat Remove(Chat instance)
         {
@@ -67,10 +99,7 @@ namespace ChattingApp.Repository.Repository
             }
         }
 
-        public Chat Update(Chat instance)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public Chat UpdateTitle(Chat instance)
         {

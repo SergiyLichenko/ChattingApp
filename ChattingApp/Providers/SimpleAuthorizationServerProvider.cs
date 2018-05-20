@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading;
 using System.Threading.Tasks;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
-using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 
 namespace ChattingApp.Providers
@@ -19,6 +15,7 @@ namespace ChattingApp.Providers
         {
             _userRepository = userRepository ?? throw new ArgumentNullException();
         }
+
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             if (!context.TryGetBasicCredentials(out _, out _))
@@ -53,15 +50,6 @@ namespace ChattingApp.Providers
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, applicationUser.Id));
 
             return identity;
-            //var props = new AuthenticationProperties(
-            //    new Dictionary<string, string>
-            //    {
-            //        { "as:client_id", context.ClientId ?? string.Empty },
-            //        { "UserName", context.UserName }
-            //    });
-
-            //var ticket = new AuthenticationTicket(identity, props);
-            //return ticket;
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

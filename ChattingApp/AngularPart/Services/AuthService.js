@@ -1,10 +1,11 @@
 ﻿//"use strict";
-app.factory("authService", ["$http", "$q", "localStorageService", "chatHubService", 'webMessengerSettings',
-    function ($http, $q, localStorageService, chatHubService, webMessengerSettings) {
+app.factory("authService", ["$http", "$q", "localStorageService", "chatHubService", 'webMessengerSettings', 'userService',
+    function ($http, $q, localStorageService, chatHubService, webMessengerSettings, userService) {
         var serviceBase = webMessengerSettings.apiServiceBaseUri;
 
         var logOut = function () {
             localStorageService.remove("authorizationData");
+            localStorageService.remove("user");
         };
 
         var onLoginSuccess = function (response, deferred, loginData) {
@@ -16,7 +17,10 @@ app.factory("authService", ["$http", "$q", "localStorageService", "chatHubServic
                 userName: loginData.userName
             });
 
-            deferred.resolve(response.data);
+            userService.getCurrent().then(function(user) {
+                localStorageService.set('user', user);
+                deferred.resolve(response.data);
+            });
         }
 
         var login = function (loginData) {

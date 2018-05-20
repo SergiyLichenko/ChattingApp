@@ -11,7 +11,7 @@ using ChattingApp.Service.Models;
 
 namespace ChattingApp.Controllers
 {
-    [RoutePrefix("api/Chat")]
+    [RoutePrefix("api/chat")]
     public class ChatController : ApiController
     {
         private readonly IChatService _chatService;
@@ -37,6 +37,15 @@ namespace ChattingApp.Controllers
             if (chat == null) return BadRequest("Data is null");
 
             await _chatRepository.AddAsync(chat);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateAsync(Chat chat)
+        {
+            if (chat == null) return BadRequest("Data is null");
+
+            await _chatRepository.UpdateAsync(chat);
             return Ok();
         }
 
@@ -69,21 +78,7 @@ namespace ChattingApp.Controllers
             return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
         }
 
-        [HttpPost]
-        [Route("edit")]
-        public HttpResponseMessage EditChat(ChatViewModel chat)
-        {
-            if (string.IsNullOrEmpty(chat.Id.ToString()))
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
-            }
-            var updated = _chatService.Update(chat);
-            if (updated != null)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, updated);
-            }
-            return Request.CreateResponse(HttpStatusCode.InternalServerError);
-        }
+
 
         [HttpPost]
         [Route("delete")]
