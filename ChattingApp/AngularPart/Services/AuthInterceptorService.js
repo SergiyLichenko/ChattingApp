@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.factory('authInterceptorService', ['localStorageService',
-    function (localStorageService) {
+app.factory('authInterceptorService', ['localStorageService', '$injector',
+    function (localStorageService, $injector) {
         var request = function (config) {
             var authData = localStorageService.get('authorizationData');
             if (!authData) return config;
@@ -10,7 +10,13 @@ app.factory('authInterceptorService', ['localStorageService',
             return config;
         }
 
+        var responseError = function (error) {
+            if (error.status === 401)
+                $injector.get('$state').go('login');
+        }
+
         return {
-            request: request
+            request: request,
+            responseError: responseError
         };
     }]);

@@ -22,9 +22,11 @@ namespace ChattingApp.Repository.Repository
 
         }
 
-        public ApplicationUser Get(string id)
+        public async Task<ApplicationUser> GetByIdAsync(string id)
         {
-            return _userManager.FindById(id);
+            if (string.IsNullOrEmpty(id)) throw new ArgumentException(nameof(id));
+
+            return await _userManager.FindByIdAsync(id);
         }
 
         public ApplicationUser Remove(ApplicationUser instance)

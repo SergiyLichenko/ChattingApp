@@ -1,10 +1,23 @@
 ﻿'use strict';
 app.controller('ChatController', ['$templateCache', '$state',
     '$scope', '$sce', 'chatHubService', 'userService', 'chatService',
-    'localStorageService', '$timeout',  'authService',
+    'localStorageService', '$timeout',  'authService', 'chats',
     function ($templateCache, $state, $scope, $sce, chatHubService, userService,
-        chatService, localStorageService, $timeout, authService) {
-     
+        chatService, localStorageService, $timeout, authService, chats) {
+
+        
+
+
+
+
+
+
+
+
+
+
+        $scope.currentChat = {};
+        $scope.currentMessageText = "";
 
         $scope.logOut = function () {
             authService.logOut();
@@ -18,8 +31,7 @@ app.controller('ChatController', ['$templateCache', '$state',
         }
 
 
-        $scope.currentChat = {};
-        $scope.currentMessageText = "";
+       
     
         chatHubService.start();
 
@@ -36,13 +48,7 @@ app.controller('ChatController', ['$templateCache', '$state',
             }
         }
         $scope.templateUrl = $templateCache.get('background.html');
-        $scope.busyPromise = chatService.getChats().then(function (result) {
-            $scope.chats = result.data;
-            if (result.data[0] != null) {
-                $scope.currentChat.chat = result.data[0];
-                $scope.getMessagesForChat($scope.currentChat.chat);
-            }
-        });
+        
 
 
         $scope.sendMessage = function () {
@@ -241,6 +247,13 @@ app.controller('ChatController', ['$templateCache', '$state',
             chatService.makeFavourite(message.id);
         }
 
-    }
+        var onLoad = function() {
+            if (chats.length) {
+                $scope.currentChat.chat = chats[0];
+                $scope.getMessagesForChat($scope.currentChat.chat);
+            }
+        }
 
+        onLoad();
+    }
 ]);

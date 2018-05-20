@@ -2,61 +2,54 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Http;
+using ChattingApp.Repository.Interfaces;
+using ChattingApp.Repository.Models;
 using ChattingApp.Service;
 using ChattingApp.Service.Models;
 
 namespace ChattingApp.Controllers
 {
-    [RoutePrefix("api/Chats")]
+    [RoutePrefix("api/Chat")]
     public class ChatController : ApiController
     {
-        private IChatService _chatService;
+        private readonly IChatService _chatService;
+        private readonly IChatRepository _chatRepository;
 
-        public ChatController(IChatService chatService)
+        public ChatController(IChatService chatService, IChatRepository chatRepository)
         {
-            _chatService = chatService;
+            _chatService = chatService ?? throw new ArgumentNullException(nameof(chatService));
+            _chatRepository = chatRepository ?? throw new ArgumentNullException(nameof(chatRepository));
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public async Task<IHttpActionResult> GetAllAsync()
+        {
+            var chats = await _chatRepository.GetAllAsync();
+            return Ok(chats);
+        }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> PostAsync(Chat chat)
+        {
+            if (chat == null) return BadRequest("Data is null");
+
+            await _chatRepository.AddAsync(chat);
+            return Ok();
         }
 
         [HttpGet]
         public HttpResponseMessage Get(string id)
         {
-
-            //Get all chats by username
             List<ChatViewModel> chats = _chatService.GetAllChats(id);
             return Request.CreateResponse(HttpStatusCode.OK, chats);
         }
 
-        [HttpGet]
-        [Route("All")]
-        public HttpResponseMessage GetAll()
-        {
-            //Get all chats by username
-            List<ChatViewModel> chats = _chatService.GetAll();
-            var response = Request.CreateResponse(HttpStatusCode.OK, chats);
-            response.Headers.CacheControl = new CacheControlHeaderValue()
-            {
-                Public = true,
-                MaxAge = new TimeSpan(1, 0, 0, 0)
-            };
-            return response;
-        }
 
-        [HttpPost]
-        public HttpResponseMessage Post(ChatViewModel newChat)
-        {
-            if (ModelState.IsValid)
-            {
-                ChatViewModel chat = _chatService.Add(newChat);
-                if (chat != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, chat);
-                }
 
-            }
-            return Request.CreateResponse(HttpStatusCode.InternalServerError);
-        }
+
 
         [HttpPost]
         [Route("quit")]

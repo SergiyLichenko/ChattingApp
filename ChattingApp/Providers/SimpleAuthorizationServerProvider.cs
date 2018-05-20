@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 using ChattingApp.Repository.Interfaces;
+using ChattingApp.Repository.Models;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 
@@ -33,28 +36,32 @@ namespace ChattingApp.Providers
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
 
-            var user = await _userRepository.FindAsync(context.UserName, context.Password);
-            if (user == null)
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            var applicationUser = await _userRepository.FindAsync(context.UserName, context.Password);
+            if (applicationUser == null)
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
             else
-                context.Validated(CreateAuthenticatinTicket(context));
+                context.Validated(CreateClaimsIdentity(context, applicationUser));
+                
         }
 
-        private static AuthenticationTicket CreateAuthenticatinTicket(OAuthGrantResourceOwnerCredentialsContext context)
+        private static ClaimsIdentity CreateClaimsIdentity(OAuthGrantResourceOwnerCredentialsContext context, ApplicationUser applicationUser)
         {
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim("sub", context.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, applicationUser.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.Email, applicationUser.Email));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, applicationUser.Id));
 
-            var props = new AuthenticationProperties(
-                new Dictionary<string, string>
-                {
-                    { "as:client_id", context.ClientId ?? string.Empty },
-                    {"UserName", context.UserName }
-                });
+            return identity;
+            //var props = new AuthenticationProperties(
+            //    new Dictionary<string, string>
+            //    {
+            //        { "as:client_id", context.ClientId ?? string.Empty },
+            //        { "UserName", context.UserName }
+            //    });
 
-            var ticket = new AuthenticationTicket(identity, props);
-            return ticket;
+            //var ticket = new AuthenticationTicket(identity, props);
+            //return ticket;
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

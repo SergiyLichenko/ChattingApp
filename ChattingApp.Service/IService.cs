@@ -5,6 +5,6 @@
         T Get(string id);
         T Remove(T instance);
         T Update(T instance);
-        //IdentityResult Add(T instance);
+        //IdentityResult AddAsync(T instance);
     }
 }

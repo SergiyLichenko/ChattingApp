@@ -4,7 +4,7 @@
         "ui.router",
         "validation.match",
         "cgBusy",
-        "angularFileUpload"]);
+        "ngFileUpload"]);
 //, "", 'ngSanitize',
 //    '', '', '', '', '', 'ng.httpLoader']);
 
@@ -28,12 +28,19 @@ app.config(['$stateProvider', function ($stateProvider) {
             templateUrl: 'AngularPart/Views/signUp.html',
             navbarState: 'signup'
         })
-        .state('chats', {
-            url: '/chats',
+        .state('chat', {
+            url: '/chat',
             reloadOnSearch: true,
             controller: 'ChatController',
             templateUrl: 'AngularPart/Views/chat.html',
-            navbarState: 'chat'
+            navbarState: 'chat',
+            resolve: {
+                chats: function (chatService) {
+                    return chatService.getAll().then(function (result) {
+                        return result.data;
+                    });
+                }
+            }
         })
         .state('associate', {
             url: '/associate',

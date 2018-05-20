@@ -26,7 +26,7 @@ namespace ChattingApp.Controllers
             if (HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 string userId = "0";
-                // Get the uploaded image from the Files collection  
+                // GetByIdAsync the uploaded image from the Files collection  
                 var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
                 if (httpPostedFile != null)
                 {

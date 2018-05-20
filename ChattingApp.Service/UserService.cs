@@ -22,12 +22,12 @@ namespace ChattingApp.Service
 
         public UserViewModel Get(string id)
         {
-            if (id == null)
+            //if (id == null)
                 return null;
 
-            ApplicationUser user = _userRepository.Get(id);
-            UserViewModel userViewModel = _mappingSerivce.Map<ApplicationUser, UserViewModel>(user);
-            return userViewModel;
+            //ApplicationUser user = _userRepository.GetByIdAsync(id);
+            //UserViewModel userViewModel = _mappingSerivce.Map<ApplicationUser, UserViewModel>(user);
+            //return userViewModel;
         }
 
         public UserViewModel Remove(UserViewModel instance)

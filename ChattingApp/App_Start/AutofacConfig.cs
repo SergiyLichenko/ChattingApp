@@ -3,6 +3,7 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using ChattingApp.Controllers;
+using ChattingApp.Repository;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Repository;
 using ChattingApp.Service;
@@ -18,6 +19,9 @@ namespace ChattingApp
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterWebApiFilterProvider(config);
 
+            builder.RegisterType<AuthContext>().As<IAuthContext>();
+
+            builder.RegisterType<ChatRepository>().As<IChatRepository>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<MessageHub>().ExternallyOwned();
 

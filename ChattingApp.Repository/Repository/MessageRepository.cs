@@ -20,7 +20,7 @@ namespace ChattingApp.Repository.Repository
             throw new NotImplementedException();
         }
 
-        public Message Get(string id)
+        public Message GetByIdAsync(string id)
         {
             throw new NotImplementedException();
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using ChattingApp.Repository.Models;
 
@@ -12,6 +8,6 @@ namespace ChattingApp.Repository
     {
         DbSet<Message> Messages { get; set; }
         DbSet<Chat> Chats { get; set; }
-        DbSet<Client> Clients { get; set; }
+        Task<int> SaveChangesAsync();
     }
 }

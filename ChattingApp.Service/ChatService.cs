@@ -1,36 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.UI.WebControls;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using ChattingApp.Service.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ChattingApp.Service
 {
     public class ChatService : IChatService
     {
-        private IChatsRepository _chatsRepository;
+        private IChatRepository _chatRepository;
         private readonly IUserRepository _userRepository;
         private IMappingService _mappingService;
         private IUserService _userService;
-        public ChatService(IChatsRepository chatsRepository,
+        public ChatService(IChatRepository chatRepository,
             IUserRepository userRepository,
             IMappingService mappingService,
             IUserService userService)
         {
-            _chatsRepository = chatsRepository;
+            _chatRepository = chatRepository;
             _userRepository = userRepository;
             _mappingService = mappingService;
             _userService = userService;
         }
 
+
+       
+
+
+
+
+
+
+
+
         public ChatViewModel Get(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
                 return null;
-            Chat chat = _chatsRepository.Get(id);
-            ChatViewModel chatViewModel = _mappingService.Map<Chat, ChatViewModel>(chat);
-            return chatViewModel;
+            return null;
+            ////Chat chat = _chatRepository.GetByIdAsync(id);
+            //ChatViewModel chatViewModel = _mappingService.Map<Chat, ChatViewModel>(chat);
+            //return chatViewModel;
         }
 
         public ChatViewModel Remove(ChatViewModel instance)
@@ -40,7 +55,7 @@ namespace ChattingApp.Service
 
             Chat chat = _mappingService.Map<ChatViewModel, Chat>(instance);
 
-            Chat result = _chatsRepository.Remove(chat);
+            Chat result = _chatRepository.Remove(chat);
             return _mappingService.Map<Chat, ChatViewModel>(result);
         }
 
@@ -49,42 +64,21 @@ namespace ChattingApp.Service
             if (instance == null || instance.Id.ToString().Equals(Guid.Empty.ToString()))
                 return null;
             Chat chat = _mappingService.Map<ChatViewModel, Chat>(instance);
-            Chat result = _chatsRepository.UpdateTitle(chat);
+            Chat result = _chatRepository.UpdateTitle(chat);
 
             if (string.IsNullOrEmpty(chat.Img))
             {
                 chat.Img = _userService.GetDefaultImage();
                 chat.Img = chat.Img.Insert(0, "data:image/png;base64,");
             }
-            result = _chatsRepository.UpdateImage(chat);
+            result = _chatRepository.UpdateImage(chat);
 
             return _mappingService.Map<Chat, ChatViewModel>(result);
         }
 
-        public ChatViewModel Add(ChatViewModel instance)
-        {
-            if (instance == null)
-                return null;
-            Chat chat = _mappingService.Map<ChatViewModel, Chat>(instance);
-            chat.Id = Guid.NewGuid();
-            chat.CreateDate = DateTime.Now;
+        
 
-            bool result = false;
-            Chat newChat = _chatsRepository.Add(chat);
-            if (newChat != null)
-            {
-                _userRepository.AddUserToChat(instance.AuthorName, newChat.Id.ToString());
-                return _mappingService.Map<Chat, ChatViewModel>(newChat);
-            }
-            return null;
-        }
-
-        public List<ChatViewModel> GetAll()
-        {
-            var chats = _chatsRepository.GetAll();
-            List<ChatViewModel> chatViewModel = _mappingService.Map<List<Chat>, List<ChatViewModel>>(chats);
-            return chatViewModel;
-        }
+        
 
        
 
@@ -92,7 +86,7 @@ namespace ChattingApp.Service
         {
             try
             {
-                return _chatsRepository.Quit(chatId, username);
+                return _chatRepository.Quit(chatId, username);
             }
             catch (Exception)
             {
@@ -104,7 +98,7 @@ namespace ChattingApp.Service
         {
             if (String.IsNullOrWhiteSpace(userName))
                 return null;
-            List<Chat> chats = _chatsRepository.GetAllChatsByUsername(userName);
+            List<Chat> chats = _chatRepository.GetAllChatsByUsername(userName);
             try
             {
                 List<ChatViewModel> result = chats.Select(x => AutoMapper.Mapper.Map<Chat, ChatViewModel>(x)).ToList();

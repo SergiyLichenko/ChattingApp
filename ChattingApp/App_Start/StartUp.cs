@@ -26,11 +26,14 @@ namespace ChattingApp
             };
 
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
 
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
+            ConfigureOAuth(app);
+
+            var config = new HttpConfiguration();
 
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AuthContext>());
             AutofacConfig.Register(config);
@@ -42,8 +45,9 @@ namespace ChattingApp
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.MapSignalR("/signalr", new HubConfiguration());
             app.UseWebApi(config);
-
-            ConfigureOAuth(app);
+            
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
         }
     }
 }

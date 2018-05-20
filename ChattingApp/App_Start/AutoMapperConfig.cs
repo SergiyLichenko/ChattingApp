@@ -25,8 +25,6 @@ namespace ChattingApp
                     .ForMember(src => src.Password, opts => opts.MapFrom(src => src.PasswordHash))
                     .ForAllOtherMembers(x => x.Ignore());
 
-                config.CreateMap<ChatViewModel, Chat>();
-                config.CreateMap<Chat, ChatViewModel>();
                 config.CreateMap<Message, MessageViewModel>().ForAllOtherMembers(x => x.Ignore());
                 config.CreateMap<MessageViewModel, Message>().ForAllOtherMembers(x => x.Ignore());
             });

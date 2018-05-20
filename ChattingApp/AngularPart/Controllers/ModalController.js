@@ -1,4 +1,76 @@
-﻿app.controller('ModalController', ['$scope', '$uibModal', '$log', 'userService',
+﻿app.controller('MenuController',
+    ['$uibModal',
+    function ($uibModal) {
+        var self = this;
+        var modalConfig = {
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            controllerAs: '$ctrl',
+            size: 'lg'
+            //resolve: {
+            //    userName: function() {
+            //        return $ctrl.userName;
+            //    }
+            //}
+        };
+        self.openCreateChatModal = function () {
+            modalConfig.templateUrl = 'AngularPart/Views/modalCreateChat.html';
+            modalConfig.controller = 'CreateChatModalController';
+
+            var modalInstance = $uibModal.open(modalConfig);
+
+            modalInstance.result.then(function (ctrl) {
+
+                $scope.$parent.chats = $scope.$parent.createChat({
+                    title: ctrl.title,
+                    authorName: ctrl.userName,
+                    img: ctrl.uploader.queue[0].image.src
+                });
+            });
+        }
+    }]);
+
+app.controller('CreateChatModalController', ['$scope', 'chatHubService', '$uibModalInstance', 'userService', 'chatService',
+    function ($scope, chatHubService, $uibModalInstance, userService, chatService, Upload) {
+        var self = this;
+
+        self.addUserToChat = function (chat) {
+            self.chat = chat;
+            self.ok();
+        };
+        self.getUserInfo = function (name) {
+            var data = userService.getUserByName(name);
+            self.email = data.email;
+        }
+        self.ok = function () {
+            var reader = new FileReader();
+            reader.addEventListener("load", function () {
+                chatService.createChat({
+                    title: $scope.chatTitle,
+                    img: reader.result
+                }).then(function() {
+                    $uibModalInstance.close(self);
+                });
+            }, false);
+            reader.readAsDataURL($scope.file);
+        };
+
+        self.cancel = function () {
+            $uibModalInstance.dismiss();
+        };
+
+
+    }]);
+
+
+
+
+
+
+
+
+app.controller('ModalController', ['$scope', '$uibModal', '$log', 'userService',
     function ($scope, $uibModal, $log) {
         var $ctrl = this;
         $ctrl.userName = $scope.$parent.getCurrentUsername();
@@ -28,32 +100,7 @@
                 });
             }
             if (type === 'create') {
-                $ctrl.title = null;
-
-                modalInstance = $uibModal.open({
-                    animation: $ctrl.animationsEnabled,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'AngularPart/Views/ModalCreateChat.html',
-                    controller: 'ModalInstanceCtrl',
-                    controllerAs: '$ctrl',
-                    size: size,
-                    resolve: {
-                        userName: function () {
-                            return $ctrl.userName;
-                        }
-                    }
-                });
-                modalInstance.result.then(function (ctrl) {
-
-                    $scope.$parent.chats = $scope.$parent.createChat({
-                        title: ctrl.title,
-                        authorName: ctrl.userName,
-                        img: ctrl.uploader.queue[0].image.src
-                    });
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
+                
             }
 
 
@@ -89,16 +136,16 @@ app.controller('ModalInstanceCtrl', ['chatHubService', '$uibModalInstance', 'use
     function (chatHubService, $uibModalInstance, userName, userService, chatService, FileUploader) {
         var $ctrl = this;
         $ctrl.userName = userName;
-        $.connection.hub.start()
-            .done(function (data) {
-                if (data && data.token) {
-                    chatHubService.setTokenCookie(data.token);
-                    chatHubService.registerMe();
-                }
-            });
-        $ctrl.busyPromise = chatService.getAllChats().then(function (result) {
-            $ctrl.chats = result.data;
-        });
+        //$.connection.hub.start()
+        //    .done(function (data) {
+        //        if (data && data.token) {
+        //            chatHubService.setTokenCookie(data.token);
+        //            chatHubService.registerMe();
+        //        }
+        //    });
+        //$ctrl.busyPromise = chatService.getAllChats().then(function (result) {
+        //    $ctrl.chats = result.data;
+        //});
         $ctrl.uploader = new FileUploader({
             queueLimit: 1
         });

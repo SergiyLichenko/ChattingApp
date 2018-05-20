@@ -12,23 +12,23 @@ namespace ChattingApp.Service
     {
         private IMessageRepository _messageRepository;
         private IMappingService _mappingService;
-        private IChatsRepository _chatsRepository;
+        private IChatRepository _chatRepository;
         private const int UserImageMessageSize = 125;
-        public MessageService(IMessageRepository messageRepository, IMappingService mappingService, IChatsRepository chatsRepository)
+        public MessageService(IMessageRepository messageRepository, IMappingService mappingService, IChatRepository chatRepository)
         {
             _messageRepository = messageRepository;
             _mappingService = mappingService;
-            _chatsRepository = chatsRepository;
+            _chatRepository = chatRepository;
         }
 
         public MessageViewModel Get(string id)
         {
-            if (String.IsNullOrWhiteSpace(id))
+            //if (String.IsNullOrWhiteSpace(id))
                 return null;
-            Message message = _messageRepository.Get(id);
-            MessageViewModel messageViewModel = _mappingService.
-                Map<Message, MessageViewModel>(message);
-            return messageViewModel;
+            //Message message = _messageRepository.GetByIdAsync(id);
+            //MessageViewModel messageViewModel = _mappingService.
+            //    Map<Message, MessageViewModel>(message);
+            //return messageViewModel;
         }
 
         public MessageViewModel Remove(MessageViewModel messageViewModel)
@@ -38,7 +38,7 @@ namespace ChattingApp.Service
             Message message = _mappingService.Map<MessageViewModel, Message>(messageViewModel);
 
             Message result = _messageRepository.Remove(message);
-            result.Chat = _chatsRepository.Get(result.ChatId.ToString());
+           // result.Chat = _chatRepository.GetByIdAsync(result.ChatId.ToString());
 
             return _mappingService.Map<Message, MessageViewModel>(result);
         }
@@ -108,7 +108,7 @@ namespace ChattingApp.Service
             List<Message> messages = _messageRepository.GetAllMessagesFromChat(id);
             List<MessageViewModel> result = messages.Select(x => AutoMapper.Mapper.Map<Message, MessageViewModel>(x)).ToList();
             var response = BuildMessagesResponse(result.OrderBy(x => x.createDate).ToList());
-            var allUsers = _chatsRepository.GetAllUsersForChat(id);
+            var allUsers = _chatRepository.GetAllUsersForChat(id);
             /*var images = allUsers.ToDictionary(x => x.Id, x =>
              {
                  var Img = ImageResizer.ProcessImage(x.Img, UserImageMessageSize);
@@ -118,7 +118,7 @@ namespace ChattingApp.Service
             {
                 if (!response.UserImages.ContainsKey(item.Key))
                 {
-                    response.UserImages.Add(item.Key, item.Value);
+                    response.UserImages.AddAsync(item.Key, item.Value);
                 }
             }*/
             return response;
@@ -130,7 +130,7 @@ namespace ChattingApp.Service
             {
                 Messages = new List<MessageViewModel>(),
                 CountAll = messages.Count,
-                UsersCount = messages.Count > 0 ? _chatsRepository.GetAllUsersCountForChat(messages[0].chat.Id) : 0,
+               // UsersCount = messages.Count > 0 ? _chatRepository.GetAllUsersCountForChat(messages[0].chat.Id) : 0,
                 UserImages = new Dictionary<string, string>()
             };
 

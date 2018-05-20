@@ -1,29 +1,15 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ChattingApp.Repository.Models
 {
     public class Chat
     {
-        [Key]
-        [Required]
-        public System.Guid Id { get; set; }
-
-        [Required]
+        public int Id { get; set; }
         public string Title { get; set; }
-
-        [Required]
-        public System.DateTime CreateDate { get; set; }
-
-        [Required]
-        public string AuthorName { get; set; }//Author ID
-        public ICollection<ApplicationUser> Users { get; set; }
-
+        public DateTime CreateDate { get; set; }
         public string Img { get; set; }
-
-        public Chat()
-        {
-            Users = new List<ApplicationUser>();
-        }
+        public string AuthorId { get; set; }
+        public ICollection<ApplicationUser> Users { get; set; }
     }
 }

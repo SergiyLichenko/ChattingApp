@@ -18,20 +18,20 @@
                 <button id="single-button" type="button" style="width: 100%" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
                     Smart chat <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" style="width: 100%" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" style="width: 100%; margin-top: -5px" data-ng-controller="ModalController as $ctrl">
+                <ul class="dropdown-menu" style="width: 100%" uib-dropdown-menu role="menu" aria-labelledby="single-button" data-ng-controller="MenuController as $ctrl">
+                    <li role="menuitem" style="width: 100%; margin-top: -5px">
                         <button type="button" style="width: 100%" class="btn btn-info"
                                 ng-click="$ctrl.open('lg', 'join')">
                             Join chat
                         </button>
                     </li>
-                    <li role="menuitem" style="width: 100%; margin-top: 3px" data-ng-controller="ModalController as $ctrl">
+                    <li role="menuitem" style="width: 100%; margin-top: 3px">
                         <button type="button" style="width: 100%" class="btn btn-info"
-                                ng-click="$ctrl.open('lg', 'create')">
+                                ng-click="$ctrl.openCreateChatModal()">
                             Create chat
                         </button>
                     </li>
-                    <li role="menuitem" style="width: 100%;  margin-top: 3px" data-ng-controller="ProfileController">
+                    <li role="menuitem" style="width: 100%;  margin-top: 3px">
                         <button id="chats-btn" style="width: 100%" class="btn btn-info"
                                 ng-click="open('lg', getCurrentUsername())">
                             My Profile

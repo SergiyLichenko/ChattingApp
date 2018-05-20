@@ -6,6 +6,7 @@ namespace ChattingApp.Repository.Interfaces
 {
     public interface IUserRepository : IRepository<ApplicationUser>
     {
+        Task<ApplicationUser> GetByIdAsync(string id);
         bool AddUserToChat(string username, string chatTitle);
         void Add(ApplicationUser instance);
         ApplicationUser GetUserByName(string name);

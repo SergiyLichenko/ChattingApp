@@ -17,7 +17,7 @@ namespace ChattingApp.Controllers
 
 
         /// <summary>
-        /// Get all messages for chat
+        /// GetByIdAsync all messages for chat
         /// </summary>
         /// <param name="id">chat ID</param>
         /// <returns></returns>

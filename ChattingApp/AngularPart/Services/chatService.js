@@ -3,31 +3,45 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
 
     var chatServiceFactory = {};
 
+    chatServiceFactory.getAll = function () {
+        return $http.get("api/Chat/all");
+    };
+
+    chatServiceFactory.createChat = function (chat) {
+        return $http.post("api/Chat/", chat);
+    };
+
+
+
+
+
+
+
+
+
+
+
     chatServiceFactory.getChats = function () {
         var deferred = $q.defer();
         var loginData = localStorageService.get("authorizationData");
         if (loginData != null) {
             var uuid = guid();
-            $http.get("api/Chats/" + loginData.userName + "/" + uuid).then(function (results) {
+            $http.get("api/Chat/" + loginData.userName + "/" + uuid).then(function (results) {
                 deferred.resolve(results);
             });
         } else ($location.path('/login'));
         return deferred.promise;
     };
 
-    chatServiceFactory.createChat = function (chat) {
-        var deferred = $q.defer();
-        $.post("api/Chats/", chat)
-            .done(function (result) {
-                deferred.resolve(result);
-            });
-        return deferred.promise;
-    };
+
+
+
+   
 
     chatServiceFactory.deleteChat = function (chat) {
         var deferred = $q.defer();
         chat.img = null;
-        $http.post("api/Chats/delete", chat).then(function (results) {
+        $http.post("api/Chat/delete", chat).then(function (results) {
             deferred.resolve(results);
         });
         return deferred.promise;
@@ -50,9 +64,9 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
         var deferred = $q.defer();
 
         var uuid = guid();
-        $.get("api/Messages/" + chatId, uuid).then(function (results) {
-            deferred.resolve(results);
-        });
+        //$.get("api/Messages/" + chatId, uuid).then(function (results) {
+        //    deferred.resolve(results);
+        //});
         return deferred.promise;
     };
 
@@ -66,7 +80,7 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
             chatId: chatId,
             username: username
         };
-        $.post("api/Chats/quit/", request).then(function (results) {
+        $.post("api/Chat/quit/", request).then(function (results) {
             deferred.resolve(results);
         });
         return deferred.promise;
@@ -93,17 +107,11 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
 
     
 
-    chatServiceFactory.getAllChats = function () {
-        var deferred = $q.defer();
-        $http.get("api/Chats/All?" + guid()).then(function (results) {
-            deferred.resolve(results);
-        });
-        return deferred.promise;
-    };
+    
 
     chatServiceFactory.editChat = function (chat) {
         var deferred = $q.defer();
-        $http.post("api/Chats/edit", chat).then(function (results) {
+        $http.post("api/Chat/edit", chat).then(function (results) {
             deferred.resolve(results);
         });
         return deferred.promise;
