@@ -176,10 +176,15 @@ md-nav-bar button {
 
 .modal-window {
     max-height: 972px;
+    max-width: 850px;
 }
 
 .join-chat-list {
     width: 100%;
     height: 750px;
     overflow: auto;
+}
+
+.create-chat-img {
+    width: 200px;
 }

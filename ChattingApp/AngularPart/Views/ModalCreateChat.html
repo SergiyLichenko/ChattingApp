@@ -1,22 +1,28 @@
-﻿<div>
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Create new chat: </h3>
-    </div>
-    <div class="form-group label-static left-chat-form">
-        <div class="form-title">Create chat</div>
-        <input type="text" class="form-control" placeholder="Title" ng-model="chatTitle" id="chatTitle"/>
-    </div>
-
-    <div class="form-group label-static left-chat-form" style="height: 100%">
-        <div class="form-title">Select avatar</div>
-        <div>
-            <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                   ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-                   ngf-resize="{width: 100, height: 100}"/><br/>
-            <img ngf-thumbnail="file"/>
+﻿<div class="modal-window container">
+    <div class="row">
+        <div class="modal-header text-center">
+            <h3 class="modal-title">Create new chat</h3>
         </div>
     </div>
-    <div class="modal-footer">
+    <div class="row">
+        <div class="form-group label-static">
+            <span>Create chat</span>
+            <input type="text" class="form-control" placeholder="Title" ng-model="chatTitle" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group label-static">
+            <span>Select avatar</span>
+            <div>
+                <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                       ngf-accept="'image/*'" ngf-max-size="20MB"/><br />
+                <img class="create-chat-img" ngf-thumbnail="file" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row modal-footer">
         <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">Ok</button>
         <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
     </div>
