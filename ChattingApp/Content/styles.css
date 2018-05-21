@@ -215,7 +215,7 @@ md-nav-bar button {
     margin-left: 10px;
 }
 
-.edit-chat-input-identation {
+.modal-input-identation {
     width: 95%;
     font-size: 18px;
 }
@@ -226,12 +226,16 @@ md-nav-bar button {
     margin-left: 23px;
 }
 
-.edit-chat-footer {
+.edit-chat-footer, .profile-footer {
     margin-top: 100px;
 }
 
-.edit-chat-footer button {
+.edit-chat-footer button, .profile-footer button {
     font-size: 18px;
+}
+
+.profile-footer {
+    margin-right: 35px;
 }
 
 .dark-grey {
@@ -240,4 +244,18 @@ md-nav-bar button {
 
 .blue {
     background-color: #64b5f6 !important;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.edit-profile-img {
+    max-width: 200px;
+    max-height: 200px
+}
+
+.modal-header {
+    margin-bottom: 15px;
 }

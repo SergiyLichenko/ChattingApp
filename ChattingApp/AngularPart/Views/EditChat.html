@@ -12,7 +12,7 @@
                         <input class="edit-chat-image-picker"
                                ng-if="!isReadonly" type="file" ngf-select ng-model="selectedFile"
                                ng-change="processImage(selectedFile)"
-                               name="file" ngf-pattern="'image/*'"
+                               ngf-pattern="'image/*'"
                                ngf-accept="'image/*'" ngf-max-size="20MB" />
                     </blockquote>
                 </div>
@@ -52,7 +52,7 @@
 
     <div align="center">
         <h3>Title</h3>
-        <input type="text" class="form-control edit-chat-input-identation" required
+        <input type="text" class="form-control modal-input-identation" required
                ng-class="{'dark-grey':isReadonly, 'blue': !isReadonly }"
                ng-readonly="isReadonly"
                ng-model="currentChat.title"/>
@@ -63,7 +63,7 @@
 
         <h3>Users</h3>
         <div class="form-group">
-            <select class="form-control edit-chat-input-identation" ng-model="selectedUser"
+            <select class="form-control modal-input-identation" ng-model="selectedUser"
                     ng-class="{'dark-grey':isReadonly, 'blue': !isReadonly }"
                     ng-disabled="isReadonly"
                     ng-options="user.userName for user in currentChat.users"></select>

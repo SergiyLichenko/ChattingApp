@@ -19,7 +19,7 @@
                 </li>
                 <li class="menu-item">
                     <button id="chats-btn" class="btn btn-info full-width"
-                            ng-click="open('lg', getCurrentUsername())">
+                            ng-click="$ctrl.openProfileModal(currentUser)">
                         My Profile
                     </button>
                 </li>
@@ -41,7 +41,7 @@
 </div>
 <div data-ng-controller="ChatController" class="col-md-8 chat-scope">
     <div class="chat-header">
-        <md-fab-toolbar md-open="isOpen" count="0"
+        <md-fab-toolbar md-open="isOpen"
                         md-direction="left">
             <md-fab-trigger>
                 <md-button aria-label="menu" class="md-fab md-primary">

@@ -31,7 +31,7 @@
         }
 
         self.openJoinChatModal = function () {
-            modalConfig.templateUrl = 'AngularPart/Views/modalJoinChat.html',
+            modalConfig.templateUrl = 'AngularPart/Views/modalJoinChat.html';
             modalConfig.controller = 'JoinChatModalController';
             modalConfig.resolve = {
                 chats: function () {
@@ -39,6 +39,17 @@
                 }
             }
 
+            $uibModal.open(modalConfig);
+        }
+
+        self.openProfileModal = function (selectedUser) {
+            modalConfig.templateUrl = 'AngularPart/Views/profile.html';
+            modalConfig.controller = 'ProfileModalController';
+            modalConfig.resolve = {
+                selectedUser: function() {
+                    return selectedUser;
+                }
+            }
             $uibModal.open(modalConfig);
         }
     }]);

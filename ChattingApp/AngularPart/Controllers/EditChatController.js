@@ -32,6 +32,7 @@ app.controller('EditChatModalController',
 
             reader.addEventListener("load", function () {
                 $scope.currentChat.img = reader.result;
+                $scope.$apply();
             }, false);
 
             reader.readAsDataURL(image);
