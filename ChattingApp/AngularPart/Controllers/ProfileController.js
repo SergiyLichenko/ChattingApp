@@ -18,7 +18,7 @@ app.controller('ProfileModalController',
         $scope.processImage = function (image) {
             var reader = new FileReader();
 
-            reader.addEventListener("load", function () {
+            reader.addEventListener('load', function () {
                 $scope.selectedUser.img = reader.result;
                 $scope.$apply();
             }, false);

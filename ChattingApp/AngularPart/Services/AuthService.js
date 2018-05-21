@@ -1,18 +1,18 @@
-﻿//"use strict";
-app.factory("authService", ["$http", "$q", "localStorageService", "chatHubService", 'webMessengerSettings', 'userService',
-    function ($http, $q, localStorageService, chatHubService, webMessengerSettings, userService) {
-        var serviceBase = webMessengerSettings.apiServiceBaseUri;
+﻿'use strict';
+
+app.factory('authService', ['$http', '$q', 'localStorageService', 'chatHubService', 'userService',
+    function ($http, $q, localStorageService, chatHubService, userService) {
 
         var logOut = function () {
-            localStorageService.remove("authorizationData");
-            localStorageService.remove("user");
+            localStorageService.remove('authorizationData');
+            localStorageService.remove('user');
         };
 
         var onLoginSuccess = function (response, deferred, loginData) {
             if (response.status !== 200) return;
 
             chatHubService.setTokenCookie(response.data.access_token);
-            localStorageService.set("authorizationData", {
+            localStorageService.set('authorizationData', {
                 token: response.data.access_token,
                 userName: loginData.userName
             });
@@ -25,12 +25,12 @@ app.factory("authService", ["$http", "$q", "localStorageService", "chatHubServic
 
         var login = function (loginData) {
 
-            var data = "grant_type=password&username=" + loginData.userName + "&password=" +
-                loginData.password + "&client_id=" + loginData.userName;;
+            var data = 'grant_type=password&username=' + loginData.userName + '&password=' +
+                loginData.password + '&client_id=' + loginData.userName;;
 
             var deferred = $q.defer();
 
-            $http.post(serviceBase + "/token", data,
+            $http.post('/token', data,
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
             .then(function (response) {
                 onLoginSuccess(response, deferred, loginData);
@@ -43,7 +43,7 @@ app.factory("authService", ["$http", "$q", "localStorageService", "chatHubServic
 
         var signUp = function (registration) {
             logOut();
-            return $http.post(serviceBase + "api/Account/SignUp", registration);
+            return $http.post('api/Account/SignUp', registration);
         };
 
         return {

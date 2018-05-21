@@ -19,12 +19,12 @@ app.factory('chatHubService', ['$http', 'localStorageService','$q',
 
     chatsHub.setTokenCookie = function (token) {
         if (token) {
-            document.cookie = "BearerToken=" + token + "; path=/";
+            document.cookie = 'BearerToken=' + token + '; path=/';
         }
     }
 
     chatsHub.registerMe = function () {
-        var loginData = localStorageService.get("authorizationData");
+        var loginData = localStorageService.get('authorizationData');
 
         signalRChatHub.server.registerMe(loginData.userName);
     }
@@ -40,7 +40,7 @@ app.factory('chatHubService', ['$http', 'localStorageService','$q',
 
     chatsHub.updateMessage = function (message) {
         message.user = {};
-        message.user.userName = localStorageService.get("authorizationData").userName;
+        message.user.userName = localStorageService.get('authorizationData').userName;
 
         signalRChatHub.server.updateMessage(message);
     };

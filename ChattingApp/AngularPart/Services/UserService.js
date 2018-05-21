@@ -5,7 +5,7 @@ app.factory('userService', ['$location', '$http', 'localStorageService', '$q',
         var userServiceFactory = {};
 
         userServiceFactory.getCurrent = function () {
-            return $http.get("api/user/current").then(function (result) {
+            return $http.get('api/user/current').then(function (result) {
                 return result.data;
             });
         }
@@ -19,7 +19,7 @@ app.factory('userService', ['$location', '$http', 'localStorageService', '$q',
             var deffered = $q.defer();
             if (name != null) {
                 var uuid = guid();
-                $http.get("api/user/" + name + "/" + uuid).then(function (result) {
+                $http.get('api/user/' + name + '/' + uuid).then(function (result) {
                     deffered.resolve(result);
                 });
             } else ($location.path('/login'));
@@ -35,8 +35,8 @@ app.factory('userService', ['$location', '$http', 'localStorageService', '$q',
             };
             if (name != null) {
                 var uuid = guid();
-                $http.post("api/user/edit/", request).then(function (result) {
-                    localStorageService.set("authorizationData", {
+                $http.post('api/user/edit/', request).then(function (result) {
+                    localStorageService.set('authorizationData', {
                         userName: result.data.userName
                     });
                     deffered.resolve(result);

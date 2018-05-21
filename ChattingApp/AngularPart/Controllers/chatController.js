@@ -64,9 +64,9 @@ app.controller('ChatListController', ['$templateCache', '$state',
         //}
 
         //$scope.getCurrentUsername = function () {
-        //    if (localStorageService.get("authorizationData") === null)
+        //    if (localStorageService.get('authorizationData') === null)
         //        return null;
-        //    return localStorageService.get("authorizationData").userName;
+        //    return localStorageService.get('authorizationData').userName;
         //}
 
 
@@ -157,7 +157,7 @@ app.controller('ChatListController', ['$templateCache', '$state',
         //$scope.deleteMessage = function (message) {
         //    for (var i = 0; i < $scope.currentChat.messages.length; i++) {
         //        if ($scope.currentChat.messages[i].id === message.id) {
-        //            if ($scope.currentChat.messages[i].user.userName === localStorageService.get("authorizationData").userName) {
+        //            if ($scope.currentChat.messages[i].user.userName === localStorageService.get('authorizationData').userName) {
         //                chatHubService.deleteMessage(message);
         //            }
         //        }
@@ -165,7 +165,7 @@ app.controller('ChatListController', ['$templateCache', '$state',
         //};
         //$scope.updateMessage = function (tempMessage) {
         //    var message = angular.copy(tempMessage);
-        //    if (message.user.userName === localStorageService.get("authorizationData").userName) {
+        //    if (message.user.userName === localStorageService.get('authorizationData').userName) {
         //        message.chat = {
         //            id: $scope.currentChat.id
         //        }
@@ -226,10 +226,10 @@ app.controller('ChatListController', ['$templateCache', '$state',
         //    $scope.currentChat.chat.users.push(user);
         //}
         //$scope.getClass = function (index) {
-        //    if ($scope.currentChat.messages[index].user.userName === localStorageService.get("authorizationData").userName)
-        //        return "i";
+        //    if ($scope.currentChat.messages[index].user.userName === localStorageService.get('authorizationData').userName)
+        //        return 'i';
         //    else
-        //        return "friend-with-a-SVAGina";
+        //        return 'friend-with-a-SVAGina';
         //}
 
 

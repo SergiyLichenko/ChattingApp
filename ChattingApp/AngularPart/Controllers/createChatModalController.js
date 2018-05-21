@@ -7,7 +7,7 @@ app.controller('CreateChatModalController',
 
         self.ok = function () {
             var reader = new FileReader();
-            reader.addEventListener("load", function () {
+            reader.addEventListener('load', function () {
                 chatService.create({
                     title: $scope.chatTitle,
                     img: reader.result

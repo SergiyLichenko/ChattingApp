@@ -17,7 +17,7 @@ app.controller('SignUpController', ['$scope', '$state', 'authService',
                 $state.go('login');
             }, function (response) {
                 var erorMessage = getErrorMessage(response);
-                $scope.message = "Failed to register user due to:" + erorMessage;
+                $scope.message = 'Failed to register user due to:' + erorMessage;
             });
         };
     }]);

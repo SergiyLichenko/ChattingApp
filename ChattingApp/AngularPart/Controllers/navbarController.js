@@ -12,5 +12,5 @@ function ($scope, $state, authService, localStorageService) {
         return !!localStorageService.get('authorizationData');
     }
 
-    $scope.currentNavItem = "logOut";
+    $scope.currentNavItem = 'logOut';
 }]);

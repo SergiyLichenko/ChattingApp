@@ -1,17 +1,22 @@
-﻿var app = angular.module("ChattingApp",
-    ["LocalStorageModule",
-        "ngMaterial",
-        "ui.bootstrap",
-        "ui.router",
-        "validation.match",
-        "cgBusy",
-        "SignalR",
-        "ngFileUpload"]);
-//, "", 'ngSanitize',
+﻿var app = angular.module('chattingApp',
+    ['LocalStorageModule',
+        'ngMaterial',
+        'ui.bootstrap',
+        'ui.router',
+        'validation.match',
+        'cgBusy',
+        'SignalR',
+        'ngFileUpload']);
+//, '', 'ngSanitize',
 //    '', '', '', '', '', 'ng.httpLoader']);
 
 app.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
+        .state('root',
+            {
+                url: '/',
+                redirectTo: 'chat'
+            })
         .state('login',
             {
                 url: '/login',
@@ -34,47 +39,25 @@ app.config(['$stateProvider', function ($stateProvider) {
                 templateUrl: 'AngularPart/Views/chat.html',
                 navbarState: 'chat'
             })
-        .state('associate',
-            {
-                url: '/associate',
-                controller: 'AssociateController',
-                templateUrl: 'AngularPart/Views/association.html',
-                navbarState: 'associate'
-            })
         .state('profile',
             {
                 url: '/profile',
                 controller: 'ProfileController',
                 templateUrl: 'AngularPart/Views/profile.html',
                 navbarState: 'profile'
+            }).state('404', {
+                url: '*path',
+                templateUrl: 'AngularPart/Views/404.html'
             });
-    //.state("otherwise",
-    //{
-    //    url: "*path",
-    //    controller: 'HomeController',
-    //    templateUrl: 'AngularPart/Views/home.html',
-    //    navbarState: 'home'
-    //});
 }]);
 
-app.constant('webMessengerSettings', {
-    apiServiceBaseUri: '',
-    clientId: 'SMARTMessenger'
-});
-
-app.run(["$rootScope", "$state", function ($rootScope, $state) {
+app.run(['$rootScope', '$state', function ($rootScope, $state) {
     $rootScope.$on('$stateChangeStart',
         function (event, next) {
             if (next.name === 'signup' || next.name === 'login') return;
             $state.go('login');
         });
 }]);
-
-app.run(["$templateCache",
-    function ($templateCache) {
-        $templateCache.put("background.html");
-    }
-]);
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');

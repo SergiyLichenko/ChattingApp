@@ -4,15 +4,15 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
     var chatServiceFactory = {};
 
     chatServiceFactory.getAll = function () {
-        return $http.get("api/chat/all");
+        return $http.get('api/chat/all');
     };
 
     chatServiceFactory.create = function (chat) {
-        return $http.post("api/chat/", chat);
+        return $http.post('api/chat/', chat);
     };
 
     chatServiceFactory.update = function (chat) {
-        return $http.put("api/chat/", chat);
+        return $http.put('api/chat/', chat);
     };
 
     chatServiceFactory.getById = function(id) {
@@ -29,10 +29,10 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
 
     chatServiceFactory.getChats = function () {
         var deferred = $q.defer();
-        var loginData = localStorageService.get("authorizationData");
+        var loginData = localStorageService.get('authorizationData');
         if (loginData != null) {
             var uuid = guid();
-            $http.get("api/Chat/" + loginData.userName + "/" + uuid).then(function (results) {
+            $http.get('api/Chat/' + loginData.userName + '/' + uuid).then(function (results) {
                 deferred.resolve(results);
             });
         } else ($location.path('/login'));
@@ -47,7 +47,7 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
     chatServiceFactory.deleteChat = function (chat) {
         var deferred = $q.defer();
         chat.img = null;
-        $http.post("api/Chat/delete", chat).then(function (results) {
+        $http.post('api/Chat/delete', chat).then(function (results) {
             deferred.resolve(results);
         });
         return deferred.promise;
@@ -59,7 +59,7 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
         obj.chatId = chatId;
         obj.userName = userName;
 
-        $.post("api/user/ToChat", obj)
+        $.post('api/user/ToChat', obj)
             .done(function (result) {
                 deferred.resolve(result);
             });
@@ -70,7 +70,7 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
         var deferred = $q.defer();
 
         var uuid = guid();
-        //$.get("api/Messages/" + chatId, uuid).then(function (results) {
+        //$.get('api/Messages/' + chatId, uuid).then(function (results) {
         //    deferred.resolve(results);
         //});
         return deferred.promise;
@@ -80,13 +80,13 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
         var deferred = $q.defer();
         var uuid = guid();
         if (!username) {
-            username = localStorageService.get("authorizationData").userName;
+            username = localStorageService.get('authorizationData').userName;
         }
         var request = {
             chatId: chatId,
             username: username
         };
-        $.post("api/Chat/quit/", request).then(function (results) {
+        $.post('api/Chat/quit/', request).then(function (results) {
             deferred.resolve(results);
         });
         return deferred.promise;
@@ -95,7 +95,7 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
     chatServiceFactory.uploadFile = function (data, userName) {
         var deferred = $q.defer();
 
-        $http.post("api/user/FileUpload/", JSON.stringify({ photo: data, userName: userName }))
+        $http.post('api/user/FileUpload/', JSON.stringify({ photo: data, userName: userName }))
             .success(function () {
                 deferred.resolve();
             });
@@ -105,7 +105,7 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
     chatServiceFactory.makeFavourite = function (id) {
         var deferred = $q.defer();
 
-        $.post("api/Messages/" + id).done(function (results) {
+        $.post('api/Messages/' + id).done(function (results) {
             deferred.resolve(results);
         });
         return deferred.promise;

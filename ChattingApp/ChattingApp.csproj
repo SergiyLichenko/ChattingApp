@@ -56,7 +56,6 @@
     <Content Include="AngularPart\Controllers\chatController.js" />
     <Content Include="AngularPart\Controllers\createChatModalController.js" />
     <Content Include="AngularPart\Controllers\editChatController.js" />
-    <Content Include="AngularPart\Controllers\homeController.js" />
     <Content Include="AngularPart\Controllers\joinChatModalController.js" />
     <Content Include="AngularPart\Controllers\logInController.js" />
     <Content Include="AngularPart\Controllers\modalController.js" />
@@ -72,10 +71,8 @@
     <Content Include="AngularPart\Services\chatService.js" />
     <Content Include="AngularPart\Services\messageHubService.js" />
     <Content Include="AngularPart\Services\userService.js" />
-    <Content Include="AngularPart\Views\association.html" />
-    <Content Include="AngularPart\Views\authComplete.html" />
+    <Content Include="AngularPart\Views\404.html" />
     <Content Include="AngularPart\Views\editChat.html" />
-    <Content Include="AngularPart\Views\modal.html" />
     <Content Include="AngularPart\Views\modalCreateChat.html" />
     <Content Include="AngularPart\Views\modalJoinChat.html" />
     <Content Include="AngularPart\Views\profile.html" />
@@ -90,6 +87,7 @@
     <Content Include="Content\Default.png" />
     <Content Include="Content\Delete.png" />
     <Content Include="Content\Edit.jpg" />
+    <Content Include="Content\icon.ico" />
     <Content Include="Content\images\8135396351_3a190384a7_h.jpg" />
     <Content Include="Content\images\HelloWorld.png" />
     <Content Include="Content\images\new_york_manhattan_skyscrapers_central_park_30747_3840x2160.jpg" />
@@ -932,7 +930,6 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="AngularPart\Views\home.html" />
     <Content Include="AngularPart\Views\logIn.html" />
     <Content Include="AngularPart\Views\signUp.html" />
     <Content Include="Content\css\bootstrap-theme.css.map" />

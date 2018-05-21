@@ -1,11 +1,11 @@
 ﻿'use strict';
 
 
-app.directive("compareTo", function () {
+app.directive('compareTo', function () {
     return {
-        require: "ngModel",
+        require: 'ngModel',
         scope: {
-            otherModelValue: "=compareTo"
+            otherModelValue: '=compareTo'
         },
         link: function (scope, element, attributes, ngModel) {
 
@@ -13,7 +13,7 @@ app.directive("compareTo", function () {
                 return modelValue === scope.otherModelValue.$modelValue;
             };
 
-            scope.$watch("otherModelValue", function () {
+            scope.$watch('otherModelValue', function () {
                 ngModel.$validate();
             });
         }
