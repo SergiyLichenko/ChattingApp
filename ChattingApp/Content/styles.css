@@ -188,3 +188,56 @@ md-nav-bar button {
 .create-chat-img {
     width: 200px;
 }
+
+.edit-chat-image-picker {
+    margin-top: 15px;
+    color: white
+}
+
+.dark-grey-border {
+    border-left: 5px solid darkgrey;
+}
+
+.blue-border {
+    border-left: 5px solid #64b5f6;
+}
+
+.edit-chat-image {
+    width: 200px;
+}
+
+.edit-chat-table td {
+    padding-left: 40px;
+    padding-top: 20px;
+}
+
+.edit-chat-text-identation {
+    margin-left: 10px;
+}
+
+.edit-chat-input-identation {
+    width: 95%;
+    font-size: 18px;
+}
+
+.edit-chat-delete-user-btn {
+    float: left;
+    font-size: 18px;
+    margin-left: 23px;
+}
+
+.edit-chat-footer {
+    margin-top: 100px;
+}
+
+.edit-chat-footer button {
+    font-size: 18px;
+}
+
+.dark-grey {
+    background-color: darkgrey !important;
+}
+
+.blue {
+    background-color: #64b5f6 !important;
+}
