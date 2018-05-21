@@ -7,11 +7,15 @@
     padding-top: 10px;
 }
 
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
+    min-height: 972px;
     padding-left: 50px;
     background-color: #2b3d4f !important;
-    margin-left: 20px !important;
-    margin-right: 20px !important;
 }
 
 .auth-div {
@@ -28,8 +32,9 @@ body {
 }
 
 .chat-list {
-    overflow-y: scroll;
-    height: -webkit-fill-available;
+    overflow-y: auto;
+    min-height: 95%;
+    height: 95%;
 }
 
 .last-message-time {
@@ -50,4 +55,116 @@ body {
 .image-list-item {
     height: 60px !important;
     width: 60px !important;
+}
+
+.menu-icon {
+    z-index: 1000;
+}
+
+.chat-header {
+    background-color: #0c2136;
+    height: 18%;
+}
+
+.members-text {
+    margin-top: -10px;
+}
+
+.chat-image-header {
+    width: 80px;
+    height: 80px;
+}
+
+ul {
+    list-style: none;
+}
+
+.glyph-size {
+    font-size: 25px;
+}
+
+.message-title {
+    margin-left: 20px;
+    margin-top: -8px;
+}
+
+.message-text {
+    resize: none;
+    height: auto;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.message-action-img {
+    height: 20px;
+    width: 20px;
+}
+
+.message-action-btn {
+    margin-left: 0px !important;
+    padding-left: 0px !important;
+    margin-right: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    margin-top: 5px !important;
+}
+
+.message-list {
+    overflow-y: auto;
+    height: 67%;
+}
+
+.input-box {
+    background-color: #0c2136;
+    height: 15%;
+}
+
+.chat-scope {
+    height: 100%;
+}
+
+.app-view {
+    height: 95%;
+}
+
+.nav-bar {
+    height: 5%;
+}
+
+.text-center h3 {
+    margin-top: 0px;
+}
+
+.input-box-img {
+    height: 100px;
+    width: 100px;
+}
+
+.input-row {
+    padding-top: 10px;
+    padding-left: 10px;
+    position: relative
+}
+
+.input-box-text {
+    width: 100%;
+    resize: none;
+}
+
+.input-box-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.menu-item {
+    margin-top: 4px;
+}
+
+md-nav-bar button {
+    padding-top: 0px !important;
 }

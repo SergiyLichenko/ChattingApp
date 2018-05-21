@@ -11,4 +11,6 @@ function ($scope, $state, authService, localStorageService) {
     $scope.isLoggedIn = function () {
         return !!localStorageService.get('authorizationData');
     }
+
+    $scope.currentNavItem = "logOut";
 }]);

@@ -16,7 +16,7 @@ app.factory('messageHubService',
                 }
             });
 
-            var post = function(message) {
+            var post = function (message) {
                 hub.onMessageCreateAsync(message);
             }
 

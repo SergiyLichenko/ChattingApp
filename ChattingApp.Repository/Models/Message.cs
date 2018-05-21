@@ -9,7 +9,7 @@ namespace ChattingApp.Repository.Models
         public DateTime CreateDate { get; set; }
         public bool IsFavourite { get; set; }
         public bool IsModified { get; set; }
-        public ApplicationUser Author { get; set; }
+        public string AuthorId { get; set; }
         public Chat Chat { get; set; }
     }
 }

@@ -6,6 +6,8 @@ app.controller('ChatController',
 
             $rootScope.$on('onSelectChat', function (event, selectedChat) {
                 $scope.selectedChat = selectedChat;
+                for (var message of $scope.selectedChat.messages)
+                    message.author = $scope.getAuthor($scope.selectedChat, message.authorId);
             });
 
             $rootScope.$on('onMessageCreateAsync', function (event, message) {
@@ -17,12 +19,16 @@ app.controller('ChatController',
                 var message = {
                     text: messageText,
                     chat: $scope.selectedChat,
-                    author: $scope.currentUser
+                    authorId: $scope.currentUser.id
                 };
                 messageHubService.post(message);
             };
 
-            
+            $scope.getAuthor = function (chat, authorId) {
+                var authorIndex = $scope.selectedChat.users.findIndex(x => x.id === authorId);
+                if (authorIndex === -1) return null;
+                return $scope.selectedChat.users[authorIndex];
+            }
         }
     ]);
 
