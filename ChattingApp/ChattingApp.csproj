@@ -53,15 +53,14 @@
   <ItemGroup>
     <Content Include="AngularPart\app.js" />
     <Content Include="AngularPart\cgBusyDefaults.js" />
-    <Content Include="AngularPart\Controllers\associateController.js" />
     <Content Include="AngularPart\Controllers\chatController.js" />
     <Content Include="AngularPart\Controllers\createChatModalController.js" />
     <Content Include="AngularPart\Controllers\editChatController.js" />
     <Content Include="AngularPart\Controllers\homeController.js" />
-    <Content Include="AngularPart\Controllers\indexController.js" />
     <Content Include="AngularPart\Controllers\joinChatModalController.js" />
     <Content Include="AngularPart\Controllers\logInController.js" />
     <Content Include="AngularPart\Controllers\modalController.js" />
+    <Content Include="AngularPart\Controllers\navbarController.js" />
     <Content Include="AngularPart\Controllers\profileController.js" />
     <Content Include="AngularPart\Controllers\signUpController.js" />
     <Content Include="AngularPart\directives\comparePassword.js" />
@@ -84,6 +83,8 @@
     <Content Include="Content\angular-busy.min.css" />
     <Content Include="Content\css\angular-busy.css" />
     <Content Include="Content\css\angular-busy.min.css" />
+    <Content Include="Content\css\angular-material-min.css" />
+    <Content Include="Content\css\bootstrap.ng.min.css" />
     <Content Include="Content\css\PagesAnimation.css" />
     <Content Include="Content\css\SocialButtons.css" />
     <Content Include="Content\Default.png" />
@@ -859,6 +860,7 @@
     <Content Include="Content\modules\jquery\package.json" />
     <Content Include="Content\modules\jquery\README.md" />
     <Content Include="Content\modules\jquery\src\.eslintrc" />
+    <Content Include="Content\styles.css" />
     <Content Include="less\.csslintrc" />
     <Content Include="less\bootstrap-material-design.less" />
     <Content Include="less\plugins\_plugin-dropdownjs.less" />
@@ -893,11 +895,14 @@
     <Content Include="less\_typography.less" />
     <Content Include="less\_variables.less" />
     <Content Include="less\_welljumbo.less" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-aria.min.js" />
     <Content Include="Scripts\angular-busy.js" />
-    <None Include="Content\main1.scss" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\chatmy.pubxml" />
     <Content Include="Scripts\angular-local-storage.js" />
+    <Content Include="Scripts\angular-material.min.js" />
+    <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-signalr-hub.js" />
     <Content Include="Scripts\angular-signalr-hub.min.js" />
@@ -938,7 +943,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\Prettify\run_prettify.js" />
-    <Content Include="Content\css\main.css" />
     <Content Include="Content\images\New+York.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>

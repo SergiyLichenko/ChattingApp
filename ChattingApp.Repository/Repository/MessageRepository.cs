@@ -12,11 +12,14 @@ namespace ChattingApp.Repository.Repository
     {
         private readonly IAuthContext _authContext;
         private readonly IChatRepository _chatRepository;
+        private readonly IUserRepository _userRepository;
 
         public MessageRepository(IAuthContext authContext,
+            IUserRepository userRepository,
             IChatRepository chatRepository)
         {
             _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _chatRepository = chatRepository ?? throw new ArgumentNullException(nameof(chatRepository));
         }
 
@@ -26,6 +29,7 @@ namespace ChattingApp.Repository.Repository
 
             message.CreateDate = DateTime.Now;
             message.Chat = await _chatRepository.GetByIdAsync(message.Chat.Id);
+            message.Author = await _userRepository.GetByIdAsync(message.Author.Id);
             _authContext.Messages.Add(message);
 
             await _authContext.SaveChangesAsync();

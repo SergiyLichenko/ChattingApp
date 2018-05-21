@@ -1,0 +1,53 @@
+﻿.hoverwell:hover {
+    background-color: #485563 !important;
+    cursor: pointer;
+}
+
+.container {
+    padding-top: 10px;
+}
+
+body {
+    padding-left: 50px;
+    background-color: #2b3d4f !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+}
+
+.auth-div {
+    margin-top: 50px;
+}
+
+.nav-btn {
+    margin-right: 10px;
+}
+
+.chatting-app-menu {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.chat-list {
+    overflow-y: scroll;
+    height: -webkit-fill-available;
+}
+
+.last-message-time {
+    font-size: 10px;
+    line-height: 20px !important;
+}
+
+.chat-list-item-title {
+    color: white !important;
+    font-weight: bold;
+}
+
+.chat-list-item-text {
+    color: grey !important;
+    padding-right: 20px;
+}
+
+.image-list-item {
+    height: 60px !important;
+    width: 60px !important;
+}

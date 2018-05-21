@@ -17,10 +17,12 @@ app.controller('ChatController',
                 var message = {
                     text: messageText,
                     chat: $scope.selectedChat,
-                    authorId: $scope.currentUser.id
+                    author: $scope.currentUser
                 };
                 messageHubService.post(message);
             };
+
+            
         }
     ]);
 
