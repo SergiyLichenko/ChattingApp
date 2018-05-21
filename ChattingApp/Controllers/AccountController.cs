@@ -18,7 +18,7 @@ namespace ChattingApp.Controllers
         [Route("signUp")]
         public IHttpActionResult Register(UserViewModel userModel)
         {
-            if (userModel == null) return BadRequest("User info cannot be null");
+            if (userModel == null) return BadRequest("Author info cannot be null");
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             _userService.Add(userModel);

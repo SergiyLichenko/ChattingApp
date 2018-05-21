@@ -15,6 +15,9 @@ app.factory('chatService', ['$location', '$http', 'localStorageService', '$q', f
         return $http.put("api/chat/", chat);
     };
 
+    chatServiceFactory.getById = function(id) {
+        return $http.get('api/chat/' + id);
+    }
 
 
 

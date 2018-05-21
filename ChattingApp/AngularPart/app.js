@@ -1,9 +1,10 @@
 ﻿var app = angular.module("ChattingApp",
-    ["LocalStorageModule",
+    [ "LocalStorageModule",
         "ui.bootstrap",
         "ui.router",
         "validation.match",
         "cgBusy",
+        "SignalR",
         "ngFileUpload"]);
 //, "", 'ngSanitize',
 //    '', '', '', '', '', 'ng.httpLoader']);
@@ -31,16 +32,9 @@ app.config(['$stateProvider', function ($stateProvider) {
         .state('chat', {
             url: '/chat',
             reloadOnSearch: true,
-            controller: 'ChatController',
+            controller: 'ChatListController',
             templateUrl: 'AngularPart/Views/chat.html',
-            navbarState: 'chat',
-            resolve: {
-                chats: function (chatService) {
-                    return chatService.getAll().then(function (result) {
-                        return result.data;
-                    });
-                }
-            }
+            navbarState: 'chat'
         })
         .state('associate', {
             url: '/associate',

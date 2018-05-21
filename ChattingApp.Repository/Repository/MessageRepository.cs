@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 
@@ -9,12 +10,35 @@ namespace ChattingApp.Repository.Repository
 {
     public class MessageRepository : IMessageRepository
     {
-        private AuthContext _context;
-        private static readonly object _lock = new object();
-        public MessageRepository(AuthContext context)
+        private readonly IAuthContext _authContext;
+        private readonly IChatRepository _chatRepository;
+
+        public MessageRepository(IAuthContext authContext,
+            IChatRepository chatRepository)
         {
-            _context = (AuthContext)context;
+            _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
+            _chatRepository = chatRepository ?? throw new ArgumentNullException(nameof(chatRepository));
         }
+
+        public async Task AddAsync(Message message)
+        {
+            if (message == null) throw new ArgumentNullException(nameof(message));
+
+            message.CreateDate = DateTime.Now;
+            message.Chat = await _chatRepository.GetByIdAsync(message.Chat.Id);
+            _authContext.Messages.Add(message);
+
+            await _authContext.SaveChangesAsync();
+        }
+
+
+
+
+
+
+
+
+
 
         public void Dispose()
         {
@@ -30,19 +54,19 @@ namespace ChattingApp.Repository.Repository
         {
             try
             {
-                lock (_lock)
+                // lock (_lock)
                 {
-                    var toDelete = _context.Messages.Include("Chat").
+                    var toDelete = _authContext.Messages.Include("Chat").
                             SingleOrDefault(x => x.Id.Equals(message.Id));
                     if (toDelete == null)
                     {
-                        message.Chat = _context.Chats.Single(x => x.Id == message.Chat.Id);
+                        message.Chat = _authContext.Chats.Single(x => x.Id == message.Chat.Id);
                         return message;
                     }
-                    //var deleted = _context.Messages.RemoveRange(new [] {toDelete });
+                    //var deleted = _authContext.Messages.RemoveRange(new [] {toDelete });
 
-                    _context.SaveChanges();
-                //    return deleted.Single();
+                    _authContext.SaveChangesAsync();
+                    //    return deleted.Single();
                 }
             }
             catch (Exception)
@@ -56,14 +80,14 @@ namespace ChattingApp.Repository.Repository
         {
             try
             {
-                lock (_lock)
+                // lock (_lock)
                 {
-                    var message = _context.Messages.Include("Chat").
+                    var message = _authContext.Messages.Include("Chat").
                         Single(x => x.Id.ToString().Equals(instance.Id.ToString()));
-                    message.Chat = _context.Chats.Include("Users").Single(x => x.Id == message.Chat.Id);
-                    message.User = _context.Users.Single(x => x.UserName == instance.User.UserName);
+                    message.Chat = _authContext.Chats.Include("Users").Single(x => x.Id == message.Chat.Id);
+                    //  message.Author = _authContext.Users.Single(x => x.UserName == instance.Author.UserName);
                     message.Text = instance.Text;
-                    _context.SaveChanges();
+                    _authContext.SaveChangesAsync();
                     return message;
                 }
             }
@@ -77,18 +101,18 @@ namespace ChattingApp.Repository.Repository
         {
             try
             {
-                lock (_lock)
+                //lock (_lock)
                 {
-                    var user = _context.Users.SingleOrDefault(x => x.UserName.Equals(instance.User.UserName));
-                    var chat = _context.Chats.Include("Users").SingleOrDefault(x => x.Id.ToString().Equals(instance.Chat.Id.ToString()));
-                    if (user == null || chat == null || !chat.Users.Contains(user))
-                        throw new Exception("Error");
+                    // var user = _authContext.Users.SingleOrDefault(x => x.UserName.Equals(instance.Author.UserName));
+                    var chat = _authContext.Chats.Include("Users").SingleOrDefault(x => x.Id.ToString().Equals(instance.Chat.Id.ToString()));
+                    //if (user == null || chat == null || !chat.Users.Contains(user))
+                    //    throw new Exception("Error");
 
-                    instance.User = user;
+                    //     instance.Author = user;
                     instance.Chat = chat;
-                    instance.UserId = new Guid(user.Id);
-                 //   _context.Messages.AddRange(new [] {instance });
-                    int count = _context.SaveChanges();
+                    // instance.UserId = new Guid(user.Id);
+                    //   _authContext.Messages.AddRange(new [] {instance });
+                    //     int count = _authContext.SaveChangesAsync();
                     return instance;
                 }
             }
@@ -102,9 +126,9 @@ namespace ChattingApp.Repository.Repository
         {
             try
             {
-                lock (_lock)
+                // lock (_lock)
                 {
-                    Message message = _context.Messages.Single(x => x.Id.ToString().Equals(id));
+                    Message message = _authContext.Messages.Single(x => x.Id.ToString().Equals(id));
                     return message;
                 }
             }
@@ -118,7 +142,7 @@ namespace ChattingApp.Repository.Repository
         {
             try
             {
-                _context.Messages.Find(id).IsFavourite = true;
+                _authContext.Messages.Find(id).IsFavourite = true;
                 return true;
             }
             catch (Exception)
@@ -132,11 +156,12 @@ namespace ChattingApp.Repository.Repository
         {
             try
             {
-                lock (_lock)
+                // lock (_lock)
                 {
-                    List<Message> messages = _context.Messages.Include("User").
-                        Include("Chat").Where(x => x.ChatId.ToString().Equals(id)).ToList();
-                    return messages;
+                    //List<Message> messages = _authContext.Messages.Include("Author").
+                    //    Include("Chat").Where(x => x.ChatId.ToString().Equals(id)).ToList();
+                    //return messages;
+                    return null;
                 }
             }
             catch (Exception)

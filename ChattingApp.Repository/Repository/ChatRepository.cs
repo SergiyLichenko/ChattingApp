@@ -25,10 +25,12 @@ namespace ChattingApp.Repository.Repository
         public async Task<List<Chat>> GetAllAsync() =>
             await _authContext.Chats.Include(x => x.Users).ToListAsync();
 
-        public Task<Chat> GetByIdAsync(int id)
+        public async Task<Chat> GetByIdAsync(int id)
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
-            return _authContext.Chats.Include(x => x.Users)
+
+            return await _authContext.Chats.Include(x => x.Users)
+                .Include(x => x.Messages)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -57,7 +59,7 @@ namespace ChattingApp.Repository.Repository
             var deletedUsers = chatEntity.Users
                 .Except(chat.Users, user => user.Id).ToList();
             var addedUsers = chat.Users.Except(chatEntity.Users, x => x.Id).ToList();
-            
+
             _authContext.Entry(chatEntity).CurrentValues.SetValues(chat);
 
             foreach (var user in deletedUsers)

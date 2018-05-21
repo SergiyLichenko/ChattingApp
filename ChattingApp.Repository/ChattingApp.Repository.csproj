@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AuthContext.cs" />
+    <Compile Include="Helpers\ApplicationUserStore.cs" />
     <Compile Include="Helpers\EncryptPassword.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="IAuthContext.cs" />

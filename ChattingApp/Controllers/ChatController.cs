@@ -50,10 +50,12 @@ namespace ChattingApp.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(string id)
+        public async Task<IHttpActionResult> GetAsync([FromUri] int id)
         {
-            List<ChatViewModel> chats = _chatService.GetAllChats(id);
-            return Request.CreateResponse(HttpStatusCode.OK, chats);
+            if (id < 0) return BadRequest("Id cannot be negative");
+
+            var chat = await _chatRepository.GetByIdAsync(id);
+            return Ok(chat);
         }
 
 

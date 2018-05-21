@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using System.Web.Http;
-using System.Web.Http.Dependencies;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
@@ -9,10 +8,10 @@ using ChattingApp;
 using ChattingApp.Providers;
 using ChattingApp.Repository;
 using ChattingApp.Repository.Interfaces;
-using ChattingApp.Repository.Repository;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using Owin;
 
 [assembly: OwinStartup(typeof(StartUp))]
@@ -33,7 +32,10 @@ namespace ChattingApp
             };
 
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
+            {
+                Provider = new QueryStringOAuthBearerProvider()
+            });
         }
 
         public void Configuration(IAppBuilder app)
@@ -41,15 +43,20 @@ namespace ChattingApp
             var config = new HttpConfiguration();
 
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AuthContext>());
-            AutofacConfig.Register(config);
+
             AutoMapperConfig.Register();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             WebApiConfig.Register(config);
+            AutofacConfig.Register(config);
             ConfigureOAuth(app, config);
 
+            app.MapSignalR("/api/message", new HubConfiguration());
+            GlobalHost.HubPipeline.RequireAuthentication();
+            GlobalHost.DependencyResolver.Register(typeof(JsonSerializer),
+                () => new JsonSerializer() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.MapSignalR("/signalr", new HubConfiguration());
             app.UseWebApi(config);
 
             config.SuppressDefaultHostAuthentication();

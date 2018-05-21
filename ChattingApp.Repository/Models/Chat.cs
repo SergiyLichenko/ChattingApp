@@ -11,5 +11,6 @@ namespace ChattingApp.Repository.Models
         public string Img { get; set; }
         public string AuthorId { get; set; }
         public ICollection<ApplicationUser> Users { get; set; }
+        public ICollection<Message> Messages { get; set; }
     }
 }

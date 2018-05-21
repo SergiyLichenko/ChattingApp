@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using Microsoft.AspNet.Identity;
@@ -18,7 +19,7 @@ namespace ChattingApp.Repository.Repository
         public UserRepository(IAuthContext authContext)
         {
             _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
-            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>((AuthContext)authContext));
+            _userManager = new UserManager<ApplicationUser>(new ApplicationUserStore((AuthContext)authContext));
         }
 
         public async Task<ApplicationUser> GetByIdAsync(string id)
@@ -27,6 +28,16 @@ namespace ChattingApp.Repository.Repository
             
             return await _userManager.FindByIdAsync(id);
         }
+
+
+
+
+
+
+
+
+
+
 
         public ApplicationUser Remove(ApplicationUser instance)
         {

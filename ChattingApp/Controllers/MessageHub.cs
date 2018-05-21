@@ -13,7 +13,7 @@ using AuthorizeAttribute = System.Web.Mvc.AuthorizeAttribute;
 namespace ChattingApp.Controllers
 {
 
-    public class MessageHub : Hub
+   /* public class MessageHub : Hub
     {
         private IMessageService _messageService;
         private IChatService _chatService;
@@ -167,5 +167,5 @@ namespace ChattingApp.Controllers
                 }
             }
         }
-    }
+    } */
 }

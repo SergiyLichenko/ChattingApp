@@ -83,7 +83,7 @@ namespace ChattingApp.Service
             {
                 Message message = _mappingService.Map<MessageViewModel, Message>(instance);
                 message.CreateDate = DateTime.Now;
-                message.Id = Guid.NewGuid();
+                //message.Id = Guid.NewGuid();
                 message.IsModified = false;
                 Message result = _messageRepository.Add(message);
                 return _mappingService.Map<Message, MessageViewModel>(result);

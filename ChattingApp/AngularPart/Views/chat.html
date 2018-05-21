@@ -1,14 +1,6 @@
-﻿<div style="margin-top: -50px">
-    <button id="logout-btn" class="btn btn-raised btn-primary" style="float: right; margin-right: 1%"
-            data-ng-click="logOut()">
-        LogOut
-    </button>
-</div>
-<br />
-<br />
-<div class="busyPromise" cg-busy="busyPromise"  id="Chats" style="height: 100%; ">
-    <div class="ui chat">
-        <div class="left-menu" style="height: 100%;">
+﻿<div class="busyPromise" cg-busy="busyPromise">
+    <div class="col-md-3">
+        <div>
             <div class="btn-group" style="width: 100%" uib-dropdown is-open="status.isopen">
                 <button id="single-button" type="button" style="width: 100%" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
                     Smart chat <span class="caret"></span>
@@ -26,7 +18,7 @@
                             Create chat
                         </button>
                     </li>
-                    <li role="menuitem" style="width: 100%;  margin-top: 3px">
+                    <li role="menuitem" style="width: 100%; margin-top: 3px">
                         <button id="chats-btn" style="width: 100%" class="btn btn-info"
                                 ng-click="open('lg', getCurrentUsername())">
                             My Profile
@@ -34,51 +26,72 @@
                     </li>
                 </ul>
             </div>
-
-            <ul class="list-friends" style="width: 100%; overflow-y: hidden; height: 100%;">
-                <li data-ng-click="getMessagesForChat(item)" data-ng-repeat="item in chats">
-                    <img width="100" height="100" ng-src="{{item.img}}">
-                    <div class="info">
-                        <!-- TODO class user -> class chat -->
-                        <div class="user">{{item.title}}</div>
-                        <div class="status on"> {{item.createDate}}</div>
-                    </div>
-                </li>
-            </ul>
+            <div>
+                <ul class="list-friends" style="width: 100%; overflow-y: hidden; height: 100%;">
+                    <li data-ng-click="selectChat(item)" data-ng-repeat="item in currentUser.chats">
+                        <img width="100" height="100" ng-src="{{item.img}}">
+                        <div class="info">
+                            <div class="user">{{item.title}}</div>
+                            <div class="status on"> {{item.createDate | date : short}}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="chat"  style="height: 100%">
-            <img ng-show="currentChat.chat.id" class="img-circle" width="100" height="100" ng-src="{{currentChat.chat.img}}">
-            <button  class="btn btn-raised btn-success" style="float: right; margin-right: 20px; margin-top: 20px"
-                    ng-show="currentChat.chat.authorName === getCurrentUsername()"
-                    ng-click="deleteChat(currentChat.chat)">
-                Delete chat
-            </button><br />
-            <button id="login-btn" class="btn btn-raised btn-success" style="float: right; clear: right; margin-right: 20px; margin-top: 20px"
-                    ng-show="currentChat.chat.id"
-                    ng-click="quitChat(currentChat.chat)">
-                Quit chat
-            </button>
-            <button data-ng-controller="ModalController as $ctrl"
-                    class="btn btn-raised btn-success"
-                    style="float: right; clear: right; margin-right: 20px; margin-top: 20px"
-                    ng-show="currentChat.chat.id"
-                    ng-click="$ctrl.openEditChatModal(currentChat.chat)">
-                Edit chat
-            </button>
-            <div class="top" style="margin-top: 30px; height: 5%">
-                <div class="info">
-                    <div ng-show="currentChat.chat.id" class="name">{{currentChat.chat.title}}</div>
-                    <div ng-show="currentChat.chat.id && currentChat.countAll > 1" class="count">already {{currentChat.countAll}} messages</div>
+    </div>
+    <div data-ng-controller="ChatController" class="col-md-9">
+        <div class="row">
+            <div ng-if="selectedChat.id">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <b>{{selectedChat.title}}</b>
+                        </div>
+                    </div>
                 </div>
-                <div class="info">
-                    <div>
-                        <div ng-show="currentChat.chat.id" class="name">Users {{currentChat.usersCount}}</div>
+                <div class="row" style="margin-top: 5px">
+                    <div class="col-md-12">
+                        <div class="name">
+                            {{selectedChat.users.length}} members
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 col-md-offset-9">
+                        <img style="margin-top: 20px;" class="img-circle" width="100" height="100" ng-src="{{selectedChat.img}}">
+                    </div>
+                    <div class="col-md-2">
+                        <div>
+                            <button class="btn btn-raised btn-success"
+                                    ng-if="selectedChat.authorId === currentUser.id"
+                                    style="margin-top: 10px; width: 100px;"
+                                    ng-click="deleteChat(selectedChat)">
+                                Delete chat
+                            </button>
+                        </div>
+                        <div>
+                            <button id="login-btn" class="btn btn-raised btn-success"
+                                    style="margin-top: 10px; width: 100px;"
+                                    ng-click="quitChat(selectedChat)">
+                                Quit chat
+                            </button>
+                        </div>
+                        <div>
+                            <button data-ng-controller="ModalController as $ctrl"
+                                    class="btn btn-raised btn-success"
+                                    style="margin-top: 10px; width: 100px;"
+                                    ng-click="$ctrl.openEditChatModal(selectedChat)">
+                                Edit chat
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div style="height: 60%" class="busyPromise" cg-busy="messagesBusyPromise">
-                <ul class="messages" style="height: 55%;" scroll="currentChat.messages">
-                    <li data-ng-class="getClass($index)" data-ng-repeat="message in currentChat.messages">
+        </div>
+        <div class="row">
+            <div>
+                <ul class="messages" scroll="selectedChat.messages">
+                    <li data-ng-class="getClass($index)" data-ng-repeat="message in selectedChat.messages">
                         <div ng-if="message.user.userName=== getCurrentUsername()">
                             <div style="float: right; display: inline-block;">
                                 <div class="head">
@@ -101,7 +114,7 @@
                                     <div class="message" ng-bind-html="message.text"
                                          style="display: inline-block; min-width: 300px; white-space: pre; text-align: left;">
                                     </div>
-                                    <div style="display: inline-block;  margin-top: 17px; float: left; padding-right: 20px">
+                                    <div style="display: inline-block; margin-top: 17px; float: left; padding-right: 20px">
                                         <img data-ng-controller="ProfileController"
                                              ng-click="open('lg', message.user.userName)"
                                              class="img-circle" height="75" width="75"
@@ -157,23 +170,30 @@
                             </div>
                         </div>
                         <!--<span data-ng-click="commentMessage(message)" style="float: left;" class="time">Comment</span>
-                        <span data-ng-click="makeFavourite(message)" style="float: left;" class="time">Favourite</span>-->
+                <span data-ng-click="makeFavourite(message)" style="float: left;" class="time">Favourite</span>-->
                     </li>
                 </ul>
-                <div>
-                    <img class="img-circle" style="margin-left: 7%; margin-top: 10px;" height="125" width="125"
-                         ng-if="!angular.isUndefined(getCurrentUsernamePhoto())"
-                         ng-src="{{getCurrentUsernamePhoto()}}" />
-                    <div class="form-group label-static left-chat-form"
-                         style="margin-right: 20%; margin-left: 20%; margin-bottom: 50px">
-                        <button class="btn btn-raised btn-success"
-                                style="float: right; margin-right: -25%; margin-top: 10%"
-                                ng-click="sendMessage()">
+            </div>
+        </div>
+        <div class="row">
+            <div cg-busy="messagesBusyPromise">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img class="img-circle" style="margin-left: 7%; margin-top: 10px;" height="125" width="125"
+                             ng-src="{{currentUser.img}}" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group label-static left-chat-form">
+                            <textarea style="height: 120px" class="form-control"
+                                      placeholder="Write a message"
+                                      ng-model="messageText"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-raised btn-success btn-lg"
+                                ng-click="sendMessage(messageText)">
                             Send Message
                         </button>
-                        <textarea style="height: 120px" class="form-control"
-                                  placeholder="Write a message"
-                                  ng-model="currentMessageText" />
                     </div>
                 </div>
             </div>

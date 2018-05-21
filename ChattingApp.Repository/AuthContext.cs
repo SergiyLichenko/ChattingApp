@@ -15,8 +15,18 @@ namespace ChattingApp.Repository
 
             modelBuilder.Entity<Chat>().HasKey(x => x.Id);
             modelBuilder.Entity<Chat>().HasMany(x => x.Users).WithMany(x => x.Chats);
-            
+            modelBuilder.Entity<Chat>().Property(x => x.CreateDate).IsRequired();
+            modelBuilder.Entity<Chat>().Property(x => x.AuthorId).IsRequired();
+            modelBuilder.Entity<Chat>().Property(x => x.Title).IsRequired();
+            modelBuilder.Entity<Chat>().HasMany(x => x.Messages).WithRequired(x => x.Chat);
+
             modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Chats).WithMany(x => x.Users);
+
+            modelBuilder.Entity<Message>().HasKey(x => x.Id);
+            modelBuilder.Entity<Message>().Property(x => x.Id).IsRequired();
+            modelBuilder.Entity<Message>().Property(x => x.CreateDate).IsRequired();
+            modelBuilder.Entity<Message>().Property(x => x.AuthorId).IsRequired();
+            modelBuilder.Entity<Message>().HasRequired(x => x.Chat).WithMany(x => x.Messages);
         }
     }
 }

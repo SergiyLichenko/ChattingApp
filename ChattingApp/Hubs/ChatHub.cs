@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
-namespace ChattingApp.Providers
+namespace ChattingApp.Hubs
 {
     public class ChatHub : Hub
     {
@@ -70,7 +70,7 @@ namespace ChattingApp.Providers
             Clients.Group("authenticated").OnMessage(userName, message);
 
             var excerpt = message.Length <= 3 ? message : message.Substring(0, 3) + "...";
-            Clients.Group("anonymous").OnMessage("[someone]", excerpt);
+          Clients.Group("anonymous").OnMessage("[someone]", excerpt);
         }
     }
 }
