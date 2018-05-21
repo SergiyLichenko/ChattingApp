@@ -57,6 +57,11 @@ body {
     width: 60px !important;
 }
 
+.join-chat-img {
+    height: 150px !important;
+    width: 150px !important;
+}
+
 .menu-icon {
     z-index: 1000;
 }
@@ -167,4 +172,14 @@ ul {
 
 md-nav-bar button {
     padding-top: 0px !important;
+}
+
+.modal-window {
+    max-height: 972px;
+}
+
+.join-chat-list {
+    width: 100%;
+    height: 750px;
+    overflow: auto;
 }
