@@ -1,0 +1,20 @@
+﻿<div class="modal-window">
+    <div class="modal-header text-center">
+        <h3 class="modal-title">Select your chat</h3>
+    </div>
+    
+    <md-list class="join-chat-list" >
+        <md-list-item data-ng-repeat="chat in chats" data-ng-click="ok(chat)">
+            <img ng-src="{{chat.img}}" class="md-avatar join-chat-img" alt="chat.title" />
+            <div class="md-list-item-text">
+                <h3 class="chat-list-item-title"> Name {{chat.title}} </h3>
+                <p> Creation Date </p>
+                <p> {{chat.createDate | date: short}} </p>
+            </div>
+        </md-list-item>
+    </md-list>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

@@ -24,6 +24,15 @@ namespace ChattingApp.Controllers
             return Ok(chats);
         }
 
+        [HttpGet]
+        public async Task<IHttpActionResult> GetByIdAsync([FromUri] int id)
+        {
+            if (id < 0) return BadRequest("Id cannot be negative");
+
+            var chat = await _chatRepository.GetByIdAsync(id);
+            return Ok(chat);
+        }
+
         [HttpPost]
         public async Task<IHttpActionResult> PostAsync(Chat chat)
         {
@@ -40,15 +49,6 @@ namespace ChattingApp.Controllers
 
             await _chatRepository.UpdateAsync(chat);
             return Ok();
-        }
-
-        [HttpGet]
-        public async Task<IHttpActionResult> GetAsync([FromUri] int id)
-        {
-            if (id < 0) return BadRequest("Id cannot be negative");
-
-            var chat = await _chatRepository.GetByIdAsync(id);
-            return Ok(chat);
         }
 
         [HttpDelete]

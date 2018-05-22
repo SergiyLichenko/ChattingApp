@@ -40,21 +40,16 @@
   <ItemGroup>
     <Compile Include="AuthContext.cs" />
     <Compile Include="Helpers\ApplicationUserStore.cs" />
-    <Compile Include="Helpers\EncryptPassword.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Helpers\ImageResizer.cs" />
     <Compile Include="IAuthContext.cs" />
     <Compile Include="Interfaces\IChatRepository.cs" />
     <Compile Include="Interfaces\IMessageRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
-    <Compile Include="Models\ApplicationTypes.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Chat.cs" />
-    <Compile Include="Models\FavouriteMessage.cs" />
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\ReferrerMessage.cs" />
-    <Compile Include="Models\UserDomain.cs" />
+    <Compile Include="Domain\UserDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ChatRepository.cs" />
     <Compile Include="Repository\MessageRepository.cs" />

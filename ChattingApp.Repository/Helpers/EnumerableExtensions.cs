@@ -9,13 +9,16 @@ namespace ChattingApp.Repository.Helpers
         public static IEnumerable<T> Except<T, TKey>(this IEnumerable<T> items, IEnumerable<T> other,
             Func<T, TKey> getKey)
         {
-            return from item in items
-                join otherItem in other on getKey(item)
-                    equals getKey(otherItem) into tempItems
-                from temp in tempItems.DefaultIfEmpty()
-                where ReferenceEquals(null, temp) || temp.Equals(default(T))
-                select item;
+            if (items == null) throw new ArgumentNullException(nameof(items));
+            if (other == null) throw new ArgumentNullException(nameof(getKey));
+            if (getKey == null) throw new ArgumentNullException(nameof(getKey));
 
+            return items
+                .GroupJoin(other, getKey, getKey,
+                    (item, tempItems) => new { item, tempItems })
+                .SelectMany(t => t.tempItems.DefaultIfEmpty(), (t, temp) => new { t, temp })
+                .Where(t => ReferenceEquals(null, t.temp) || t.temp.Equals(default(T)))
+                .Select(t => t.t.item);
         }
     }
 }

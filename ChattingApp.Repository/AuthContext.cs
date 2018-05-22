@@ -9,6 +9,10 @@ namespace ChattingApp.Repository
         public IDbSet<Message> Messages { get; set; }
         public IDbSet<Chat> Chats { get; set; }
 
+        public AuthContext() : base("ChattingApp")
+        {
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

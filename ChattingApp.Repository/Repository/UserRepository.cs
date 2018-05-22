@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using ChattingApp.Repository.Domain;
 using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
@@ -13,12 +14,10 @@ namespace ChattingApp.Repository.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private UserManager<ApplicationUser> _userManager;
-        private IAuthContext _authContext;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public UserRepository(IAuthContext authContext)
         {
-            _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
             _userManager = new UserManager<ApplicationUser>(new ApplicationUserStore((AuthContext)authContext));
         }
 
@@ -65,12 +64,11 @@ namespace ChattingApp.Repository.Repository
 
         private string GetDefaultImage()
         {
-            var path = HttpContext.Current.Server.MapPath("~/Content/Default.png");
+            var path = HttpContext.Current.Server.MapPath("~/Content/images/default.png");
             var image = Image.FromFile(path);
             var imageString = ImageResizer.ImageToBase64(image, ImageFormat.Png);
             return imageString.Insert(0, "data:image/png;base64,");
         }
-
 
         public async Task<ApplicationUser> FindAsync(string userName, string password)
         {

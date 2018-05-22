@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Repository.Interfaces

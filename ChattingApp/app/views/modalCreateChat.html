@@ -1,0 +1,29 @@
+﻿<div class="modal-window container">
+    <div class="row">
+        <div class="modal-header text-center">
+            <h3 class="modal-title">Create new chat</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group label-static">
+            <span>Create chat</span>
+            <input type="text" class="form-control" placeholder="Title" ng-model="title" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group label-static">
+            <span>Select avatar</span>
+            <div>
+                <input type="file" ngf-select ng-model="file" ngf-pattern="'image/*'"
+                       ngf-accept="'image/*'" ngf-max-size="20MB"/><br />
+                <img class="create-chat-img" ngf-thumbnail="file" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row modal-footer">
+        <button class="btn btn-primary" type="button" ng-if="file && title" ng-click="ok()">Ok</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

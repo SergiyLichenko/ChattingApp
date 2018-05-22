@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using ChattingApp.Repository.Domain;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 
