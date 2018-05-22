@@ -6,7 +6,6 @@ using Autofac.Integration.WebApi;
 using ChattingApp.Repository;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Repository;
-using ChattingApp.Service;
 using Microsoft.AspNet.SignalR;
 
 namespace ChattingApp
@@ -26,10 +25,6 @@ namespace ChattingApp
             builder.RegisterType<MessageRepository>().As<IMessageRepository>();
             builder.RegisterType<ChatRepository>().As<IChatRepository>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();
-
-            builder.RegisterType<ChatService>().As<IChatService>();
-            builder.RegisterType<MessageService>().As<IMessageService>();
-            builder.RegisterType<MappingService>().As<IMappingService>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

@@ -4,16 +4,11 @@ using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Repository.Interfaces
 {
-    public interface IMessageRepository : IRepository<Message>
+    public interface IMessageRepository
     {
+        Task<Message> GetByIdAsync(int id);
         Task AddAsync(Message message);
-
-
-
-        Message Add(Message instance);
-        List<Message> GetAllMessagesFromChat(string id);
-        Message GetMessageById(string id);
-        bool MarkAsFavourite(string id);
-
+        Task UpdateAsync(Message message);
+        Task DeleteAsync(Message message);
     }
 }

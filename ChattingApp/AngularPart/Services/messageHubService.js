@@ -5,13 +5,19 @@ app.factory('messageHubService',
         function ($http, $rootScope, Hub, localStorageService) {
             var hub = new Hub('messageHub', {
                 rootPath: 'api/message',
-                methods: ['onMessageCreateAsync'],
+                methods: ['onMessageCreateAsync', 'onMessageUpdateAsync', 'onMessageDeleteAsync'],
                 queryParams: {
                     token: localStorageService.get('authorizationData').token
                 },
                 listeners: {
                     onMessageCreateAsync: function (message) {
                         $rootScope.$broadcast('onMessageCreateAsync', message);
+                    },
+                    onMessageUpdateAsync: function(message) {
+                        $rootScope.$broadcast('onMessageUpdateAsync', message);
+                    },
+                    onMessageDeleteAsync: function(message) {
+                        $rootScope.$broadcast('onMessageDeleteAsync', message);
                     }
                 }
             });
@@ -20,8 +26,18 @@ app.factory('messageHubService',
                 hub.onMessageCreateAsync(message);
             }
 
+            var update = function(message) {
+                hub.onMessageUpdateAsync(message);
+            }
+
+            var $delete = function(message) {
+                hub.onMessageDeleteAsync(message);
+            }
+
             return {
-                post: post
+                post: post,
+                update: update,
+                delete: $delete
             }
         }
     ]);

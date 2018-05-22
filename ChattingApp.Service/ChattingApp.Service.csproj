@@ -38,13 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ChatService.cs" />
-    <Compile Include="IChatService.cs" />
-    <Compile Include="IMappingService.cs" />
-    <Compile Include="IMessageService.cs" />
-    <Compile Include="IService.cs" />
-    <Compile Include="MappingService.cs" />
-    <Compile Include="MessageService.cs" />
     <Compile Include="Models\AddUserToChatControllerResponse.cs" />
     <Compile Include="Models\AddUserToChatHubRequest.cs" />
     <Compile Include="Models\AddUserToChatViewModel.cs" />

@@ -11,7 +11,7 @@
                         Join chat
                     </button>
                 </li>
-                <li class="menu-item" >
+                <li class="menu-item">
                     <button type="button" class="btn btn-info full-width"
                             ng-click="$ctrl.openCreateChatModal()">
                         Create chat
@@ -54,7 +54,7 @@
                     <md-button aria-label="menu" class="md-fab md-primary">
                         <span class="glyphicon glyphicon-remove"></span>
                     </md-button>
-                    <md-button ng-click="deleteChat(selectedChat)">
+                    <md-button ng-if="selectedChat.authorId === currentUser.id" ng-click="deleteChat(selectedChat.id)">
                         Delete chat
                     </md-button>
                     <md-button ng-click="quitChat(selectedChat)">
@@ -87,14 +87,14 @@
             </div>
         </div>
     </div>
-    <div class="message-list">
-        <ul scroll="selectedChat.messages">
-            <li data-ng-repeat="message in selectedChat.messages">
-                <md-card class="col-md-7" 
+    <div class="message-list" scroll-bottom="selectedChat.messages">
+        <ul>
+            <li data-ng-repeat="message in selectedChat.messages track by message.id">
+                <md-card class="col-md-7"
                          ng-class="{'col-md-offset-5': message.author.id === currentUser.id}">
                     <md-card-title class="row" ng-click="$ctrl.openProfileModal(message.author)" data-ng-controller="ModalController as $ctrl">
                         <md-card-title-media>
-                            <img class="md-avatar image-list-item" ng-src="{{message.author.img}}" 
+                            <img class="md-avatar image-list-item" ng-src="{{message.author.img}}"
                                  alt="message.author.userName" />
                         </md-card-title-media>
                         <md-card-title-text class="message-title">
@@ -103,7 +103,7 @@
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content class="row">
-                        <textarea ng-model="message.text" 
+                        <textarea ng-model="message.text"
                                   ng-readonly="!message.isEditable"
                                   rows="3"
                                   class="message-text col-md-12"
@@ -111,20 +111,20 @@
                         <md-card-actions ng-if="currentUser.id === message.authorId">
                             <md-button ng-if="message.isEditable" class="md-raised message-action-btn"
                                        ng-click="message.isEditable = false; message.text = message.textBefore">Cancel</md-button>
-                            <md-button ng-if="message.isEditable" 
+                            <md-button ng-if="message.isEditable"
                                        class="md-raised md-primary message-action-btn"
-                                       ng-click="message.isEditable = false">Ok</md-button>
+                                       ng-click="message.isEditable = false; updateMessage(message)">Ok</md-button>
                             <md-button class="md-icon-button pull-right message-action-btn">
                                 <img class="message-action-img"
                                      ng-click="deleteMessage(message)"
-                                     src="../../Content/Delete.png"/>
+                                     src="../../Content/Delete.png" />
                             </md-button>
                             <md-button class="md-icon-button pull-right message-action-btn">
                                 <img class="message-action-img"
                                      ng-if="!message.isEditable"
                                      ng-init="message.isEditable = false"
                                      ng-click="message.isEditable = !message.isEditable; message.textBefore = message.text;"
-                                     src="../../Content/Edit.jpg"/>
+                                     src="../../Content/Edit.jpg" />
                             </md-button>
                         </md-card-actions>
                     </md-card-content>
@@ -136,13 +136,14 @@
     <div class="input-box">
         <div cg-busy="messagesBusyPromise">
             <div class="row input-row">
-                <div class="col-md-2">
+                <div class="col-md-2" ng-click="$ctrl.openProfileModal(currentUser)" data-ng-controller="ModalController as $ctrl">
                     <img class="img-circle input-box-img"
                          ng-src="{{currentUser.img}}" />
                 </div>
                 <div class="col-md-8">
                     <div class="form-group label-static">
-                        <textarea class="form-control input-box-text"
+                        <textarea ng-keypress="onKeyPress($event)"
+                                  class="form-control input-box-text"
                                   placeholder="Write a message"
                                   rows="4"
                                   ng-model="messageText"></textarea>

@@ -54,6 +54,7 @@
     <Content Include="AngularPart\app.js" />
     <Content Include="AngularPart\cgBusyDefaults.js" />
     <Content Include="AngularPart\Controllers\chatController.js" />
+    <Content Include="AngularPart\Controllers\chatListController.js" />
     <Content Include="AngularPart\Controllers\createChatModalController.js" />
     <Content Include="AngularPart\Controllers\editChatController.js" />
     <Content Include="AngularPart\Controllers\joinChatModalController.js" />
@@ -64,7 +65,7 @@
     <Content Include="AngularPart\Controllers\signUpController.js" />
     <Content Include="AngularPart\directives\comparePassword.js" />
     <Content Include="AngularPart\directives\ngThumbs.js" />
-    <Content Include="AngularPart\directives\scroll.js" />
+    <Content Include="AngularPart\directives\scroll-bottom.js" />
     <Content Include="AngularPart\Services\authInterceptorService.js" />
     <Content Include="AngularPart\Services\authService.js" />
     <Content Include="AngularPart\Services\chatHubService.js" />
@@ -939,27 +940,23 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\Prettify\run_prettify.js" />
     <Content Include="Content\images\New+York.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutofacConfig.cs" />
-    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartUp.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Helpers\SignalRContractResolver.cs" />
     <Compile Include="Hubs\MessageHub.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MessageHub.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="Providers\QueryStringOAuthBearerProvider.cs" />
-    <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Helpers\QueryStringOAuthBearerProvider.cs" />
+    <Compile Include="Helpers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -980,10 +977,6 @@
       <Project>{dcb8c3b1-98c0-49fc-9833-17df6e80a57e}</Project>
       <Name>ChattingApp.Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ChattingApp.Service\ChattingApp.Service.csproj">
-      <Project>{85c348fb-1f32-43fd-a30a-65ab3a6e76c8}</Project>
-      <Name>ChattingApp.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -994,9 +987,6 @@
     </Reference>
     <Reference Include="Autofac.Integration.WebApi, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.WebApi2.4.1.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>

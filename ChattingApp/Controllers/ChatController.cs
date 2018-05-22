@@ -1,25 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
-using ChattingApp.Service;
-using ChattingApp.Service.Models;
 
 namespace ChattingApp.Controllers
 {
     [RoutePrefix("api/chat")]
     public class ChatController : ApiController
     {
-        private readonly IChatService _chatService;
         private readonly IChatRepository _chatRepository;
 
-        public ChatController(IChatService chatService, IChatRepository chatRepository)
+        public ChatController(IChatRepository chatRepository)
         {
-            _chatService = chatService ?? throw new ArgumentNullException(nameof(chatService));
             _chatRepository = chatRepository ?? throw new ArgumentNullException(nameof(chatRepository));
         }
 
@@ -58,43 +51,13 @@ namespace ChattingApp.Controllers
             return Ok(chat);
         }
 
-
-
-
-
-        [HttpPost]
-        [Route("quit")]
-        public HttpResponseMessage QuitChat(QuitChatRequest request)
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteAsync([FromBody] int id)
         {
-            if (String.IsNullOrEmpty(request.ChatId) || string.IsNullOrEmpty(request.Username))
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
-            }
-            bool result = _chatService.Quit(request.ChatId, request.Username);
+            if (id < 0) return BadRequest("Id cannot be negative");
 
-            if (result)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, true);
-            }
-
-            return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
-        }
-
-
-
-        [HttpPost]
-        [Route("delete")]
-        public HttpResponseMessage Delete(ChatViewModel chat)
-        {
-            if (chat.Id.ToString() != string.Empty && chat.AuthorName != null)
-            {
-                var removed = _chatService.Remove(chat);
-                if (chat != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK);
-                }
-            }
-            return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            await _chatRepository.DeleteAsync(id);
+            return Ok();
         }
     }
 }

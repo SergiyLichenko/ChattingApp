@@ -6,7 +6,7 @@ namespace ChattingApp.Repository.Interfaces
     {
        
         T Remove(T instance);
-        T UpdateAsync(T instance);
+       
         //bool AddAsync(T instance);
     }
 }
