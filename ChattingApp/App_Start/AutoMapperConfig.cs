@@ -10,14 +10,14 @@ namespace ChattingApp
         {
             Mapper.Initialize(config =>
             {
-                config.CreateMap<UserViewModel, ApplicationUser>()
+                config.CreateMap<UserDomain, ApplicationUser>()
                     .ForMember(src => src.PasswordHash, opts => opts.MapFrom(src => src.Password))
                     .ForMember(src => src.UserName, opts => opts.MapFrom(src => src.UserName))
                     .ForMember(src => src.Email, opts => opts.MapFrom(src => src.Email))
                     .ForMember(src => src.Img, opts => opts.MapFrom(src => src.Img))
                     .ForMember(src => src.Id, opts => opts.MapFrom(src => src.Id))
                     .ForAllOtherMembers(x => x.Ignore());
-                config.CreateMap<ApplicationUser, UserViewModel>()
+                config.CreateMap<ApplicationUser, UserDomain>()
                     .ForMember(src => src.UserName, opts => opts.MapFrom(src => src.UserName))
                     .ForMember(src => src.Email, opts => opts.MapFrom(src => src.Email))
                     .ForMember(src => src.Img, opts => opts.MapFrom(src => src.Img))

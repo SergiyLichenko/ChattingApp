@@ -7,7 +7,7 @@
     <div class="row">
         <div class="form-group label-static">
             <span>Create chat</span>
-            <input type="text" class="form-control" placeholder="Title" ng-model="chatTitle" />
+            <input type="text" class="form-control" placeholder="Title" ng-model="title" />
         </div>
     </div>
 
@@ -23,7 +23,7 @@
     </div>
 
     <div class="row modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">Ok</button>
+        <button class="btn btn-primary" type="button" ng-if="file && title" ng-click="$ctrl.ok()">Ok</button>
         <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
     </div>
 </div>

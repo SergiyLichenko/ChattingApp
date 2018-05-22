@@ -1,18 +1,19 @@
 ﻿'use strict';
 app.controller('ProfileModalController',
-    ['$scope', '$uibModal', '$state', 'userService', 'localStorageService', 'selectedUser', '$uibModalInstance', '$timeout',
-    function ($scope, $uibModal, $state, userService, localStorageService, selectedUser,
-        $uibModalInstance, $timeout) {
-        $scope.selectedUser = selectedUser;
+    ['$scope', 'userService', 'localStorageService', 'selectedUser', '$uibModalInstance',
+    function ($scope, userService, localStorageService, selectedUser, $uibModalInstance) {
+        $scope.selectedUser = angular.copy(selectedUser);
         $scope.currentUser = localStorageService.get('user');
         $scope.isReadonly = true;
 
         $scope.ok = function () {
-            $uibModalInstance.close();
+            userService.update($scope.selectedUser).then(function () {
+                $uibModalInstance.close();
+            });
         };
 
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss();
         };
 
         $scope.processImage = function (image) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Service.Models
 {
@@ -19,6 +20,6 @@ namespace ChattingApp.Service.Models
         [DataMember]
         public string text { get; set; }
         [DataMember]
-        public UserViewModel user { get; set; }
+        public UserDomain user { get; set; }
     }
 }

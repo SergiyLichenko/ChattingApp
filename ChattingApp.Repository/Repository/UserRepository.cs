@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ChattingApp.Repository.Repository
 {
@@ -25,152 +25,53 @@ namespace ChattingApp.Repository.Repository
         public async Task<ApplicationUser> GetByIdAsync(string id)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException(nameof(id));
-            
+
             return await _userManager.FindByIdAsync(id);
         }
 
-
-
-
-
-
-
-
-
-
-
-        public ApplicationUser Remove(ApplicationUser instance)
+        public async Task AddAsync(UserDomain user)
         {
-            try
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user.Password != user.ConfirmPassword)
+                throw new InvalidOperationException("Password and confirmation password do not match");
+
+            if (string.IsNullOrEmpty(user.Img))
+                user.Img = GetDefaultImage();
+
+            await _userManager.CreateAsync(new ApplicationUser()
             {
-                _userManager.Delete(instance);
-            }
-            catch (Exception ex)
-            {
-            }
-            return null;
+                Email = user.Email,
+                UserName = user.UserName,
+                Img = user.Img
+            }, user.Password);
         }
 
-        public ApplicationUser UpdateAsync(ApplicationUser instance)
+        public async Task UpdateAsync(UserDomain user)
         {
-            try
-            {
-                _userManager.Update(instance);
-                return instance;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user.Password != user.ConfirmPassword)
+                throw new InvalidOperationException("Password and confirmation password do not match");
+
+            var identityResult = await _userManager.ChangePasswordAsync(user.Id, user.OldPassword, user.Password);
+            if (identityResult.Errors.Any())
+                throw new ArgumentException(string.Join(Environment.NewLine, identityResult.Errors));
+
+            var existingUser = await _userManager.FindByIdAsync(user.Id);
+            existingUser.Img = user.Img;
+            existingUser.Email = user.Email;
+            existingUser.UserName = user.UserName;
+            await _userManager.UpdateAsync(existingUser);
         }
 
-        public bool AddImage(string userId, byte[] imageByteArray)
+        private string GetDefaultImage()
         {
-            try
-            {
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            var path = HttpContext.Current.Server.MapPath("~/Content/Default.png");
+            var image = Image.FromFile(path);
+            var imageString = ImageResizer.ImageToBase64(image, ImageFormat.Png);
+            return imageString.Insert(0, "data:image/png;base64,");
         }
 
 
-        public ApplicationUser GetUserByName(string userName)
-        {
-            ApplicationUser user = _userManager.FindByName(userName);
-            return user;
-        }
-
-        public void Add(ApplicationUser instance)
-        {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = instance.UserName,
-                Email = instance.Email,
-                Img = instance.Img
-            };
-            _userManager.Create(user, instance.PasswordHash);
-        }
-
-        public bool AddUserToChat(string username, string chatId)
-        {
-            try
-            {
-                var chat = _authContext.Chats.FirstOrDefault(x => x.Id.Equals(new Guid(chatId)));
-                //var selectedUser = _authContext.Users.Include("Chats").FirstOrDefault(x => x.UserName.Equals(username));
-                //selectedUser.Chats.Add(chat);
-
-                //int count = _authContext.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public void ChangePassword(string username, string currentPassword, string newPassword)
-        {
-            try
-            {
-                var user = _userManager.FindByName(username);
-                var result = _userManager.ChangePassword(user.Id, currentPassword, newPassword);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        public ApplicationUser ChangeEmail(string username, string newEmail)
-        {
-            try
-            {
-                var user = _userManager.FindByName(username);
-                user.Email = newEmail;
-                _userManager.Update(user);
-                return user;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        public ApplicationUser ChangeUsername(string oldUsername, string newUsername)
-        {
-            try
-            {
-                var user = _userManager.FindByName(oldUsername);
-                user.UserName = newUsername;
-                _userManager.Update(user);
-                return user;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-        public ApplicationUser ChangeImage(string oldUsername, string img)
-        {
-            try
-            {
-                var user = _userManager.FindByName(oldUsername);
-                user.Img = img;
-                _userManager.Update(user);
-                return user;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
         public async Task<ApplicationUser> FindAsync(string userName, string password)
         {
             if (string.IsNullOrEmpty(userName)) throw new ArgumentException(nameof(userName));

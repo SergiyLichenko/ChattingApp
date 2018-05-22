@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Service.Models
 {
@@ -10,7 +11,7 @@ namespace ChattingApp.Service.Models
         public string Title { get; set; }
         public string AuthorName { get; set; }
 
-        public ICollection<UserViewModel> Users { get; set; }
+        public ICollection<UserDomain> Users { get; set; }
         public string Img{ get; set; }
     }
 }

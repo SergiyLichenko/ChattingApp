@@ -16,16 +16,13 @@ namespace ChattingApp.Service
         private IChatRepository _chatRepository;
         private readonly IUserRepository _userRepository;
         private IMappingService _mappingService;
-        private IUserService _userService;
         public ChatService(IChatRepository chatRepository,
             IUserRepository userRepository,
-            IMappingService mappingService,
-            IUserService userService)
+            IMappingService mappingService)
         {
             _chatRepository = chatRepository;
             _userRepository = userRepository;
             _mappingService = mappingService;
-            _userService = userService;
         }
 
 
@@ -69,7 +66,7 @@ namespace ChattingApp.Service
 
             if (string.IsNullOrEmpty(chat.Img))
             {
-                chat.Img = _userService.GetDefaultImage();
+               // chat.Img = _userService.GetDefaultImage();
                 chat.Img = chat.Img.Insert(0, "data:image/png;base64,");
             }
             result = _chatRepository.UpdateImage(chat);

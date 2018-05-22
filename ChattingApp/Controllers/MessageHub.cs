@@ -42,7 +42,7 @@ namespace ChattingApp.Controllers
                 }
             }
 
-            _users_ConnectionIds.Add(Context.ConnectionId, userName);
+            _users_ConnectionIds.AddAsync(Context.ConnectionId, userName);
         }
         public override Task OnDisconnected(bool stopCalled)
         {
@@ -80,7 +80,7 @@ namespace ChattingApp.Controllers
             if (newMessage == null)
                 return;
 
-            MessageViewModel createdMessage = _messageService.Add(newMessage);
+            MessageViewModel createdMessage = _messageService.AddAsync(newMessage);
 
             if (createdMessage != null)
             {
@@ -138,7 +138,7 @@ namespace ChattingApp.Controllers
             if (message == null)
                 return;
             if (!_users_ConnectionIds.ContainsKey(Context.ConnectionId))
-                _users_ConnectionIds.Add(Context.ConnectionId, message.user.UserName);
+                _users_ConnectionIds.AddAsync(Context.ConnectionId, message.user.UserName);
             if (!message.user.UserName.Equals(_users_ConnectionIds[Context.ConnectionId])) return;
 
             MessageViewModel deletedMessage = _messageService.Remove(message);

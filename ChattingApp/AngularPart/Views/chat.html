@@ -68,7 +68,8 @@
         </md-fab-toolbar>
         <div ng-if="selectedChat.id">
             <div class="col-md-2">
-                <img class="img-circle chat-image-header" ng-src="{{selectedChat.img}}" alt="selectedChat.title">
+                <img data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openEditChatModal(selectedChat)"
+                     class="img-circle chat-image-header" ng-src="{{selectedChat.img}}" alt="selectedChat.title">
             </div>
             <div class="col-md-8">
                 <div class="row">
@@ -91,7 +92,7 @@
             <li data-ng-repeat="message in selectedChat.messages">
                 <md-card class="col-md-7" 
                          ng-class="{'col-md-offset-5': message.author.id === currentUser.id}">
-                    <md-card-title class="row">
+                    <md-card-title class="row" ng-click="$ctrl.openProfileModal(message.author)" data-ng-controller="ModalController as $ctrl">
                         <md-card-title-media>
                             <img class="md-avatar image-list-item" ng-src="{{message.author.img}}" 
                                  alt="message.author.userName" />
@@ -107,7 +108,7 @@
                                   rows="3"
                                   class="message-text col-md-12"
                                   md-select-on-focus></textarea>
-                        <md-card-actions>
+                        <md-card-actions ng-if="currentUser.id === message.authorId">
                             <md-button ng-if="message.isEditable" class="md-raised message-action-btn"
                                        ng-click="message.isEditable = false; message.text = message.textBefore">Cancel</md-button>
                             <md-button ng-if="message.isEditable" 

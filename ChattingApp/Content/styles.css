@@ -17,7 +17,8 @@ body {
     height: 100%;
     min-height: 972px;
     padding-left: 50px;
-    width: 1500px !important;
+    max-width: 972px !important;
+    max-width: 1500px !important;
     background-color: #2b3d4f !important;
 }
 

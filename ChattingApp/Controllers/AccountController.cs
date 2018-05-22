@@ -1,27 +1,29 @@
-﻿using System.Web.Http;
-using ChattingApp.Service;
-using ChattingApp.Service.Models;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Http;
+using ChattingApp.Repository.Interfaces;
+using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Controllers
 {
-    [RoutePrefix("api/Account")]
+    [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
-        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public AccountController(IUserService service)
+        public AccountController(IUserRepository userRepository)
         {
-            _userService = service;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         [AllowAnonymous]
-        [Route("signUp")]
-        public IHttpActionResult Register(UserViewModel userModel)
+        [Route("signup")]
+        public async Task<IHttpActionResult> Register(UserDomain userModel)
         {
             if (userModel == null) return BadRequest("Author info cannot be null");
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _userService.Add(userModel);
+            await _userRepository.AddAsync(userModel);
             return Ok();
         }
     }

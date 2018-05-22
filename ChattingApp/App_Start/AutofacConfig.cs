@@ -27,7 +27,6 @@ namespace ChattingApp
             builder.RegisterType<ChatRepository>().As<IChatRepository>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();
 
-            builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<ChatService>().As<IChatService>();
             builder.RegisterType<MessageService>().As<IMessageService>();
             builder.RegisterType<MappingService>().As<IMappingService>();

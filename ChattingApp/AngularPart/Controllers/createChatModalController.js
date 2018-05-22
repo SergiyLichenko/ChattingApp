@@ -9,7 +9,7 @@ app.controller('CreateChatModalController',
             var reader = new FileReader();
             reader.addEventListener('load', function () {
                 chatService.create({
-                    title: $scope.chatTitle,
+                    title: $scope.title,
                     img: reader.result
                 }).then(function () {
                     $uibModalInstance.close(self);

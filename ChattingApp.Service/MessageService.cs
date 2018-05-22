@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using ChattingApp.Service.Models;

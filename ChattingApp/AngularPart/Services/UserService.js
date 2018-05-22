@@ -10,6 +10,9 @@ app.factory('userService', ['$location', '$http', 'localStorageService', '$q',
             });
         }
 
+        userServiceFactory.update = function(user) {
+            return $http.put('api/user', user);
+        }
 
 
 
