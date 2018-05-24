@@ -19,7 +19,7 @@ namespace ChattingApp.Controllers
 
         [AllowAnonymous]
         [Route("signup")]
-        public async Task<IHttpActionResult> Register(UserDomain userModel)
+        public async Task<IHttpActionResult> SignUpAsync(UserDomain userModel)
         {
             if (userModel == null) return BadRequest("Author info cannot be null");
             if (!ModelState.IsValid) return BadRequest(ModelState);

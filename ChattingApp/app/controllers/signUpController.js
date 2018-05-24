@@ -15,7 +15,7 @@ app.controller('SignUpController',
         }
 
         $scope.signUp = function () {
-            authService.signUp($scope.registration).then(function () {
+            $scope.busyPromise = authService.signUp($scope.registration).then(function () {
                 $state.go('login');
             }, function (response) {
                 var erorMessage = getErrorMessage(response);

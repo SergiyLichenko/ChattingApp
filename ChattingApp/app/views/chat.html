@@ -39,7 +39,7 @@
         </md-list>
     </div>
 </div>
-<div data-ng-controller="ChatController" class="col-md-9 chat-scope">
+<div cg-busy="chatBusyPromise" data-ng-controller="ChatController" class="col-md-9 chat-scope">
     <div class="chat-header">
         <md-fab-toolbar ng-if="selectedChat.id" md-open="isOpen"
                         md-direction="left">
@@ -113,7 +113,7 @@
                                        ng-click="message.isEditable = false; message.text = message.textBefore">Cancel</md-button>
                             <md-button ng-if="message.isEditable"
                                        class="md-raised md-primary message-action-btn"
-                                       ng-click="message.isEditable = false; updateMessage(message)">Ok</md-button>
+                                       ng-click="updateMessage(message)">Ok</md-button>
                             <md-button id="delete" class="md-icon-button pull-right message-action-btn" aria-label="Delete Message">
                                 <img class="message-action-img"
                                      ng-click="deleteMessage(message)"

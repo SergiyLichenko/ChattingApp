@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('ModalController',
-    ['$uibModal', 'chatService',
-    function ($uibModal, chatService) {
+    ['$uibModal',
+    function ($uibModal) {
         var self = this;
 
         var modalConfig = {
@@ -34,17 +34,6 @@ app.controller('ModalController',
         self.openJoinChatModal = function () {
             modalConfig.templateUrl = 'app/views/modalJoinChat.html';
             modalConfig.controller = 'JoinChatModalController';
-            modalConfig.resolve = {
-                chats: function () {
-                    return chatService.getAll().then(result => {
-                        var chats = result.data;
-                        for(var chat of chats)
-                            if (!chat.users) chat.users = [];
-
-                        return chats;
-                    });
-                }
-            }
 
             $uibModal.open(modalConfig);
         }

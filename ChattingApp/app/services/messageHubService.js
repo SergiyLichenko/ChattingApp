@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.factory('messageHubService',
-    ['$rootScope', 'Hub', 'localStorageService',
-        function ($rootScope, Hub, localStorageService) {
+    ['$rootScope', '$q', 'Hub', 'localStorageService',
+        function ($rootScope, $q, Hub, localStorageService) {
             var hub = {};
 
             var start = function () {
@@ -32,18 +32,25 @@ app.factory('messageHubService',
                 return newMessage;
             }
 
+            var requestServer = function (callback) {
+                var deferred = $q.defer();
+                callback().then(deferred.resolve, deferred.reject);
+
+                return deferred.promise;
+            }
+
             var post = function (message) {
-                return hub.onMessageCreateAsync(message);
+                return requestServer(() => hub.onMessageCreateAsync(message));
             };
 
             var update = function (message) {
                 var newMessage = optimizeMessage(message);
-                return hub.onMessageUpdateAsync(newMessage);
+                return requestServer(() => hub.onMessageUpdateAsync(newMessage));
             };
 
             var $delete = function (message) {
                 var newMessage = optimizeMessage(message);
-                return hub.onMessageDeleteAsync(newMessage);
+                return requestServer(() => hub.onMessageDeleteAsync(newMessage));
             };
 
             return {

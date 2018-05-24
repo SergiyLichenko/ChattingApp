@@ -11,8 +11,8 @@ app.controller('ChatController',
 
                 for(var message of $scope.selectedChat.messages)
                     if (message.author.id === user.id)
-                        Object.assign(message.author, user);
-               
+                    Object.assign(message.author, user);
+
                 $timeout(function () { $scope.$apply(); });
             });
 
@@ -48,6 +48,8 @@ app.controller('ChatController',
                 Object.assign($scope.selectedChat, message.chat);
                 if ($scope.selectedChat.messages.findIndex(x=>x.id === message.id) === -1)
                     $scope.selectedChat.messages.push(message);
+                if (message.author.id === $scope.currentUser.id)
+                    $rootScope.$broadcast('onUserUpdate', message.author);
 
                 $timeout(function () { $scope.$apply(); });
             });
@@ -80,28 +82,29 @@ app.controller('ChatController',
                     chat: { id: $scope.selectedChat.id },
                     author: { id: $scope.currentUser.id }
                 };
-                messageHubService.post(message);
+                $scope.chatBusyPromise = messageHubService.post(message);
             };
 
             $scope.updateMessage = function (message) {
+                message.isEditable = false;
                 message.chat = { id: $scope.selectedChat.id };
-                messageHubService.update(message);
+                $scope.chatBusyPromise = messageHubService.update(message);
             }
 
             $scope.deleteMessage = function (message) {
                 message.chat = { id: $scope.selectedChat.id };
-                messageHubService.delete(message);
+                $scope.chatBusyPromise = messageHubService.delete(message);
             }
 
             $scope.quitChat = function (chat) {
                 var index = chat.users.findIndex(x => x.id === $scope.currentUser.id);
                 if (index !== -1) chat.users.splice(index, 1);
 
-                $scope.busyPromise = chatHubService.update(chat);
+                $scope.$parent.busyPromise = chatHubService.update(chat);
             }
 
             $scope.deleteChat = function (chatId) {
-                $scope.busyPromise = chatHubService.delete(chatId);
+                $scope.$parent.busyPromise = chatHubService.delete(chatId);
             }
 
             $scope.onKeyPress = function (event) {

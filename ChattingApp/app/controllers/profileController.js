@@ -11,7 +11,7 @@ app.controller('ProfileModalController',
         $scope.isReadonly = true;
 
         $scope.ok = function () {
-            userService.update($scope.selectedUser).then(function () {
+            $scope.profileBusyPromise = userService.update($scope.selectedUser).then(function () {
                 $rootScope.$broadcast('onUserUpdate', $scope.selectedUser);
                 $uibModalInstance.close();
             });

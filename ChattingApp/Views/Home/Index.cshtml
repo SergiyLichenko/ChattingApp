@@ -7,8 +7,10 @@
 
     <link rel="icon" type="image/x-icon" href="~/Content/images/icon.ico">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/angular-busy.min.css" rel="stylesheet" />
     <link href="~/Content/css/angular-material-min.css" rel="stylesheet" />
     <link href="~/Content/css/bootstrap.ng.min.css" rel="stylesheet" />
+    <link href="~/Content/busy-indicator.css" rel="stylesheet" />
     <link href="~/Content/styles.css" rel="stylesheet" />
 </head>
 <body class="container" ng-cloak>
@@ -26,7 +28,7 @@
         </md-nav-bar>
     </div>
     <md-divider></md-divider>
-    <div class="row app-view" ui-view>
+    <div cg-busy="busyPromise" class="row app-view" ui-view>
     </div>
 
     <!-- 3rd party libraries -->
@@ -45,6 +47,7 @@
     <script src="~/Scripts/ng-file-upload.js"></script>
     <script src="~/Scripts/angular-validation-match.js"></script>
     <script src="~/Scripts/angular-signalr-hub.min.js"></script>
+    <script src="~/Scripts/angular-busy.min.js"></script>
 
     <!-- Load app main script -->
     <script src="~/app/app.js"></script>

@@ -5,6 +5,7 @@
         'ui.router',
         'validation.match',
         'SignalR',
+        'cgBusy',
         'ngFileUpload']);
 
 app.config(['$stateProvider', function ($stateProvider) {
@@ -60,4 +61,10 @@ app.config(['$stateProvider', function ($stateProvider) {
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
+});
+
+app.value('cgBusyDefaults', {
+    templateUrl: 'app/views/busy-indicator.html',
+    delay: 100,
+    wrapperClass: 'busy-wrapper'
 });

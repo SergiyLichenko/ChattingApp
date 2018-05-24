@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.factory('chatHubService',
-    ['$rootScope', 'Hub', 'localStorageService',
-        function ($rootScope, Hub, localStorageService) {
+    ['$rootScope', '$q', 'Hub', 'localStorageService',
+        function ($rootScope, $q, Hub, localStorageService) {
             var hub = {};
 
             var start = function () {
@@ -40,17 +40,24 @@ app.factory('chatHubService',
                 return newChat;
             }
 
+            var requestServer = function (callback) {
+                var deferred = $q.defer();
+                callback().then(deferred.resolve, deferred.reject);
+
+                return deferred.promise;
+            }
+
             var post = function (chat) {
-                return hub.onChatCreateAsync(chat);
+                return requestServer(() => hub.onChatCreateAsync(chat));
             };
 
             var update = function (chat) {
                 var newChat = optimizeChat(chat);
-                return hub.onChatUpdateAsync(newChat);
+                return requestServer(() => hub.onChatUpdateAsync(newChat));
             };
 
             var $delete = function (id) {
-                return hub.onChatDeleteAsync(id);
+                return requestServer(() => hub.onChatDeleteAsync(id));
             };
 
             return {

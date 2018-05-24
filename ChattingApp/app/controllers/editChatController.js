@@ -18,7 +18,7 @@ app.controller('EditChatModalController',
         }
 
         $scope.ok = function () {
-            chatHubService.update($scope.currentChat).then(function () {
+            $scope.editChatBusyPromise = chatHubService.update($scope.currentChat).then(function () {
                 $uibModalInstance.close();
             });
         };
@@ -28,6 +28,7 @@ app.controller('EditChatModalController',
         };
 
         $scope.processImage = function (image) {
+            if (!image) return;
             var reader = new FileReader();
 
             reader.addEventListener('load', function () {

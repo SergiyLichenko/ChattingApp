@@ -6,7 +6,7 @@ app.controller('LogInController',
         $scope.loginData = {};
 
         $scope.login = function () {
-            authService.login($scope.loginData).then(function () {
+            $scope.busyPromise = authService.login($scope.loginData).then(function () {
                 $state.go('chat');
             }, function (err) {
                 $scope.message = err.error_description;

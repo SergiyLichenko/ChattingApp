@@ -16,10 +16,8 @@
                 var existingChatIndex = $scope.currentUser.chats.findIndex(x => x.id === chat.id);
                 if (existingChatIndex === -1)
                     $scope.currentUser.chats.push(chat);
-                else {
-                    var existingChat = $scope.currentUser.chats[existingChatIndex];
-                    Object.assign(existingChat, chat);
-                }
+                else
+                    Object.assign($scope.currentUser.chats[existingChatIndex], chat);
 
                 $timeout(function () { $scope.$apply(); });
             });
@@ -30,22 +28,22 @@
 
                 $scope.currentUser.chats.splice(existingChatIndex, 1);
                 if ($scope.currentUser.chats.length > 0)
-                    $scope.$emit('onSelectChat', $scope.currentUser.chats[0]);
+                    $scope.selectChat($scope.currentUser.chats[0]);
                 $timeout(function () { $scope.$apply(); });
             });
 
             $scope.selectChat = function (chat) {
-                $scope.messagesBusyPromise = chatService.getById(chat.id).then(function (result) {
+                $scope.chatBusyPromise = chatService.getById(chat.id).then(function (result) {
                     $scope.$emit('onSelectChat', result.data);
                 });
             };
 
             var onLoad = function () {
-                userService.getCurrent().then(function (user) {
+                $scope.busyPromise = userService.getCurrent().then(function (user) {
                     localStorageService.set('user', user);
                     $scope.currentUser = user;
 
-                    if ($scope.currentUser.chats.length === 0) return;
+                    if (!$scope.currentUser.chats || $scope.currentUser.chats.length === 0) return;
 
                     $scope.selectChat($scope.currentUser.chats[0]);
                     $timeout(function () { $scope.$apply(); });
