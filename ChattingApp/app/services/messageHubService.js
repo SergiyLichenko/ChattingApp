@@ -1,41 +1,53 @@
 ﻿'use strict';
 
 app.factory('messageHubService',
-    ['$http', '$rootScope', 'Hub', 'localStorageService',
-        function ($http, $rootScope, Hub, localStorageService) {
+    ['$rootScope', 'Hub', 'localStorageService',
+        function ($rootScope, Hub, localStorageService) {
+            var hub = {};
 
-            var hub = new Hub('messageHub', {
-                rootPath: 'api/message',
-                methods: ['onMessageCreateAsync', 'onMessageUpdateAsync', 'onMessageDeleteAsync'],
-                queryParams: {
-                    token: localStorageService.get('authorizationData').token
-                },
-                listeners: {
-                    onMessageCreateAsync: function (message) {
-                        $rootScope.$broadcast('onMessageCreateAsync', message);
+            var start = function () {
+                hub = new Hub('messageHub', {
+                    rootPath: 'api/message-hub',
+                    methods: ['onMessageCreateAsync', 'onMessageUpdateAsync', 'onMessageDeleteAsync'],
+                    queryParams: {
+                        token: localStorageService.get('authorizationData').token
                     },
-                    onMessageUpdateAsync: function(message) {
-                        $rootScope.$broadcast('onMessageUpdateAsync', message);
-                    },
-                    onMessageDeleteAsync: function(message) {
-                        $rootScope.$broadcast('onMessageDeleteAsync', message);
+                    listeners: {
+                        onMessageCreateAsync: function (message) {
+                            $rootScope.$broadcast('onMessageCreateAsync', message);
+                        },
+                        onMessageUpdateAsync: function (message) {
+                            $rootScope.$broadcast('onMessageUpdateAsync', message);
+                        },
+                        onMessageDeleteAsync: function (message) {
+                            $rootScope.$broadcast('onMessageDeleteAsync', message);
+                        }
                     }
-                }
-            });
+                });
+            }
 
-            var post = function(message) {
-                hub.onMessageCreateAsync(message);
+            var optimizeMessage = function (message) {
+                var newMessage = angular.copy(message);
+                newMessage.author = {id: message.author.id};
+                return newMessage;
+            }
+
+            var post = function (message) {
+                return hub.onMessageCreateAsync(message);
             };
 
-            var update = function(message) {
-                hub.onMessageUpdateAsync(message);
+            var update = function (message) {
+                var newMessage = optimizeMessage(message);
+                return hub.onMessageUpdateAsync(newMessage);
             };
 
-            var $delete = function(message) {
-                hub.onMessageDeleteAsync(message);
+            var $delete = function (message) {
+                var newMessage = optimizeMessage(message);
+                return hub.onMessageDeleteAsync(newMessage);
             };
 
             return {
+                start: start,
                 post: post,
                 update: update,
                 delete: $delete

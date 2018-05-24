@@ -79,6 +79,8 @@ namespace ChattingApp.Repository.Repository
             if (id < 0) throw new ArgumentNullException(nameof(id));
 
             var existingChat = await GetByIdAsync(id);
+            if (existingChat == null) throw new InvalidOperationException();
+
             _authContext.Chats.Remove(existingChat);
             await _authContext.SaveChangesAsync();
         }

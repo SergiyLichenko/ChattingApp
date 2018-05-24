@@ -34,14 +34,23 @@ app.config(['$stateProvider', function ($stateProvider) {
                 reloadOnSearch: true,
                 controller: 'ChatListController',
                 templateUrl: 'app/views/chat.html',
-                navbarState: 'chat'
-            })
-        .state('profile',
-            {
-                url: '/profile',
-                controller: 'ProfileModalController',
-                templateUrl: 'app/views/profile.html',
-                navbarState: 'profile'
+                navbarState: 'chat',
+                resolve: {
+                    authorize: function ($state, $q, $timeout, authService) {
+                        var deferred = $q.defer();
+
+                        $timeout(function () {
+                            if (!authService.isLoggedIn()) {
+                                $state.go('login');
+                                deferred.reject();
+                            } else {
+                                deferred.resolve();
+                            }
+                        });
+
+                        return deferred.promise;
+                    }
+                }
             })
         .state('404', {
             url: '*path',

@@ -269,3 +269,7 @@ md-nav-bar button {
     font-size: 170px;
     text-align: center;
 }
+
+.toast {
+    z-index: 10000;
+}

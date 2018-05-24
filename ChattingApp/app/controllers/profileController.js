@@ -1,13 +1,18 @@
 ﻿'use strict';
 app.controller('ProfileModalController',
-    ['$scope', '$uibModalInstance', 'userService', 'localStorageService', 'selectedUser',
-    function ($scope,$uibModalInstance, userService, localStorageService, selectedUser ) {
+    ['$scope', '$uibModalInstance', '$rootScope', 'userService', 'localStorageService', 'selectedUser',
+    function ($scope,$uibModalInstance, $rootScope, userService, localStorageService, selectedUser ) {
         $scope.selectedUser = angular.copy(selectedUser);
+        $scope.selectedUser.oldPassword = null;
+        $scope.selectedUser.password = null;
+        $scope.selectedUser.confirmPassword = null;
+
         $scope.currentUser = localStorageService.get('user');
         $scope.isReadonly = true;
 
         $scope.ok = function () {
             userService.update($scope.selectedUser).then(function () {
+                $rootScope.$broadcast('onUserUpdate', $scope.selectedUser);
                 $uibModalInstance.close();
             });
         };

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Linq;
+using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Web;
 using ChattingApp.Repository.Domain;
 using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
@@ -15,17 +12,20 @@ namespace ChattingApp.Repository.Repository
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAuthContext _authContext;
 
         public UserRepository(IAuthContext authContext)
         {
             _userManager = new UserManager<ApplicationUser>(new ApplicationUserStore((AuthContext)authContext));
+            _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
         }
 
         public async Task<ApplicationUser> GetByIdAsync(string id)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException(nameof(id));
 
-            return await _userManager.FindByIdAsync(id);
+            return await _authContext.Users.Include(x => x.Chats)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task AddAsync(UserDomain user)
@@ -35,14 +35,17 @@ namespace ChattingApp.Repository.Repository
                 throw new InvalidOperationException("Password and confirmation password do not match");
 
             if (string.IsNullOrEmpty(user.Img))
-                user.Img = GetDefaultImage();
+                user.Img = ImageReader.GetDefaultImage();
 
-            await _userManager.CreateAsync(new ApplicationUser()
+            var newUser = new ApplicationUser
             {
+                PasswordHash = _userManager.PasswordHasher.HashPassword(user.Password),
                 Email = user.Email,
                 UserName = user.UserName,
                 Img = user.Img
-            }, user.Password);
+            };
+            _authContext.Users.Add(newUser);
+            await _authContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(UserDomain user)
@@ -51,23 +54,19 @@ namespace ChattingApp.Repository.Repository
             if (user.Password != user.ConfirmPassword)
                 throw new InvalidOperationException("Password and confirmation password do not match");
 
-            var identityResult = await _userManager.ChangePasswordAsync(user.Id, user.OldPassword, user.Password);
-            if (identityResult.Errors.Any())
-                throw new ArgumentException(string.Join(Environment.NewLine, identityResult.Errors));
+            var existingUser = await GetByIdAsync(user.Id);
+            if (existingUser == null) throw new InvalidOperationException("user is not found");
 
-            var existingUser = await _userManager.FindByIdAsync(user.Id);
+            var passwordVerificationResult = _userManager.PasswordHasher
+                .VerifyHashedPassword(existingUser.PasswordHash, user.Password);
+
+            if (passwordVerificationResult == PasswordVerificationResult.Failed)
+                throw new InvalidOperationException("Incorrect password");
+
             existingUser.Img = user.Img;
             existingUser.Email = user.Email;
             existingUser.UserName = user.UserName;
             await _userManager.UpdateAsync(existingUser);
-        }
-
-        private string GetDefaultImage()
-        {
-            var path = HttpContext.Current.Server.MapPath("~/Content/images/default.png");
-            var image = Image.FromFile(path);
-            var imageString = ImageResizer.ImageToBase64(image, ImageFormat.Png);
-            return imageString.Insert(0, "data:image/png;base64,");
         }
 
         public async Task<ApplicationUser> FindAsync(string userName, string password)

@@ -29,7 +29,7 @@ namespace ChattingApp.Repository
             modelBuilder.Entity<Message>().HasKey(x => x.Id);
             modelBuilder.Entity<Message>().Property(x => x.Id).IsRequired();
             modelBuilder.Entity<Message>().Property(x => x.CreateDate).IsRequired();
-            modelBuilder.Entity<Message>().Property(x => x.AuthorId).IsRequired();
+            modelBuilder.Entity<Message>().HasRequired(x => x.Author);
             modelBuilder.Entity<Message>().HasRequired(x => x.Chat).WithMany(x => x.Messages);
         }
     }

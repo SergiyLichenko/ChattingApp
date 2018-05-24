@@ -36,7 +36,13 @@ app.controller('ModalController',
             modalConfig.controller = 'JoinChatModalController';
             modalConfig.resolve = {
                 chats: function () {
-                    return chatService.getAll().then(result => result.data);
+                    return chatService.getAll().then(result => {
+                        var chats = result.data;
+                        for(var chat of chats)
+                            if (!chat.users) chat.users = [];
+
+                        return chats;
+                    });
                 }
             }
 
@@ -47,7 +53,7 @@ app.controller('ModalController',
             modalConfig.templateUrl = 'app/views/profile.html';
             modalConfig.controller = 'ProfileModalController';
             modalConfig.resolve = {
-                selectedUser: function() {
+                selectedUser: function () {
                     return selectedUser;
                 }
             }

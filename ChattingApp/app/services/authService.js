@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.factory('authService',
-    ['$http', '$q', 'localStorageService', 'userService',
-    function ($http, $q, localStorageService,  userService) {
+    ['$http', '$q', 'localStorageService',
+    function ($http, $q, localStorageService) {
         var logOut = function () {
             localStorageService.remove('authorizationData');
             localStorageService.remove('user');
@@ -16,10 +16,7 @@ app.factory('authService',
                 userName: loginData.userName
             });
 
-            userService.getCurrent().then(function(user) {
-                localStorageService.set('user', user);
-                deferred.resolve(response.data);
-            });
+            deferred.resolve(response.data);
         }
 
         var login = function (loginData) {
@@ -43,9 +40,14 @@ app.factory('authService',
             return $http.post('api/account/signup', registration);
         };
 
+        var isLoggedIn = function() {
+            return !!localStorageService.get('authorizationData');
+        }
+
         return {
             signUp: signUp,
             login: login,
-            logOut: logOut
+            logOut: logOut,
+            isLoggedIn: isLoggedIn
         };
     }]);

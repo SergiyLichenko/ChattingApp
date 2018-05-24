@@ -49,7 +49,8 @@ namespace ChattingApp
             GlobalHost.HubPipeline.RequireAuthentication();
             GlobalHost.DependencyResolver.Register(typeof(JsonSerializer),
                 () => JsonSerializer.Create(jsonSerializerSettings));
-            app.MapSignalR("/api/message", new HubConfiguration());
+            app.MapSignalR("/api/message-hub", new HubConfiguration());
+            app.MapSignalR("/api/chat-hub", new HubConfiguration());
         }
 
         public void Configuration(IAppBuilder app)

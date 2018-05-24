@@ -6,6 +6,7 @@ namespace ChattingApp.Repository.Domain
     {
         public string Id { get; set; }
         [Required]
+        [Display(Name = "user name")]
         public string UserName { get; set; }
 
         [DataType(DataType.Password)]
@@ -14,6 +15,7 @@ namespace ChattingApp.Repository.Domain
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [Display(Name = "password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
@@ -22,6 +24,7 @@ namespace ChattingApp.Repository.Domain
 
         [Required]
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "email")]
         public string Email { get; set; }
 
         public string Img { get; set; }

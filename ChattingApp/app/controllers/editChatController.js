@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('EditChatModalController',
-    ['$scope', '$uibModalInstance', 'chatService', 'localStorageService', 'currentChat',
-    function ($scope, $uibModalInstance, chatService, localStorageService, currentChat) {
+    ['$scope', '$uibModalInstance', 'chatHubService', 'localStorageService', 'currentChat',
+    function ($scope, $uibModalInstance, chatHubService, localStorageService, currentChat) {
         $scope.isReadonly = true;
         $scope.currentChat = currentChat;
         $scope.currentUser = localStorageService.get('user');
@@ -18,7 +18,7 @@ app.controller('EditChatModalController',
         }
 
         $scope.ok = function () {
-            chatService.update($scope.currentChat).then(function () {
+            chatHubService.update($scope.currentChat).then(function () {
                 $uibModalInstance.close();
             });
         };

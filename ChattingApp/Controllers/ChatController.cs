@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using ChattingApp.Repository.Interfaces;
-using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Controllers
 {
@@ -31,33 +30,6 @@ namespace ChattingApp.Controllers
 
             var chat = await _chatRepository.GetByIdAsync(id);
             return Ok(chat);
-        }
-
-        [HttpPost]
-        public async Task<IHttpActionResult> PostAsync(Chat chat)
-        {
-            if (chat == null) return BadRequest("Data is null");
-
-            await _chatRepository.AddAsync(chat);
-            return Ok();
-        }
-
-        [HttpPut]
-        public async Task<IHttpActionResult> UpdateAsync(Chat chat)
-        {
-            if (chat == null) return BadRequest("Data is null");
-
-            await _chatRepository.UpdateAsync(chat);
-            return Ok();
-        }
-
-        [HttpDelete]
-        public async Task<IHttpActionResult> DeleteAsync([FromBody] int id)
-        {
-            if (id < 0) return BadRequest("Id cannot be negative");
-
-            await _chatRepository.DeleteAsync(id);
-            return Ok();
         }
     }
 }

@@ -32,7 +32,7 @@
                 <img ng-src="{{chat.img}}" class="md-avatar image-list-item" alt="chat.title" />
                 <div class="md-list-item-text">
                     <h3 class="chat-list-item-title"> {{ chat.title }} </h3>
-                    <p ng-if="chat.messages[0].text" class="chat-list-item-text" md-truncate>«{{chat.messages[0].text}}»</p>
+                    <p ng-if="chat.messages[0].text" class="chat-list-item-text" md-truncate>«{{chat.messages[chat.messages.length - 1].text}}»</p>
                 </div>
                 <div class="last-message-time">{{chat.messages[0].createDate | date: short}}</div>
             </md-list-item>
@@ -41,7 +41,7 @@
 </div>
 <div data-ng-controller="ChatController" class="col-md-9 chat-scope">
     <div class="chat-header">
-        <md-fab-toolbar md-open="isOpen"
+        <md-fab-toolbar ng-if="selectedChat.id" md-open="isOpen"
                         md-direction="left">
             <md-fab-trigger>
                 <md-button aria-label="menu" class="md-fab md-primary">
@@ -97,7 +97,7 @@
                             <img class="md-avatar image-list-item" ng-src="{{message.author.img}}"
                                  alt="message.author.userName" />
                         </md-card-title-media>
-                        <md-card-title-text class="message-title">
+                        <md-card-title-text md-truncate class="message-title">
                             <span class="md-headline">{{message.author.userName}}</span>
                             <span class="md-subhead">{{message.createDate | date : 'short'}}</span>
                         </md-card-title-text>
@@ -108,7 +108,7 @@
                                   rows="3"
                                   class="message-text col-md-12"
                                   md-select-on-focus></textarea>
-                        <md-card-actions ng-if="currentUser.id === message.authorId">
+                        <md-card-actions ng-if="currentUser.id === message.author.id">
                             <md-button ng-if="message.isEditable" class="md-raised message-action-btn"
                                        ng-click="message.isEditable = false; message.text = message.textBefore">Cancel</md-button>
                             <md-button ng-if="message.isEditable"
@@ -143,13 +143,14 @@
                 <div class="col-md-8">
                     <div class="form-group label-static">
                         <textarea ng-keypress="onKeyPress($event)"
+                                  ng-readonly="!selectedChat.id"
                                   class="form-control input-box-text"
                                   placeholder="Write a message"
                                   rows="4"
                                   ng-model="messageText"></textarea>
                     </div>
                 </div>
-                <div class="col-md-2 input-box-btn">
+                <div ng-if="selectedChat.id" class="col-md-2 input-box-btn">
                     <button class="btn btn-raised btn-success btn-lg"
                             ng-click="sendMessage(messageText)">
                         Send

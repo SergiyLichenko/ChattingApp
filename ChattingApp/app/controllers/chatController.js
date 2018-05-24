@@ -1,33 +1,55 @@
 ﻿'use strict';
 
 app.controller('ChatController',
-    ['$rootScope', '$scope', '$timeout', 'localStorageService', 'messageHubService', 'chatService',
-        function ($rootScope, $scope, $timeout, localStorageService, messageHubService, chatService) {
-            $scope.currentUser = localStorageService.get('user');
+    ['$rootScope', '$scope', '$timeout', 'localStorageService', 'messageHubService', 'chatHubService',
+        function ($rootScope, $scope, $timeout, localStorageService, messageHubService, chatHubService) {
             $scope.messageText = '';
 
-            var getAuthor = function (chat, authorId) {
-                var authorIndex = $scope.selectedChat.users.findIndex(x => x.id === authorId);
-                if (authorIndex === -1) return null;
-                return $scope.selectedChat.users[authorIndex];
-            }
+            $scope.$on('onUserUpdate', function (event, user) {
+                if ($scope.currentUser) $scope.currentUser = user;
+                if (!$scope.selectedChat) return;
+
+                for(var message of $scope.selectedChat.messages)
+                    if (message.author.id === user.id)
+                        Object.assign(message.author, user);
+               
+                $timeout(function () { $scope.$apply(); });
+            });
+
+            $scope.$on('onChatCreateAsync', function (event, chat) {
+                if ($scope.selectedChat) return;
+                $scope.selectedChat = chat;
+                $timeout(function () { $scope.$apply(); });
+            });
+
+            $scope.$on('onChatUpdateAsync', function (event, chat) {
+                if (!$scope.selectedChat) $scope.selectedChat = chat;
+                if (chat.id !== $scope.selectedChat.id) return;
+
+                Object.assign($scope.selectedChat, chat);
+                $timeout(function () { $scope.$apply(); });
+            });
+
+            $scope.$on('onChatDeleteAsync', function (event, chatId) {
+                if (!$scope.selectedChat || chatId !== $scope.selectedChat.id) return;
+                $scope.selectedChat = null;
+                $timeout(function () { $scope.$apply(); });
+            });
 
             $rootScope.$on('onSelectChat', function (event, selectedChat) {
                 $scope.selectedChat = selectedChat;
-                for (var message of $scope.selectedChat.messages)
-                    message.author = getAuthor($scope.selectedChat, message.authorId);
-                $timeout(function () {
-                    $scope.$apply();
-                });
+                $timeout(function () { $scope.$apply(); });
             });
 
             $rootScope.$on('onMessageCreateAsync', function (event, message) {
                 if ($scope.selectedChat.id !== message.chat.id) return;
                 $scope.messageText = '';
 
-                message.author = getAuthor($scope.selectedChat, message.authorId);
-                $scope.selectedChat.messages.push(message);
-                $scope.$apply();
+                Object.assign($scope.selectedChat, message.chat);
+                if ($scope.selectedChat.messages.findIndex(x=>x.id === message.id) === -1)
+                    $scope.selectedChat.messages.push(message);
+
+                $timeout(function () { $scope.$apply(); });
             });
 
             $rootScope.$on('onMessageUpdateAsync', function (event, message) {
@@ -38,7 +60,7 @@ app.controller('ChatController',
 
                 var existingMessage = $scope.selectedChat.messages[existingMessageIndex];
                 Object.assign(existingMessage, message);
-                $scope.$apply();
+                $timeout(function () { $scope.$apply(); });
             });
 
             $rootScope.$on('onMessageDeleteAsync', function (event, message) {
@@ -47,7 +69,7 @@ app.controller('ChatController',
                 var existingMessageIndex = $scope.selectedChat.messages.findIndex(x => x.id === message.id);
                 if (existingMessageIndex === -1) return;
                 $scope.selectedChat.messages.splice(existingMessageIndex, 1);
-                $scope.$apply();
+                $timeout(function () { $scope.$apply(); });
             });
 
             $scope.sendMessage = function (messageText) {
@@ -56,7 +78,7 @@ app.controller('ChatController',
                 var message = {
                     text: messageText,
                     chat: { id: $scope.selectedChat.id },
-                    authorId: $scope.currentUser.id
+                    author: { id: $scope.currentUser.id }
                 };
                 messageHubService.post(message);
             };
@@ -72,14 +94,14 @@ app.controller('ChatController',
             }
 
             $scope.quitChat = function (chat) {
-                var index = chat.users.findIndex( x => x.id === $scope.currentUser.id);
+                var index = chat.users.findIndex(x => x.id === $scope.currentUser.id);
                 if (index !== -1) chat.users.splice(index, 1);
 
-                $scope.busyPromise = chatService.update(chat);
+                $scope.busyPromise = chatHubService.update(chat);
             }
 
             $scope.deleteChat = function (chatId) {
-                $scope.busyPromise = chatService.delete(chatId);
+                $scope.busyPromise = chatHubService.delete(chatId);
             }
 
             $scope.onKeyPress = function (event) {

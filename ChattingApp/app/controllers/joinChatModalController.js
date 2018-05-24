@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('JoinChatModalController',
-    ['$scope', '$uibModalInstance', 'chats', 'localStorageService', 'chatService',
-    function ($scope, $uibModalInstance, chats, localStorageService, chatService) {
+    ['$scope', '$uibModalInstance', 'chats', 'localStorageService', 'chatHubService',
+    function ($scope, $uibModalInstance, chats, localStorageService, chatHubService) {
         $scope.chats = chats;
 
         $scope.ok = function (selectedChat) {
@@ -11,7 +11,7 @@ app.controller('JoinChatModalController',
 
             if (!contains) {
                 selectedChat.users.push(currentUser);
-                self.busyPromise = chatService.update(selectedChat);
+                self.busyPromise = chatHubService.update(selectedChat);
             }
 
             $uibModalInstance.close();

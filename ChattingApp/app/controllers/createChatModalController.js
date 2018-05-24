@@ -1,16 +1,15 @@
 ﻿'use strict';
 
 app.controller('CreateChatModalController',
-    ['$scope', '$uibModalInstance', 'chatService',
-    function ($scope, $uibModalInstance, chatService) {
+    ['$scope', '$rootScope', '$uibModalInstance', 'chatHubService',
+    function ($scope, $rootScope, $uibModalInstance, chatHubService) {
         $scope.ok = function () {
             var reader = new FileReader();
+            var chat = { title: $scope.title };
             reader.addEventListener('load', function () {
-                chatService.create({
-                    title: $scope.title,
-                    img: reader.result
-                }).then(function () {
-                    $uibModalInstance.close(self);
+                chat.img = reader.result;
+                chatHubService.post(chat).then(function () {
+                    $uibModalInstance.close();
                 });
             }, false);
             reader.readAsDataURL($scope.file);
