@@ -18,7 +18,6 @@ namespace ChattingApp.Hubs
             IChatRepository chatRepository):base(chatRepository)
         {
             _messageRepository = messageRepository ?? throw new ArgumentNullException(nameof(messageRepository));
-           
         }
 
         public async Task OnMessageCreateAsync(Message message)

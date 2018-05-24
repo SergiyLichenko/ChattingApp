@@ -41,37 +41,40 @@
 </div>
 <div cg-busy="chatBusyPromise" data-ng-controller="ChatController" class="col-md-9 chat-scope">
     <div class="chat-header">
-        <md-fab-toolbar ng-if="selectedChat.id" md-open="isOpen"
-                        md-direction="left">
+        <md-fab-speed-dial md-open="open" md-direction="left"
+                           class="md-scale md-fab-top-right md-hover-full chat-info-menu">
             <md-fab-trigger>
-                <md-button aria-label="menu" class="md-fab md-primary">
+                <md-button aria-label="Chat Menu" class="md-fab chat-info-menu-btn">
                     <span class="menu-icon glyphicon glyphicon-menu-hamburger"></span>
+                    <md-tooltip md-direction="left"> Click for options </md-tooltip>
                 </md-button>
             </md-fab-trigger>
-
-            <md-toolbar>
-                <md-fab-actions class="md-toolbar-tools">
-                    <md-button aria-label="menu" class="md-fab md-primary">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </md-button>
-                    <md-button ng-if="selectedChat.authorId === currentUser.id" ng-click="deleteChat(selectedChat.id)">
-                        Delete chat
-                    </md-button>
-                    <md-button ng-click="quitChat(selectedChat)">
-                        Quit chat
-                    </md-button>
-                    <md-button data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openEditChatModal(selectedChat)">
-                        Edit chat
-                    </md-button>
-                </md-fab-actions>
-            </md-toolbar>
-        </md-fab-toolbar>
-        <div ng-if="selectedChat.id">
-            <div class="col-md-2">
+            <md-fab-actions>
+                <md-button aria-label="Edit Chat"
+                           data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openEditChatModal(selectedChat)"
+                           class="md-fab md-raised md-mini">
+                    <md-tooltip md-direction="bot"> Edit chat </md-tooltip>
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </md-button>
+                <md-button aria-label="Quit Chat"
+                           ng-click="quitChat(selectedChat)" class="md-fab md-raised md-mini">
+                    <md-tooltip md-direction="bot"> Quit chat </md-tooltip>
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </md-button>
+                <md-button aria-label="Delete Chat"
+                           ng-if="selectedChat.authorId === currentUser.id" ng-click="deleteChat(selectedChat.id)"
+                           class="md-fab md-raised md-mini">
+                    <md-tooltip md-direction="bot"> Delete chat </md-tooltip>
+                    <span class="glyphicon glyphicon-remove"></span>
+                </md-button>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+        <div ng-if="selectedChat.id" class="chat-info">
+            <div class="col-md-2 chat-info-img">
                 <img data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openEditChatModal(selectedChat)"
                      class="img-circle chat-image-header" ng-src="{{selectedChat.img}}" alt="selectedChat.title">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 chat-info-title">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <h3>

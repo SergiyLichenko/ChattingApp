@@ -33,7 +33,7 @@
             });
 
             $scope.selectChat = function (chat) {
-                $scope.chatBusyPromise = chatService.getById(chat.id).then(function (result) {
+                $scope.busyPromise = chatService.getById(chat.id).then(function (result) {
                     $scope.$emit('onSelectChat', result.data);
                 });
             };

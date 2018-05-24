@@ -4,6 +4,7 @@ app.controller('ChatController',
     ['$rootScope', '$scope', '$timeout', 'localStorageService', 'messageHubService', 'chatHubService',
         function ($rootScope, $scope, $timeout, localStorageService, messageHubService, chatHubService) {
             $scope.messageText = '';
+            $scope.open = false;
 
             $scope.$on('onUserUpdate', function (event, user) {
                 if ($scope.currentUser) $scope.currentUser = user;

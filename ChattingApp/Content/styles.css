@@ -1,13 +1,4 @@
-﻿.hoverwell:hover {
-    background-color: #485563 !important;
-    cursor: pointer;
-}
-
-.container {
-    padding-top: 10px;
-}
-
-html {
+﻿html {
     height: 100%;
     width: 100%;
     background-color: #edeef0;
@@ -20,6 +11,15 @@ body {
     max-width: 972px !important;
     max-width: 1500px !important;
     background-color: #2b3d4f !important;
+}
+
+.hoverwell:hover {
+    background-color: #485563 !important;
+    cursor: pointer;
+}
+
+.container {
+    padding-top: 10px;
 }
 
 .auth-div {
@@ -72,7 +72,8 @@ body {
 
 .chat-header {
     background-color: #0c2136;
-    height: 18%;
+    height: 12%;
+    min-height: 110px;
 }
 
 .members-text {
@@ -120,7 +121,7 @@ ul {
 
 .message-list {
     overflow-y: auto;
-    height: 67%;
+    height: 73%;
 }
 
 .input-box {
@@ -234,9 +235,9 @@ md-nav-bar button {
     margin-top: 100px;
 }
 
-.edit-chat-footer button, .profile-footer button {
-    font-size: 18px;
-}
+    .edit-chat-footer button, .profile-footer button {
+        font-size: 18px;
+    }
 
 .profile-footer {
     margin-right: 35px;
@@ -272,4 +273,30 @@ md-nav-bar button {
 
 .toast {
     z-index: 10000;
+}
+
+.md-fab:hover, .md-fab.md-focused {
+    background-color: #ff4281 !important;
+    color: white !important;
+}
+
+.chat-info-menu-btn {
+    background-color: blueviolet !important;
+    color: white;
+}
+
+.chat-info-menu {
+    top: 15px !important;
+}
+
+.chat-info {
+    padding-top: 10px;
+}
+
+.chat-info-title {
+    padding-top: 12px;
+}
+
+.chat-info-img {
+    margin-top: 5px !important;
 }
