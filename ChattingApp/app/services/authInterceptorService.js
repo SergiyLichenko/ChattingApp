@@ -16,9 +16,10 @@ app.factory('authInterceptorService',
             if (error.status === 401)
                 return $injector.get('$state').go('login');
             if (error.status === 500)
-                $rootScope.$broadcast('onGlobalError', error.data.exceptionMessage);
-            error.data = null;
-            return $q.reject(error.data);
+                $rootScope.$broadcast('onGlobalError', error.data);
+
+            error.config = null;
+            return $q.reject(error);
         };
 
         return {

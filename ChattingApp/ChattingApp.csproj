@@ -928,6 +928,7 @@
     <Compile Include="App_Start\StartUp.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Helpers\ExceptionGlobalFilter.cs" />
     <Compile Include="Helpers\SignalRContractResolver.cs" />
     <Compile Include="Hubs\BaseHub.cs" />
     <Compile Include="Hubs\ChatHub.cs" />

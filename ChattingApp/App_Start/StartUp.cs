@@ -72,6 +72,7 @@ namespace ChattingApp
 
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new ExceptionGlobalFilter());
         }
     }
 }
