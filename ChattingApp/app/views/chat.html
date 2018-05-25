@@ -1,10 +1,10 @@
-﻿<div class="col-md-3 chat-scope">
+﻿<div class="col-md-3 col-sm-4 chat-scope chat-scope-height">
     <div class="row">
         <div class="btn-group col-md-12 chatting-app-menu" uib-dropdown is-open="status.isopen">
-            <button id="chatting-app-menu-btn" type="button" class="btn btn-primary col-md-12" uib-dropdown-toggle ng-disabled="disabled">
+            <button type="button" class="btn btn-primary chatting-app-menu-btn col-md-12" uib-dropdown-toggle ng-disabled="disabled">
                 Chatting App <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu col-md-12" uib-dropdown-menu role="menu" aria-labelledby="chatting-app-menu-btn" data-ng-controller="ModalController as $ctrl">
+            <ul class="dropdown-menu col-md-12 chatting-app-menu-dropdown" uib-dropdown-menu role="menu" aria-labelledby="chatting-app-menu-btn" data-ng-controller="ModalController as $ctrl">
                 <li class="menu-item">
                     <button type="button" class="btn btn-info full-width"
                             ng-click="$ctrl.openJoinChatModal()">
@@ -18,7 +18,7 @@
                     </button>
                 </li>
                 <li class="menu-item">
-                    <button id="chats-btn" class="btn btn-info full-width"
+                    <button class="btn btn-info full-width"
                             ng-click="$ctrl.openProfileModal(currentUser)">
                         My Profile
                     </button>
@@ -39,9 +39,10 @@
         </md-list>
     </div>
 </div>
-<div cg-busy="chatBusyPromise" data-ng-controller="ChatController" class="col-md-9 chat-scope">
+<div cg-busy="chatBusyPromise" data-ng-controller="ChatController" class="col-md-9 col-sm-8 chat-scope">
     <div class="chat-header">
-        <md-fab-speed-dial md-open="open" md-direction="left"
+        <md-fab-speed-dial ng-if="selectedChat.id"
+                           md-open="open" md-direction="left"
                            class="md-scale md-fab-top-right md-hover-full chat-info-menu">
             <md-fab-trigger>
                 <md-button aria-label="Chat Menu" class="md-fab chat-info-menu-btn">
@@ -70,16 +71,14 @@
             </md-fab-actions>
         </md-fab-speed-dial>
         <div ng-if="selectedChat.id" class="chat-info">
-            <div class="col-md-2 chat-info-img">
+            <div class="col-md-2 col-xs-3 chat-info-img">
                 <img data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openEditChatModal(selectedChat)"
                      class="img-circle chat-image-header" ng-src="{{selectedChat.img}}" alt="selectedChat.title">
             </div>
-            <div class="col-md-8 chat-info-title">
+            <div class="col-md-8 col-xs-7 chat-info-title">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h3>
-                            <b>{{selectedChat.title}}</b>
-                        </h3>
+                        <h3 md-truncate> <b>{{selectedChat.title}}</b> </h3>
                     </div>
                 </div>
                 <div class="row">
@@ -93,8 +92,8 @@
     <div class="message-list" scroll-bottom="selectedChat.messages">
         <ul>
             <li data-ng-repeat="message in selectedChat.messages track by message.id">
-                <md-card class="col-md-7"
-                         ng-class="{'col-md-offset-5': message.author.id === currentUser.id}">
+                <md-card class="col-md-7 col-xs-8"
+                         ng-class="{'col-md-offset-5 col-xs-offset-4': message.author.id === currentUser.id}">
                     <md-card-title class="row" ng-click="$ctrl.openProfileModal(message.author)" data-ng-controller="ModalController as $ctrl">
                         <md-card-title-media>
                             <img class="md-avatar image-list-item" ng-src="{{message.author.img}}"
@@ -117,7 +116,7 @@
                             <md-button ng-if="message.isEditable"
                                        class="md-raised md-primary message-action-btn"
                                        ng-click="updateMessage(message)">Ok</md-button>
-                            <md-button id="delete" class="md-icon-button pull-right message-action-btn" aria-label="Delete Message">
+                            <md-button class="md-icon-button pull-right message-action-btn" aria-label="Delete Message">
                                 <img class="message-action-img"
                                      ng-click="deleteMessage(message)"
                                      src="../../Content/images/delete.png" />
@@ -139,11 +138,11 @@
     <div class="input-box">
         <div>
             <div class="row input-row">
-                <div class="col-md-2" ng-click="$ctrl.openProfileModal(currentUser)" data-ng-controller="ModalController as $ctrl">
+                <div class="col-md-2 col-xs-2 input-box-parent-img" ng-click="$ctrl.openProfileModal(currentUser)" data-ng-controller="ModalController as $ctrl">
                     <img class="img-circle input-box-img"
                          ng-src="{{currentUser.img}}" />
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 col-xs-7">
                     <div class="form-group label-static">
                         <textarea ng-keypress="onKeyPress($event)"
                                   ng-readonly="!selectedChat.id"
@@ -153,7 +152,7 @@
                                   ng-model="messageText"></textarea>
                     </div>
                 </div>
-                <div ng-if="selectedChat.id" class="col-md-2 input-box-btn">
+                <div ng-if="selectedChat.id" class="col-md-2 col-xs-3 input-box-btn">
                     <button class="btn btn-raised btn-success btn-lg"
                             ng-click="sendMessage(messageText)">
                         Send

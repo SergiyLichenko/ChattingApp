@@ -85,6 +85,7 @@
     <Content Include="Content\images\delete.png" />
     <Content Include="Content\images\edit.jpg" />
     <Content Include="Content\images\icon.ico" />
+    <Content Include="Content\media.css" />
     <Content Include="Content\modules\bootstrap-material-design\.idea\encodings.xml" />
     <Content Include="Content\modules\bootstrap-material-design\.idea\jsLibraryMappings.xml" />
     <Content Include="Content\modules\bootstrap-material-design\.idea\libraries\bootstrap_material_design_3_node_modules.xml" />
