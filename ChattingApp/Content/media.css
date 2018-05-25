@@ -1,10 +1,30 @@
-﻿@media only screen and (max-width : 480px) {
-    .input-box-parent-img {
-        margin-right: 15px;
+﻿@media only screen and (min-width : 0) {
+    .chat-list-item-title {
+        font-size: 20px;
     }
-}
 
-@media only screen and (min-width : 320px) {
+    .edit-profile-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .modal-input-identation {
+        width: 100%;
+    }
+
+    .join-chat-img {
+        height: 100px !important;
+        width: 100px !important;
+    }
+
+    body {
+        height: auto !important;
+    }
+
+    .container {
+        width: auto !important;
+    }
+
     .chat-scope {
         padding: 0;
         height: 83%;
@@ -43,7 +63,19 @@
     }
 }
 
+@media only screen and (min-width : 480px) {
+    .edit-profile-img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
 @media only screen and (min-width : 768px) {
+    .edit-profile-img {
+        width: 200px;
+        height: 200px;
+    }
+
     .message-list {
         height: 73%;
     }
@@ -53,14 +85,70 @@
     }
 
     body {
+        height: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
+    }
+
+    .chatting-app-menu-parent {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .chat-list {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
 @media only screen and (min-width : 972px) {
-    
+    .chat-list-item-title {
+        font-size: 26px;
+    }
+
+    .join-chat-img {
+        height: 150px !important;
+        width: 150px !important;
+    }
+
+    .input-box-img {
+        height: 100px !important;
+        width: 100px !important;
+    }
+
+    .md-headline {
+        font-size: 24px !important;
+    }
+
+    .image-list-item {
+        height: 60px !important;
+        width: 60px !important;
+    }
+
+    .md-subhead {
+        font-size: 14px !important;
+        margin-top: 0;
+    }
 }
 
-@media (min-width: @screen-lg-min) {
+@media (min-width: 1200px) {
+    html {
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+
+    .app-view {
+        margin-left: 0;
+    }
+
+    .row {
+        margin-right: 0 !important;
+    }
+}
+
+@media only screen and (max-width : 480px) {
+    .input-box-parent-img {
+        margin-right: 15px;
+    }
 }
