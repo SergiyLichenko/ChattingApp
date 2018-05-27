@@ -15,15 +15,18 @@
         <div class="form-group label-static">
             <span>Select avatar</span>
             <div>
-                <input type="file" ngf-select ng-model="file" ngf-pattern="'image/*'"
-                       ngf-accept="'image/*'" ngf-max-size="20MB"/><br />
-                <img class="create-chat-img" ngf-thumbnail="file" />
+                <input type="file" ngf-select ng-model="selectedImage" ngf-pattern="'image/*'"
+                       ngf-accept="'image/*'"
+                       ng-change="processImage(selectedImage)"
+                       ngf-resize="{width: 200, height: 200}"
+                       ngf-max-size="10MB"/><br />
+                <img class="create-chat-img" ngf-thumbnail="selectedImage" alt="{{title}}" />
             </div>
         </div>
     </div>
 
     <div class="row modal-footer">
-        <button class="btn btn-primary" type="button" ng-if="file && title" ng-click="ok()">Ok</button>
+        <button class="btn btn-primary" type="button" ng-if="title" ng-click="ok()">Ok</button>
         <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </div>

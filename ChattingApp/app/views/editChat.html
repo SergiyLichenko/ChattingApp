@@ -13,7 +13,8 @@
                                ng-if="!isReadonly" type="file" ngf-select ng-model="selectedFile"
                                ng-change="processImage(selectedFile)"
                                ngf-pattern="'image/*'"
-                               ngf-accept="'image/*'" ngf-max-size="20MB" />
+                               ngf-resize="{width: 200, height: 200}"
+                               ngf-accept="'image/*'" ngf-max-size="10MB" />
                     </blockquote>
                 </div>
             </td>

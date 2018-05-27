@@ -44,6 +44,7 @@ namespace ChattingApp.Repository.Repository
             chat.AuthorId = authorId;
             chat.Users = new List<ApplicationUser>() { author };
             chat.CreateDate = DateTime.Now;
+            if (chat.Img == null) chat.Img = ImageReader.GetDefaultImage();
 
             _authContext.Chats.Add(chat);
             await _authContext.SaveChangesAsync();

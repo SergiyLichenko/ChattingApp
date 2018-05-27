@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Http;
 using ChattingApp.Repository.Domain;
 using ChattingApp.Repository.Interfaces;
-using ChattingApp.Repository.Models;
 using Microsoft.AspNet.Identity;
 
 namespace ChattingApp.Controllers
@@ -30,7 +29,7 @@ namespace ChattingApp.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateAsync(UserDomain user)
+        public async Task<IHttpActionResult> UpdateAsync([FromBody] UserDomain user)
         {
             if (user == null) return BadRequest("Request cannot be null");
 
