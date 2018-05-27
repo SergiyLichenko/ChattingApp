@@ -52,7 +52,8 @@ namespace ChattingApp.Hubs
             var currentChat = await ChatRepository.GetByIdAsync(chatId);
 
             foreach (var user in currentChat.Users)
-                NotifyClient(user.Id, callback);
+                if (user != null)
+                    NotifyClient(user.Id, callback);
         }
 
         protected void NotifyClient(string clientId, Action<dynamic> callback)

@@ -76,6 +76,7 @@ body {
 .chat-image-header {
     width: 80px;
     height: 80px;
+    object-fit: cover;
 }
 
 ul {
@@ -177,6 +178,7 @@ md-nav-bar button {
 
 .create-chat-img {
     width: 200px;
+    object-fit: cover;
 }
 
 .edit-chat-image-picker {
@@ -194,6 +196,7 @@ md-nav-bar button {
 
 .edit-chat-image {
     width: 200px;
+    object-fit: cover;
 }
 
 .edit-chat-table td {
@@ -286,4 +289,12 @@ md-nav-bar button {
 
 .chatting-app-menu-dropdown {
     width: 100%;
+}
+
+.md-avatar {
+    object-fit: cover !important;
+}
+
+.edit-profile-img {
+    object-fit: cover;
 }
