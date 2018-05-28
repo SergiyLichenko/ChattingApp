@@ -39,8 +39,8 @@ namespace ChattingApp.Repository.Repository
         {
             if (chat == null) throw new ArgumentNullException(nameof(chat));
 
-            var authorId = HttpContext.Current.User.Identity.GetUserId();
-            var author = await _userRepository.GetByIdAsync(Convert.ToInt32(authorId));
+            var authorId = Convert.ToInt32(HttpContext.Current.User.Identity.GetUserId());
+            var author = await _userRepository.GetByIdAsync(authorId);
 
             chat.AuthorId = authorId;
             chat.Users = new List<ApplicationUser>() { author };
