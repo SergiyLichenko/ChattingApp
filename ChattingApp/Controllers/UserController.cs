@@ -23,7 +23,7 @@ namespace ChattingApp.Controllers
         public async Task<IHttpActionResult> GetCurrentAsync()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            var user = await _userRepository.GetByIdAsync(userId);
+            var user = await _userRepository.GetByIdAsync(Convert.ToInt32(userId));
 
             return Ok(user);
         }

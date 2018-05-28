@@ -4,7 +4,7 @@ namespace ChattingApp.Repository.Domain
 {
     public class UserDomain
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [Display(Name = "user name")]
         public string UserName { get; set; }

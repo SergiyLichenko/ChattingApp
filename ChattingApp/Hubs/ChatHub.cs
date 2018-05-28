@@ -41,9 +41,9 @@ namespace ChattingApp.Hubs
             foreach (var clientId in clientIds)
             {
                 if (existingUsers.Contains(clientId))
-                    NotifyClient(clientId, client => client.onChatUpdateAsync(existingChat));
+                    NotifyClient(clientId.ToString(), client => client.onChatUpdateAsync(existingChat));
                 else
-                    NotifyClient(clientId, client => client.onChatDeleteAsync(existingChat.Id));
+                    NotifyClient(clientId.ToString(), client => client.onChatDeleteAsync(existingChat.Id));
             }
         }
 
@@ -56,7 +56,7 @@ namespace ChattingApp.Hubs
 
             await ChatRepository.DeleteAsync(id);
             foreach (var clientId in clientIds)
-                NotifyClient(clientId, client => client.onChatDeleteAsync(id));
+                NotifyClient(clientId.ToString(), client => client.onChatDeleteAsync(id));
         }
     }
 }

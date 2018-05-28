@@ -42,10 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AuthContext.cs" />
-    <Compile Include="Helpers\ApplicationUserStore.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Helpers\ImageReader.cs" />
     <Compile Include="Helpers\ImageResizer.cs" />
+    <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="IAuthContext.cs" />
     <Compile Include="Interfaces\IChatRepository.cs" />
     <Compile Include="Interfaces\IMessageRepository.cs" />

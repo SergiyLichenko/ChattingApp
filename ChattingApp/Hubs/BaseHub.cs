@@ -53,7 +53,7 @@ namespace ChattingApp.Hubs
 
             foreach (var user in currentChat.Users)
                 if (user != null)
-                    NotifyClient(user.Id, callback);
+                    NotifyClient(user.Id.ToString(), callback);
         }
 
         protected void NotifyClient(string clientId, Action<dynamic> callback)

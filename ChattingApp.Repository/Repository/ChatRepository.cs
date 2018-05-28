@@ -29,7 +29,8 @@ namespace ChattingApp.Repository.Repository
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
-            return await _authContext.Chats.Include(x => x.Users)
+            return await _authContext.Chats
+                .Include(x => x.Users)
                 .Include(x => x.Messages)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -39,7 +40,7 @@ namespace ChattingApp.Repository.Repository
             if (chat == null) throw new ArgumentNullException(nameof(chat));
 
             var authorId = HttpContext.Current.User.Identity.GetUserId();
-            var author = await _userRepository.GetByIdAsync(authorId);
+            var author = await _userRepository.GetByIdAsync(Convert.ToInt32(authorId));
 
             chat.AuthorId = authorId;
             chat.Users = new List<ApplicationUser>() { author };

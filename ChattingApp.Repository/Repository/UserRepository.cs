@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using ChattingApp.Repository.Domain;
 using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using Microsoft.AspNet.Identity;
+using PasswordHasher = ChattingApp.Repository.Helpers.PasswordHasher;
 
 namespace ChattingApp.Repository.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAuthContext _authContext;
 
         public UserRepository(IAuthContext authContext)
         {
-            _userManager = new UserManager<ApplicationUser>(new ApplicationUserStore((AuthContext)authContext));
             _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
         }
 
-        public async Task<ApplicationUser> GetByIdAsync(string id)
+        public async Task<ApplicationUser> GetByIdAsync(int id)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException(nameof(id));
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
             return await _authContext.Users.Include(x => x.Chats)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -39,7 +39,7 @@ namespace ChattingApp.Repository.Repository
 
             var newUser = new ApplicationUser
             {
-                PasswordHash = _userManager.PasswordHasher.HashPassword(user.Password),
+                Password = PasswordHasher.HashPassword(user.Password),
                 Email = user.Email,
                 UserName = user.UserName,
                 Img = user.Img
@@ -57,16 +57,18 @@ namespace ChattingApp.Repository.Repository
             var existingUser = await GetByIdAsync(user.Id);
             if (existingUser == null) throw new InvalidOperationException("user is not found");
 
-            var passwordVerificationResult = _userManager.PasswordHasher
-                .VerifyHashedPassword(existingUser.PasswordHash, user.Password);
+            var isVerifiedPassword = PasswordHasher
+                .VerifyHashedPassword(existingUser.Password, user.OldPassword);
 
-            if (passwordVerificationResult == PasswordVerificationResult.Failed)
+            if (!isVerifiedPassword)
                 throw new InvalidOperationException("Incorrect password");
 
             existingUser.Img = user.Img;
             existingUser.Email = user.Email;
             existingUser.UserName = user.UserName;
-            await _userManager.UpdateAsync(existingUser);
+            existingUser.Password = PasswordHasher.HashPassword(user.Password);
+
+            await _authContext.SaveChangesAsync();
         }
 
         public async Task<ApplicationUser> FindAsync(string userName, string password)
@@ -74,7 +76,8 @@ namespace ChattingApp.Repository.Repository
             if (string.IsNullOrEmpty(userName)) throw new ArgumentException(nameof(userName));
             if (string.IsNullOrEmpty(password)) throw new ArgumentException(nameof(password));
 
-            return await _userManager.FindAsync(userName, password);
+            var users = await _authContext.Users.Where(x => x.UserName == userName).ToListAsync();
+            return users.FirstOrDefault(x => PasswordHasher.VerifyHashedPassword(x.Password, password));
         }
     }
 }

@@ -47,7 +47,7 @@ namespace ChattingApp.Helpers
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, applicationUser.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Email, applicationUser.Email));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, applicationUser.Id));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, applicationUser.Id.ToString()));
 
             return identity;
         }
