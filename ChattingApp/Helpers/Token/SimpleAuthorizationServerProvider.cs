@@ -5,7 +5,7 @@ using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using Microsoft.Owin.Security.OAuth;
 
-namespace ChattingApp.Helpers
+namespace ChattingApp.Helpers.Token
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {

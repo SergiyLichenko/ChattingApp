@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using ChattingApp;
 using ChattingApp.Helpers;
+using ChattingApp.Helpers.Token;
 using ChattingApp.Repository;
 using ChattingApp.Repository.Interfaces;
 using Microsoft.AspNet.SignalR;

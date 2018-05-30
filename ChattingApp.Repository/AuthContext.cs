@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Diagnostics;
+using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ChattingApp.Repository
 {
@@ -10,9 +10,11 @@ namespace ChattingApp.Repository
         public IDbSet<Message> Messages { get; set; }
         public IDbSet<Chat> Chats { get; set; }
         public IDbSet<ApplicationUser> Users { get; set; }
+        public IDbSet<Language> Languages { get; set; }
 
         public AuthContext() : base("ChattingApp")
         {
+            Database.SetInitializer(new DatabaseInitializer());
             Database.Log = message => Debug.WriteLine(message);
         }
 
@@ -31,12 +33,16 @@ namespace ChattingApp.Repository
             modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Chats).WithMany(x => x.Users);
             modelBuilder.Entity<ApplicationUser>().Property(x => x.Password).IsRequired();
             modelBuilder.Entity<ApplicationUser>().Property(x => x.UserName).IsRequired();
+            modelBuilder.Entity<ApplicationUser>().HasRequired(x => x.Language);
 
             modelBuilder.Entity<Message>().HasKey(x => x.Id);
             modelBuilder.Entity<Message>().Property(x => x.Id).IsRequired();
             modelBuilder.Entity<Message>().Property(x => x.CreateDate).IsRequired();
             modelBuilder.Entity<Message>().HasRequired(x => x.Author);
             modelBuilder.Entity<Message>().HasRequired(x => x.Chat).WithMany(x => x.Messages);
+
+            modelBuilder.Entity<Language>().HasKey(x => x.Id);
+            modelBuilder.Entity<Language>().Property(x => x.LanguageType).IsRequired();
         }
     }
 }

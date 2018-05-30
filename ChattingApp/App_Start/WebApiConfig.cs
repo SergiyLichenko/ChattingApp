@@ -14,10 +14,7 @@ namespace ChattingApp
             config.MapHttpAttributeRoutes();
             config.Filters.Add(new AuthorizeAttribute());
 
-            config.Routes.MapHttpRoute(
-                "DefaultApi", "api/{controller}/{Id}/{uniqueId}",
-                new { id = RouteParameter.Optional, uniqueId = RouteParameter.Optional });
-
+          
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             jsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

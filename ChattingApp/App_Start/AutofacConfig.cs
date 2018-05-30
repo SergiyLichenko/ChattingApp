@@ -3,6 +3,9 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.SignalR;
 using Autofac.Integration.WebApi;
+using ChattingApp.Helpers.Translate;
+using ChattingApp.Helpers.Translate.Interfaces;
+using ChattingApp.Models;
 using ChattingApp.Repository;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Repository;
@@ -22,6 +25,10 @@ namespace ChattingApp
 
             builder.RegisterType<AuthContext>().As<IAuthContext>().SingleInstance();
 
+            builder.RegisterType<GoogleTranslator>().Named<ITranslator>(TranslationSource.Google.ToString());
+            builder.RegisterType<MessageTranslator>().As<IMessageTranslator>();
+
+            builder.RegisterType<LanguageRepository>().As<ILanguageRepository>();
             builder.RegisterType<MessageRepository>().As<IMessageRepository>();
             builder.RegisterType<ChatRepository>().As<IChatRepository>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();

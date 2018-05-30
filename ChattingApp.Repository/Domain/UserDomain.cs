@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ChattingApp.Repository.Models;
 
 namespace ChattingApp.Repository.Domain
 {
@@ -28,5 +29,7 @@ namespace ChattingApp.Repository.Domain
         public string Email { get; set; }
 
         public string Img { get; set; }
+
+        public Language Language { get; set; }
     }
 }

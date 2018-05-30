@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 app.controller('ChatController',
-    ['$rootScope', '$scope', '$timeout', 'localStorageService', 'messageHubService', 'chatHubService',
-        function ($rootScope, $scope, $timeout, localStorageService, messageHubService, chatHubService) {
+    ['$rootScope', '$scope', '$timeout', 'localStorageService', 'messageHubService', 'chatHubService', 'messageService',
+        function ($rootScope, $scope, $timeout, localStorageService, messageHubService, chatHubService, messageService) {
             $scope.messageText = '';
             $scope.open = false;
 
@@ -95,6 +95,10 @@ app.controller('ChatController',
             $scope.deleteMessage = function (message) {
                 message.chat = { id: $scope.selectedChat.id };
                 $scope.chatBusyPromise = messageHubService.delete(message);
+            }
+
+            $scope.translate = function(messageId) {
+                $scope.chatBusyPromise = messageService.translate(messageId);
             }
 
             $scope.quitChat = function (chat) {

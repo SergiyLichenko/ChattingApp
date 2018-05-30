@@ -24,6 +24,7 @@ namespace ChattingApp.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
         public async Task<IHttpActionResult> GetByIdAsync([FromUri] int id)
         {
             if (id < 0) return BadRequest("Id cannot be negative");

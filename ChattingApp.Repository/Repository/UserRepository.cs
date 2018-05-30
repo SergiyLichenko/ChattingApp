@@ -6,7 +6,6 @@ using ChattingApp.Repository.Domain;
 using ChattingApp.Repository.Helpers;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
-using Microsoft.AspNet.Identity;
 using PasswordHasher = ChattingApp.Repository.Helpers.PasswordHasher;
 
 namespace ChattingApp.Repository.Repository
@@ -14,10 +13,13 @@ namespace ChattingApp.Repository.Repository
     public class UserRepository : IUserRepository
     {
         private readonly IAuthContext _authContext;
+        private readonly ILanguageRepository _languageRepository;
 
-        public UserRepository(IAuthContext authContext)
+        public UserRepository(IAuthContext authContext,
+            ILanguageRepository languageRepository)
         {
             _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
+            _languageRepository = languageRepository ?? throw new ArgumentNullException(nameof(languageRepository));
         }
 
         public async Task<ApplicationUser> GetByIdAsync(int id)
@@ -25,6 +27,7 @@ namespace ChattingApp.Repository.Repository
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
             return await _authContext.Users.Include(x => x.Chats)
+                .Include(x => x.Language)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -42,7 +45,8 @@ namespace ChattingApp.Repository.Repository
                 Password = PasswordHasher.HashPassword(user.Password),
                 Email = user.Email,
                 UserName = user.UserName,
-                Img = user.Img
+                Img = user.Img,
+                Language = await _languageRepository.GetDefaultAsync()
             };
             _authContext.Users.Add(newUser);
             await _authContext.SaveChangesAsync();
@@ -67,6 +71,7 @@ namespace ChattingApp.Repository.Repository
             existingUser.Email = user.Email;
             existingUser.UserName = user.UserName;
             existingUser.Password = PasswordHasher.HashPassword(user.Password);
+            existingUser.Language = await _languageRepository.GetByIdAsync(user.Language.Id);
 
             await _authContext.SaveChangesAsync();
         }

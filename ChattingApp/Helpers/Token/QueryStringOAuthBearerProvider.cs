@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 
-namespace ChattingApp.Helpers
+namespace ChattingApp.Helpers.Token
 {
     public class QueryStringOAuthBearerProvider : OAuthBearerAuthenticationProvider
     {

@@ -103,6 +103,11 @@
                             <span class="md-headline">{{message.author.userName}}</span>
                             <span class="md-subhead">{{message.createDate | date : 'short'}}</span>
                         </md-card-title-text>
+                        <md-button class="md-icon-button pull-right message-action-btn" ng-click="translate(message.id); $event.stopPropagation()" aria-label="Translate Message">
+                            <img class="message-action-img"
+                                 src="../../Content/images/translate.png" />
+                            <md-tooltip md-direction="bot"> Translate Message </md-tooltip>
+                        </md-button>
                     </md-card-title>
                     <md-card-content class="row">
                         <textarea ng-model="message.text"

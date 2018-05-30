@@ -10,6 +10,8 @@ namespace ChattingApp.Repository
         IDbSet<Message> Messages { get; set; }
         IDbSet<Chat> Chats { get; set; }
         IDbSet<ApplicationUser> Users { get; set; }
+        IDbSet<Language> Languages { get; set; }
+
         Task<int> SaveChangesAsync();
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
     }
