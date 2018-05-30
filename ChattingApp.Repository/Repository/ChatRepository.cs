@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +46,10 @@ namespace ChattingApp.Repository.Repository
             chat.AuthorId = authorId;
             chat.Users = new List<ApplicationUser>() { author };
             chat.CreateDate = DateTime.Now;
-            if (chat.Img == null) chat.Img = ImageReader.GetDefaultImage();
+
+            if (chat.Img == null) chat.Img = ConfigurationManager.AppSettings["DefaultImageUrl"];
+            else if (!chat.Img.IsUrl())
+                chat.Img = await ImageUploader.UploadAsync(chat.Img);
 
             _authContext.Chats.Add(chat);
             await _authContext.SaveChangesAsync();
@@ -55,22 +59,25 @@ namespace ChattingApp.Repository.Repository
         {
             if (chat == null) throw new ArgumentNullException(nameof(chat));
 
-            var chatEntity = await GetByIdAsync(chat.Id);
-            if (chatEntity == null) throw new InvalidOperationException();
+            var existingChat = await GetByIdAsync(chat.Id);
+            if (existingChat == null) throw new InvalidOperationException();
 
-            var deletedUsers = chatEntity.Users
+            var deletedUsers = existingChat.Users
                 .Except(chat.Users, user => user.Id).ToList();
-            var addedUsers = chat.Users.Except(chatEntity.Users, x => x.Id).ToList();
+            var addedUsers = chat.Users.Except(existingChat.Users, x => x.Id).ToList();
 
-            _authContext.Entry(chatEntity).CurrentValues.SetValues(chat);
+            _authContext.Entry(existingChat).CurrentValues.SetValues(chat);
+
+            if (chat.Img != null && !chat.Img.IsUrl())
+                existingChat.Img = await ImageUploader.UploadAsync(chat.Img);
 
             foreach (var user in deletedUsers)
-                user.Chats.Remove(chatEntity);
+                user.Chats.Remove(existingChat);
 
             foreach (var user in addedUsers)
             {
                 var existingUser = await _userRepository.GetByIdAsync(user.Id);
-                existingUser.Chats.Add(chatEntity);
+                existingUser.Chats.Add(existingChat);
             }
 
             await _authContext.SaveChangesAsync();

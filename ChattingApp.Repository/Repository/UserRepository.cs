@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace ChattingApp.Repository.Repository
                 throw new InvalidOperationException("Password and confirmation password do not match");
 
             if (string.IsNullOrEmpty(user.Img))
-                user.Img = ImageReader.GetDefaultImage();
+                user.Img = ConfigurationManager.AppSettings["DefaultImageUrl"];
 
             var newUser = new ApplicationUser
             {
@@ -67,7 +68,9 @@ namespace ChattingApp.Repository.Repository
             if (!isVerifiedPassword)
                 throw new InvalidOperationException("Incorrect password");
 
-            existingUser.Img = user.Img;
+            if (user.Img != null && !user.Img.IsUrl())
+                existingUser.Img = await ImageUploader.UploadAsync(user.Img);
+
             existingUser.Email = user.Email;
             existingUser.UserName = user.UserName;
             existingUser.Password = PasswordHasher.HashPassword(user.Password);

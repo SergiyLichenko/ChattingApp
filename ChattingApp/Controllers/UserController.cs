@@ -29,6 +29,7 @@ namespace ChattingApp.Controllers
         }
 
         [HttpPut]
+        [Route("")]
         public async Task<IHttpActionResult> UpdateAsync([FromBody] UserDomain user)
         {
             if (user == null) return BadRequest("Request cannot be null");
