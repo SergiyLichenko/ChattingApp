@@ -14,6 +14,7 @@ namespace ChattingApp.Helpers.Translate
     {
         private readonly ITranslator _googleTranslator;
         private readonly ITranslator _bingTranslator;
+        private readonly ITranslator _yandexTranslator;
         private readonly IMessageRepository _messageRepository;
         private readonly IUserRepository _userRepository;
 
@@ -23,6 +24,7 @@ namespace ChattingApp.Helpers.Translate
         {
             _googleTranslator = translators[TranslationSource.Google.ToString()] ?? throw new ArgumentNullException(nameof(translators));
             _bingTranslator = translators[TranslationSource.Bing.ToString()] ?? throw new ArgumentNullException(nameof(translators));
+            _yandexTranslator = translators[TranslationSource.Yandex.ToString()] ?? throw new ArgumentNullException(nameof(translators));
             _messageRepository = messageRepository ?? throw new ArgumentNullException(nameof(messageRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
@@ -36,14 +38,17 @@ namespace ChattingApp.Helpers.Translate
             var currentUser = await _userRepository.GetByIdAsync(userId);
             var targetLanguage = currentUser.Language.LanguageType.ToString();
 
-            var googleTranslate = await _googleTranslator.TranslateAsync(message.Text, targetLanguage);
-            var bingTranslate = await _bingTranslator.TranslateAsync(message.Text, targetLanguage);
+            var googleTranslateTask = _googleTranslator.TranslateAsync(message.Text, targetLanguage);
+            var bingTranslateTask = _bingTranslator.TranslateAsync(message.Text, targetLanguage);
+            var yandexTranslateTask = _yandexTranslator.TranslateAsync(message.Text, targetLanguage);
 
+            await Task.WhenAll(googleTranslateTask, bingTranslateTask, yandexTranslateTask);
 
             return new Dictionary<TranslationSource, string>()
             {
-                {TranslationSource.Google, googleTranslate },
-                {TranslationSource.Bing, bingTranslate }
+                {TranslationSource.Google, await googleTranslateTask},
+                {TranslationSource.Bing, await bingTranslateTask},
+                {TranslationSource.Yandex, await yandexTranslateTask}
             };
         }
     }

@@ -27,6 +27,7 @@ namespace ChattingApp
 
             builder.RegisterType<GoogleTranslator>().Named<ITranslator>(TranslationSource.Google.ToString());
             builder.RegisterType<BingTranslator>().Named<ITranslator>(TranslationSource.Bing.ToString());
+            builder.RegisterType<YandexTranslator>().Named<ITranslator>(TranslationSource.Yandex.ToString());
             builder.RegisterType<MessageTranslator>().As<IMessageTranslator>();
 
             builder.RegisterType<LanguageRepository>().As<ILanguageRepository>();

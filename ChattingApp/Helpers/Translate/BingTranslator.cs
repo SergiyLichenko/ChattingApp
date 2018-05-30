@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ChattingApp.Helpers.Translate.Interfaces;
@@ -16,22 +18,30 @@ namespace ChattingApp.Helpers.Translate
         {
             _translateClient = new TranslateClient(new CognitiveServicesConfig()
             {
-                Name = "Doc_Transl_demo",
-                SubscriptionKey = "48916fdea51c45fd8088a34eee7047a0",
-                SubscriptionKeyAlternate = "84bbc7b1419046b8a7bed2e4559232fb"
+                SubscriptionKey = ConfigurationManager.AppSettings["BingKey"],
+                SubscriptionKeyAlternate = ConfigurationManager.AppSettings["BingAlternateKey"]
             });
         }
 
-        public async Task<string> TranslateAsync(string message, string targetLanguage)
+        public async Task<string> TranslateAsync(string text, string targetLanguage)
         {
-            if (string.IsNullOrEmpty(message)) throw new ArgumentException(nameof(message));
-            if (string.IsNullOrEmpty(targetLanguage)) throw new ArgumentException(nameof(message));
+            if (string.IsNullOrEmpty(text)) throw new ArgumentException(nameof(text));
+            if (string.IsNullOrEmpty(targetLanguage)) throw new ArgumentException(nameof(text));
 
-            var requestParameter = new RequestParameter() {To = new[] {targetLanguage}};
-            var result = await _translateClient.TranslateAsync(
-                new RequestContent(message), requestParameter);
+            try
+            {
+                var requestParameter = new RequestParameter() { To = new[] { targetLanguage } };
+                var result = await _translateClient.TranslateAsync(
+                    new RequestContent(text), requestParameter);
 
-            return result.First().Translations.First().Text;
+                return result.First().Translations.First().Text;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+            return text;
         }
     }
 }
