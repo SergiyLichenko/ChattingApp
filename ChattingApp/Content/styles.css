@@ -298,3 +298,14 @@ md-nav-bar button {
 .edit-profile-img {
     object-fit: cover;
 }
+
+.language-radio-button {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.language-img {
+    max-width: 30px;
+    max-height: 30px;
+    object-fit: cover;
+}

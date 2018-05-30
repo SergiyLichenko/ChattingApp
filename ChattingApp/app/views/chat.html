@@ -103,8 +103,10 @@
                             <span class="md-headline">{{message.author.userName}}</span>
                             <span class="md-subhead">{{message.createDate | date : 'short'}}</span>
                         </md-card-title-text>
-                        <md-button class="md-icon-button pull-right message-action-btn" ng-click="translate(message.id); $event.stopPropagation()" aria-label="Translate Message">
+                        <md-button class="md-icon-button pull-right message-action-btn" ng-click="translate(message); $event.stopPropagation()" aria-label="Translate Message">
                             <img class="message-action-img"
+                                 ng-if="true || message.author.id !== currentUser.id"
+                                 alt="{{message.author.userName}}"
                                  src="../../Content/images/translate.png" />
                             <md-tooltip md-direction="bot"> Translate Message </md-tooltip>
                         </md-button>
@@ -134,6 +136,20 @@
                                      src="../../Content/images/edit.jpg" />
                             </md-button>
                         </md-card-actions>
+                        <md-tabs>
+                            <md-tab>
+                                <md-tab-label>Google</md-tab-label>
+                                <md-tab-body>{{message.translations['google']}}</md-tab-body>
+                            </md-tab>
+                            <md-tab>
+                                <md-tab-label>Bing</md-tab-label>
+                                <md-tab-body>{{message.translations['bing']}}</md-tab-body>
+                            </md-tab>
+                            <md-tab>
+                                <md-tab-label>Yandex</md-tab-label>
+                                <md-tab-body>{{message.translations['yandex']}}</md-tab-body>
+                            </md-tab>
+                        </md-tabs>
                     </md-card-content>
                 </md-card>
             </li>

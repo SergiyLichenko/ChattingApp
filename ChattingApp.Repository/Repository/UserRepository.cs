@@ -74,7 +74,7 @@ namespace ChattingApp.Repository.Repository
             existingUser.Email = user.Email;
             existingUser.UserName = user.UserName;
             existingUser.Password = PasswordHasher.HashPassword(user.Password);
-            existingUser.Language = await _languageRepository.GetByIdAsync(user.Language.Id);
+            existingUser.Language = await _languageRepository.GetByLanguageTypeAsync(user.Language.LanguageType);
 
             await _authContext.SaveChangesAsync();
         }

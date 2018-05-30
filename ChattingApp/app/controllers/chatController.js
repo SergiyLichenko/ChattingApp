@@ -10,9 +10,9 @@ app.controller('ChatController',
                 if ($scope.currentUser) $scope.currentUser = user;
                 if (!$scope.selectedChat) return;
 
-                for(var message of $scope.selectedChat.messages)
+                for (var message of $scope.selectedChat.messages)
                     if (message.author.id === user.id)
-                    Object.assign(message.author, user);
+                        Object.assign(message.author, user);
 
                 $timeout(function () { $scope.$apply(); });
             });
@@ -47,7 +47,7 @@ app.controller('ChatController',
                 $scope.messageText = '';
 
                 Object.assign($scope.selectedChat, message.chat);
-                if ($scope.selectedChat.messages.findIndex(x=>x.id === message.id) === -1)
+                if ($scope.selectedChat.messages.findIndex(x => x.id === message.id) === -1)
                     $scope.selectedChat.messages.push(message);
                 if (message.author.id === $scope.currentUser.id)
                     $rootScope.$broadcast('onUserUpdate', message.author);
@@ -97,8 +97,9 @@ app.controller('ChatController',
                 $scope.chatBusyPromise = messageHubService.delete(message);
             }
 
-            $scope.translate = function(messageId) {
-                $scope.chatBusyPromise = messageService.translate(messageId);
+            $scope.translate = function (message) {
+                $scope.chatBusyPromise = messageService.translate(message.id).then(
+                    function (result) { message.translations = result.data; });
             }
 
             $scope.quitChat = function (chat) {

@@ -20,11 +20,7 @@ namespace ChattingApp.Repository.Repository
         public async Task<Language> GetDefaultAsync() =>
             await _authContext.Languages.FirstOrDefaultAsync(x => x.LanguageType == DefaultLanguageType);
 
-        public async Task<Language> GetByIdAsync(int id)
-        {
-            if(id < 0) throw new ArgumentOutOfRangeException(nameof(id));
-
-            return await _authContext.Languages.FirstOrDefaultAsync(x => x.Id == id);
-        }
+        public async Task<Language> GetByLanguageTypeAsync(LanguageType languageType) =>
+            await _authContext.Languages.FirstOrDefaultAsync(x => x.LanguageType == languageType);
     }
 }

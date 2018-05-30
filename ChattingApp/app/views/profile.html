@@ -4,7 +4,7 @@
     </div>
     <div class="row vertical-align">
         <div class="col-md-4">
-            <img alt="{{selectedUser.userName}}" 
+            <img alt="{{selectedUser.userName}}"
                  ng-src="{{selectedUser.img}}" class="edit-profile-img">
         </div>
         <div ng-if="!isReadonly" class="col-md-8">
@@ -25,6 +25,40 @@
         <div class="text-danger" ng-if="myForm.userName.$invalid && myForm.userName.$touched">
             Required
         </div>
+    </div>
+    <div class="row">
+        <h3 class="text-center">Email</h3>
+        <input type="email" class="form-control modal-input-identation" required
+               ng-class="{'dark-grey':isReadonly, 'blue': !isReadonly }"
+               ng-readonly="isReadonly"
+               ng-model="selectedUser.email"
+               name="email" />
+        <div class="text-danger" ng-if="myForm.email.$error.required && myForm.email.$touched">Required</div>
+        <div class="text-danger" ng-if="myForm.email.$error.email">Input valid email</div>
+    </div>
+    <div class="row">
+        <h3 class="text-center">Language</h3>
+        <md-radio-group ng-disabled="isReadonly" class="col-xs-12" name="language" ng-model="selectedUser.language.languageType">
+            <div class="col-xs-4">
+                <img class="language-img"
+                     alt="English"
+                     src="../../Content/images/en-flag.png" />
+                <md-radio-button class="language-radio-button" value="0"> English </md-radio-button>
+            </div>
+            <div class="col-xs-4">
+                <img class="language-img"
+                     alt="Русский"
+                     src="../../Content/images/ru-flag.png" />
+                <md-radio-button class="language-radio-button" value="1"> Русский </md-radio-button>
+            </div>
+            <div class="col-xs-4">
+                <img class="language-img"
+                     alt="Українська"
+                     src="../../Content/images/uk-flag.png" />
+                <md-radio-button class="language-radio-button" value="2"> Українська </md-radio-button>
+            </div>
+        </md-radio-group>
+        <div class="text-danger" ng-if="myForm.language.$error.required && myForm.email.$touched">Required</div>
     </div>
     <div ng-if="selectedUser.id === currentUser.id" class="row">
         <h3 class="text-center">Password</h3>
@@ -59,17 +93,6 @@
                name="confirm" />
         <div class="text-danger" ng-if="myForm.confirm.$error.match">Passwords are not equal</div>
     </div>
-    <div class="row">
-        <h3 class="text-center">Email</h3>
-        <input type="email" class="form-control modal-input-identation" required
-               ng-class="{'dark-grey':isReadonly, 'blue': !isReadonly }"
-               ng-readonly="isReadonly"
-               ng-model="selectedUser.email"
-               name="email" />
-        <div class="text-danger" ng-if="myForm.email.$error.required && myForm.email.$touched">Required</div>
-        <div class="text-danger" ng-if="myForm.email.$error.email">Input valid email</div>
-    </div>
-
     <div class="modal-footer profile-footer">
         <button ng-show="selectedUser.id === currentUser.id && isReadonly"
                 class="btn btn-raised btn-success"
