@@ -13,6 +13,7 @@ namespace ChattingApp.Helpers.Translate
     public class MessageTranslator : IMessageTranslator
     {
         private readonly ITranslator _googleTranslator;
+        private readonly ITranslator _bingTranslator;
         private readonly IMessageRepository _messageRepository;
         private readonly IUserRepository _userRepository;
 
@@ -21,6 +22,7 @@ namespace ChattingApp.Helpers.Translate
             IUserRepository userRepository)
         {
             _googleTranslator = translators[TranslationSource.Google.ToString()] ?? throw new ArgumentNullException(nameof(translators));
+            _bingTranslator = translators[TranslationSource.Bing.ToString()] ?? throw new ArgumentNullException(nameof(translators));
             _messageRepository = messageRepository ?? throw new ArgumentNullException(nameof(messageRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
@@ -32,13 +34,16 @@ namespace ChattingApp.Helpers.Translate
             var message = await _messageRepository.GetByIdAsync(messageId);
             var userId = Convert.ToInt32(HttpContext.Current.User.Identity.GetUserId());
             var currentUser = await _userRepository.GetByIdAsync(userId);
+            var targetLanguage = currentUser.Language.LanguageType.ToString();
 
-            var googleTranslate = await _googleTranslator.TranslateAsync(
-                message.Text, currentUser.Language.LanguageType.ToString());
+            var googleTranslate = await _googleTranslator.TranslateAsync(message.Text, targetLanguage);
+            var bingTranslate = await _bingTranslator.TranslateAsync(message.Text, targetLanguage);
+
 
             return new Dictionary<TranslationSource, string>()
             {
-                {TranslationSource.Google, googleTranslate }
+                {TranslationSource.Google, googleTranslate },
+                {TranslationSource.Bing, bingTranslate }
             };
         }
     }
