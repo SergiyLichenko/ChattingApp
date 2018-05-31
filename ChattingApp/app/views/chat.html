@@ -51,6 +51,20 @@
                 </md-button>
             </md-fab-trigger>
             <md-fab-actions>
+                <md-button ng-click="setFavorite(!isFavorite)"
+                           aria-label="Favorite Filter"
+                           class="md-fab md-raised md-mini">
+                    <img class="filter-favorite-img"
+                         alt="Favorite Filter Off"
+                         ng-if="isFavorite"
+                         src="../../Content/images/favorite-off.png" />
+                    <img class="filter-favorite-img"
+                         alt="Favorite Filter On"
+                         ng-if="!isFavorite"
+                         src="../../Content/images/favorite-on.png" />
+                    <md-tooltip ng-if="isFavorite" md-direction="bot"> Show all messages </md-tooltip>
+                    <md-tooltip ng-if="!isFavorite" md-direction="bot"> Show only favorite messages </md-tooltip>
+                </md-button>
                 <md-button aria-label="Edit Chat"
                            data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openAddUserModal(selectedChat)"
                            class="md-fab md-raised md-mini">
@@ -97,32 +111,42 @@
     </div>
     <div class="message-list" scroll-bottom="selectedChat.messages">
         <ul>
-            <li data-ng-repeat="message in selectedChat.messages track by message.id">
+            <li ng-if="message.isFavorite === isFavorite || !isFavorite" data-ng-repeat="message in selectedChat.messages track by message.id">
                 <md-card class="col-md-7 col-xs-8"
                          ng-class="{'col-md-offset-5 col-xs-offset-4': message.author.id === currentUser.id}">
                     <md-card-title class="row" ng-click="$ctrl.openProfileModal(message.author)" data-ng-controller="ModalController as $ctrl">
-                        <md-card-title-media>
+                        <md-card-title-media class="col-xs-2 col-lg-2">
                             <img class="md-avatar image-list-item" ng-src="{{message.author.img}}"
                                  alt="message.author.userName" />
                         </md-card-title-media>
-                        <md-card-title-text md-truncate class="message-title">
+                        <md-card-title-text class="col-xs-8 col-lg-9 message-title" md-truncate>
                             <span class="md-headline">{{message.author.userName}}</span>
                             <span class="md-subhead">{{message.createDate | date : 'short'}}</span>
                         </md-card-title-text>
-                        <md-button class="md-icon-button pull-right message-action-btn" ng-click="translate(message); $event.stopPropagation()" aria-label="Translate Message">
-                            <img class="message-action-img"
-                                 ng-if="true || message.author.id !== currentUser.id"
-                                 alt="{{message.author.userName}}"
-                                 src="../../Content/images/translate.png" />
-                            <md-tooltip md-direction="bot"> Translate Message </md-tooltip>
-                        </md-button>
+                        <div class="col-xs-2 col-lg-1 message-actions">
+                            <md-button class="md-icon-button row favorite-btn" ng-click="favorite(message); $event.stopPropagation()" aria-label="Favorite Message">
+                                <img class="message-action-img"
+                                     alt="{{message.author.userName}}"
+                                     ng-if="message.isFavorite"
+                                     src="../../Content/images/favorite-on.png" />
+                                <img class="message-action-img"
+                                     alt="{{message.author.userName}}"
+                                     ng-if="!message.isFavorite"
+                                     src="../../Content/images/favorite-off.png" />
+                                <md-tooltip md-direction="bot"> Favorite Message </md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button row translate-btn" ng-click="translate(message); $event.stopPropagation()" aria-label="Translate Message">
+                                <img class="message-action-img"
+                                     alt="{{message.author.userName}}"
+                                     src="../../Content/images/translate.png" />
+                                <md-tooltip md-direction="bot"> Translate Message </md-tooltip>
+                            </md-button>
+                        </div>
                     </md-card-title>
-                    <md-card-content class="row">
-                        <textarea ng-model="message.text"
-                                  ng-readonly="!message.isEditable"
-                                  rows="3"
-                                  class="message-text col-md-12"
-                                  md-select-on-focus></textarea>
+                    <md-card-content class="row message-card-content">
+                        <md-input-container class="md-block message-text">
+                            <textarea aria-label="Message Text" ng-readonly="!message.isEditable" md-select-on-focus ng-model="message.text"></textarea>
+                        </md-input-container>
                         <md-card-actions ng-if="currentUser.id === message.author.id">
                             <md-button ng-if="message.isEditable" class="md-raised message-action-btn"
                                        ng-click="message.isEditable = false; message.text = message.textBefore">Cancel</md-button>
@@ -142,18 +166,43 @@
                                      src="../../Content/images/edit.jpg" />
                             </md-button>
                         </md-card-actions>
-                        <md-tabs>
+
+                        <md-tabs md-dynamic-height ng-if="message.translations" class="translation-tabs">
                             <md-tab>
-                                <md-tab-label>Google</md-tab-label>
-                                <md-tab-body>{{message.translations['google']}}</md-tab-body>
+                                <md-tab-label>
+                                    <img class="message-action-img"
+                                         src="../../Content/images/google.png" />
+                                    <span class="translations-source">Google</span>
+                                </md-tab-label>
+                                <md-tab-body>
+                                    <md-input-container class="md-block message-text">
+                                        <textarea md-select-on-focus ng-model="message.translations['google']"></textarea>
+                                    </md-input-container>
+                                </md-tab-body>
                             </md-tab>
                             <md-tab>
-                                <md-tab-label>Bing</md-tab-label>
-                                <md-tab-body>{{message.translations['bing']}}</md-tab-body>
+                                <md-tab-label>
+                                    <img class="message-action-img"
+                                         src="../../Content/images/bing.png" />
+                                    <span class="translations-source">Bing</span>
+                                </md-tab-label>
+                                <md-tab-body>
+                                    <md-input-container class="md-block message-text">
+                                        <textarea md-select-on-focus ng-model="message.translations['bing']"></textarea>
+                                    </md-input-container>
+                                </md-tab-body>
                             </md-tab>
                             <md-tab>
-                                <md-tab-label>Yandex</md-tab-label>
-                                <md-tab-body>{{message.translations['yandex']}}</md-tab-body>
+                                <md-tab-label>
+                                    <img class="message-action-img"
+                                         src="../../Content/images/yandex.png" />
+                                    <span class="translations-source">Yandex</span>
+                                </md-tab-label>
+                                <md-tab-body>
+                                    <md-input-container class="md-block message-text">
+                                        <textarea md-select-on-focus ng-model="message.translations['yandex']"></textarea>
+                                    </md-input-container>
+                                </md-tab-body>
                             </md-tab>
                         </md-tabs>
                     </md-card-content>

@@ -5,6 +5,7 @@ app.controller('ChatController',
         function ($rootScope, $scope, $timeout, localStorageService, messageHubService, chatHubService, messageService) {
             $scope.messageText = '';
             $scope.open = false;
+            $scope.isFavorite = false;
 
             $scope.$on('onUserUpdate', function (event, user) {
                 if ($scope.currentUser) $scope.currentUser = user;
@@ -102,6 +103,12 @@ app.controller('ChatController',
                     function (result) { message.translations = result.data; });
             }
 
+            $scope.favorite = function(message) {
+                message.isFavorite = !message.isFavorite;
+                message.chat = { id: $scope.selectedChat.id };
+                $scope.chatBusyPromise = messageHubService.update(message);
+            }
+
             $scope.quitChat = function (chat) {
                 var index = chat.users.findIndex(x => x.id === $scope.currentUser.id);
                 if (index !== -1) chat.users.splice(index, 1);
@@ -123,6 +130,10 @@ app.controller('ChatController',
                     $scope.sendMessage($scope.messageText);
                     event.preventDefault();
                 }
+            }
+
+            $scope.setFavorite = function(isFavorite) {
+                $scope.isFavorite = isFavorite;
             }
         }
     ]);

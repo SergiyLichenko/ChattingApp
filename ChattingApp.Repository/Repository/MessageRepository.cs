@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Web;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
-using Microsoft.AspNet.Identity;
 
 namespace ChattingApp.Repository.Repository
 {
@@ -53,6 +51,7 @@ namespace ChattingApp.Repository.Repository
             existingMessage.Chat = existingChat;
             existingMessage.Author = await _userRepository.GetByIdAsync(message.Author.Id);
             existingMessage.Text = message.Text;
+            existingMessage.IsFavorite = message.IsFavorite;
 
             await _authContext.SaveChangesAsync();
         }
