@@ -45,8 +45,6 @@
     <Compile Include="Domain\LanguageType.cs" />
     <Compile Include="Helpers\DatabaseInitializer.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
-    <Compile Include="Helpers\ImageExtensions.cs" />
-    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\ImageUploader.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
