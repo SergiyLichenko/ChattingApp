@@ -53,6 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\addUserModalController.js" />
     <Content Include="app\controllers\chatController.js" />
     <Content Include="app\controllers\chatListController.js" />
     <Content Include="app\controllers\createChatModalController.js" />
@@ -72,6 +73,7 @@
     <Content Include="app\services\messageService.js" />
     <Content Include="app\services\userService.js" />
     <Content Include="app\views\404.html" />
+    <Content Include="app\views\addUser.html" />
     <Content Include="app\views\busy-indicator.html" />
     <Content Include="app\views\editChat.html" />
     <Content Include="app\views\modalCreateChat.html" />

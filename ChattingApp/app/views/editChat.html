@@ -1,8 +1,8 @@
 ﻿<form cg-busy="editChatBusyPromise" name="myForm">
-    <div class="modal-header">
+    <div class="modal-header modal-edit-chat-header row">
         <h2 class="modal-title" align="center">Edit chat</h2>
     </div>
-    <table class="edit-chat-table">
+    <table class="edit-chat-table row">
         <tr>
             <td>
                 <div>
@@ -51,7 +51,7 @@
         </tr>
     </table>
 
-    <div align="center">
+    <div class="row text-center edit-chat-block-info">
         <h3>Title</h3>
         <input type="text" class="form-control modal-input-identation" required
                ng-class="{'dark-grey':isReadonly, 'blue': !isReadonly }"
@@ -61,24 +61,23 @@
              ng-show="myForm.title.$invalid">
             Required
         </div>
-
         <h3>Users</h3>
-        <div class="form-group">
-            <select class="form-control modal-input-identation" ng-model="selectedUser"
-                    ng-class="{'dark-grey':isReadonly, 'blue': !isReadonly }"
-                    ng-disabled="isReadonly"
-                    ng-options="user.userName for user in currentChat.users"></select>
-        </div>
-
-        <button ng-if="currentUser.id === currentChat.authorId && selectedUser"
-                class="btn btn-raised btn-success edit-chat-delete-user-btn"
-                type="button"
-                ng-click="quitChat(selectedUser)">
-            Delete selected user
-        </button>
+        <md-list ng-if="currentChat.users.length > 0" class="edit-chat-user-list pull-left">
+            <md-list-item ng-repeat="user in currentChat.users" >
+                <img data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openProfileModal(user)" 
+                     alt="{{ user.userName }}" ng-src="{{ user.img }}" class="md-avatar" />
+                <p md-truncate class="text-left">{{ user.userName }}</p>
+                <md-button aria-label="Remove User"
+                           ng-if="currentChat.authorId === currentUser.id && !isReadonly" ng-click="quitChat(user)"
+                           class="md-fab md-raised md-mini">
+                    <md-tooltip md-direction="bot"> Remove user </md-tooltip>
+                    <span class="glyphicon glyphicon-remove"></span>
+                </md-button>
+            </md-list-item>
+        </md-list>
     </div>
 
-    <div class="modal-footer edit-chat-footer">
+    <div class="modal-footer edit-chat-footer row">
         <button class="btn btn-raised btn-success pull-left"
                 type="button"
                 ng-click="isReadonly = !isReadonly">

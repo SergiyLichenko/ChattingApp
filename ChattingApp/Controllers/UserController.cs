@@ -28,6 +28,14 @@ namespace ChattingApp.Controllers
             return Ok(user);
         }
 
+        [HttpGet]
+        [Route("all")]
+        public async Task<IHttpActionResult> GetAllAsync()
+        {
+            var users = await _userRepository.GetAllAsync();
+            return Ok(users);
+        }
+
         [HttpPut]
         [Route("")]
         public async Task<IHttpActionResult> UpdateAsync([FromBody] UserDomain user)

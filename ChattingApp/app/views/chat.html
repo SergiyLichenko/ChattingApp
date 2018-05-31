@@ -52,6 +52,12 @@
             </md-fab-trigger>
             <md-fab-actions>
                 <md-button aria-label="Edit Chat"
+                           data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openAddUserModal(selectedChat)"
+                           class="md-fab md-raised md-mini">
+                    <md-tooltip md-direction="bot"> Add user </md-tooltip>
+                    <span class="glyphicon glyphicon-plus"></span>
+                </md-button>
+                <md-button aria-label="Edit Chat"
                            data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openEditChatModal(selectedChat)"
                            class="md-fab md-raised md-mini">
                     <md-tooltip md-direction="bot"> Edit chat </md-tooltip>

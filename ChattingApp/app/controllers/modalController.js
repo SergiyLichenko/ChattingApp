@@ -50,10 +50,22 @@ app.controller('ModalController',
                 modalInstance.result.then(function (reload) {
                     if (!reload) return;
 
-                    $rootScope.$$childHead.$$nextSibling.busyPromise = userService.getCurrent().then(function (user) {
-                        $rootScope.$broadcast('onUserUpdate', user);
+                    $rootScope.$$childHead.$$nextSibling.busyPromise = userService.getCurrent().then(function (result) {
+                        $rootScope.$broadcast('onUserUpdate', result.data);
                     });
                     $timeout(function () { $rootScope.$$childHead.$$nextSibling.$apply(); });
                 });
+            }
+
+            self.openAddUserModal = function(selectedChat) {
+                modalConfig.templateUrl = 'app/views/addUser.html';
+                modalConfig.controller = 'AddUserModalController';
+                modalConfig.resolve = {
+                    selectedChat: function() {
+                        return selectedChat;
+                    }
+                }
+
+                $uibModal.open(modalConfig);
             }
         }]);

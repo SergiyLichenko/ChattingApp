@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
@@ -31,6 +32,9 @@ namespace ChattingApp.Repository.Repository
                 .Include(x => x.Language)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<IEnumerable<ApplicationUser>> GetAllAsync() => 
+            await _authContext.Users.ToListAsync();
 
         public async Task AddAsync(UserDomain user)
         {

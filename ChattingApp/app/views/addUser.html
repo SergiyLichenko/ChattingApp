@@ -1,0 +1,19 @@
+﻿<div cg-busy="addUserBusyPromise" class="modal-window">
+    <div class="modal-header text-center">
+        <h3 class="modal-title">Select user</h3>
+    </div>
+
+    <md-list class="add-user-list">
+        <md-list-item data-ng-repeat="user in users" data-ng-click="ok(user)">
+            <img ng-src="{{user.img}}" class="md-avatar add-user-img" alt="user.userName" />
+            <div class="md-list-item-text add-user-list-item">
+                <h3 class="user-list-item-title"> {{user.userName}} </h3>
+                <p class="add-user-email"> Email - {{user.email}} </p>
+            </div>
+        </md-list-item>
+    </md-list>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

@@ -39,9 +39,9 @@
             };
 
             var onLoad = function () {
-                $scope.busyPromise = userService.getCurrent().then(function (user) {
-                    localStorageService.set('user', user);
-                    $scope.currentUser = user;
+                $scope.busyPromise = userService.getCurrent().then(function (result) {
+                    localStorageService.set('user', result.data);
+                    $scope.currentUser = result.data;
 
                     if (!$scope.currentUser.chats || $scope.currentUser.chats.length === 0) return;
 

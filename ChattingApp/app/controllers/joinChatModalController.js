@@ -3,9 +3,9 @@
 app.controller('JoinChatModalController',
     ['$scope', '$uibModalInstance', 'localStorageService', 'chatHubService', 'chatService',
     function ($scope, $uibModalInstance, localStorageService, chatHubService, chatService) {
+        var currentUser = localStorageService.get('user');
 
         $scope.ok = function (selectedChat) {
-            var currentUser = localStorageService.get('user');
             var contains = selectedChat.users.some(user => user.id === currentUser.id);
 
             if (contains) {
@@ -23,10 +23,12 @@ app.controller('JoinChatModalController',
         }
 
         $scope.joinChatBusyPromise = chatService.getAll().then(result => {
-            var chats = result.data;
-            for (var chat of chats)
+            $scope.chats = [];
+            for (var chat of result.data) {
                 if (!chat.users) chat.users = [];
 
-            $scope.chats = chats;
+                var contains = chat.users.some(x => x.id === currentUser.id);
+                if (!contains) $scope.chats.push(chat);
+            }
         });
     }]);

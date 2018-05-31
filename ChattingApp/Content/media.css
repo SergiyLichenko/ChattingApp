@@ -1,6 +1,15 @@
 ﻿@media only screen and (min-width : 0) {
-    .chat-list-item-title {
+    .chat-list-item-title, .user-list-item-title {
         font-size: 20px;
+    }
+
+    .edit-chat-user-list {
+        width: 250px;
+    }
+
+    .edit-chat-block-info {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .edit-profile-img {
@@ -12,7 +21,7 @@
         width: 100%;
     }
 
-    .join-chat-img {
+    .join-chat-img, .add-user-img {
         height: 100px !important;
         width: 100px !important;
     }
@@ -69,6 +78,10 @@
         width: 150px;
         height: 150px;
     }
+
+    .edit-chat-user-list {
+        width: 400px;
+    }
 }
 
 @media only screen and (min-width : 768px) {
@@ -104,11 +117,16 @@
 }
 
 @media only screen and (min-width : 972px) {
-    .chat-list-item-title {
+    .chat-list-item-title, .user-list-item-title {
         font-size: 26px;
     }
 
-    .join-chat-img {
+    .edit-chat-block-info {
+        margin-left: 20px;
+        margin-right: 20px !important;
+    }
+
+    .join-chat-img, .add-user-img {
         height: 150px !important;
         width: 150px !important;
     }
