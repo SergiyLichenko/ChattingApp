@@ -61,7 +61,7 @@
              ng-show="myForm.title.$invalid">
             Required
         </div>
-        <h3>Users</h3>
+        <h3 ng-if="currentChat.users.length > 0">Users</h3>
         <md-list ng-if="currentChat.users.length > 0" class="edit-chat-user-list pull-left">
             <md-list-item ng-repeat="user in currentChat.users" >
                 <img data-ng-controller="ModalController as $ctrl" ng-click="$ctrl.openProfileModal(user)" 

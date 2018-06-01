@@ -31,8 +31,8 @@ namespace ChattingApp.Repository.Repository
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
             return await _authContext.Chats
-                .Include(x => x.Users.Select(y => y.Language))
-                .Include(x => x.Messages)
+                .Include(x => x.Users)
+                .Include(x => x.Messages.Select(y => y.Author.Language))
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
