@@ -51,7 +51,7 @@ namespace ChattingApp.Repository.Repository
                 Email = user.Email,
                 UserName = user.UserName,
                 Img = user.Img,
-                Language = await _languageRepository.GetDefaultAsync()
+                Language = await _languageRepository.GetByLanguageTypeAsync(user.Language.LanguageType)
             };
             _authContext.Users.Add(newUser);
             await _authContext.SaveChangesAsync();

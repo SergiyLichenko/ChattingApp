@@ -7,6 +7,7 @@ app.factory('messageHubService',
 
             var start = function () {
                 hub = new Hub('messageHub', {
+                    useSharedConnection: false,
                     rootPath: 'api/message-hub',
                     methods: ['onMessageCreateAsync', 'onMessageUpdateAsync', 'onMessageDeleteAsync'],
                     queryParams: {

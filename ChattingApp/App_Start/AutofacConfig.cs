@@ -23,7 +23,7 @@ namespace ChattingApp
             builder.RegisterWebApiFilterProvider(config);
             builder.RegisterHubs(Assembly.GetExecutingAssembly());
 
-            builder.RegisterType<AuthContext>().As<IAuthContext>().SingleInstance();
+            builder.RegisterType<AuthContext>().As<IAuthContext>().InstancePerLifetimeScope();
 
             builder.RegisterType<GoogleTranslator>().Named<ITranslator>(TranslationSource.Google.ToString());
             builder.RegisterType<BingTranslator>().Named<ITranslator>(TranslationSource.Bing.ToString());

@@ -6,7 +6,6 @@ namespace ChattingApp.Repository.Interfaces
 {
     public interface ILanguageRepository
     {
-        Task<Language> GetDefaultAsync();
         Task<Language> GetByLanguageTypeAsync(LanguageType languageType);
     }
 }

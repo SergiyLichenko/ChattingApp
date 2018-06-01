@@ -47,7 +47,11 @@ app.controller('ChatController',
                 if ($scope.selectedChat.id !== message.chat.id) return;
                 $scope.messageText = '';
 
+                for (var i = 0; i < $scope.selectedChat.messages.length; i++)
+                    message.chat.messages[i].translations = $scope.selectedChat.messages[i].translations;
+
                 Object.assign($scope.selectedChat, message.chat);
+
                 if ($scope.selectedChat.messages.findIndex(x => x.id === message.id) === -1)
                     $scope.selectedChat.messages.push(message);
                 if (message.author.id === $scope.currentUser.id)

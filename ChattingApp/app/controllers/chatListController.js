@@ -8,6 +8,9 @@
             });
 
             $scope.$on('onChatCreateAsync', function (event, chat) {
+                var existingChatIndex = $scope.currentUser.chats.findIndex(x => x.id === chat.id);
+                if (existingChatIndex !== -1) return;
+
                 $scope.currentUser.chats.push(chat);
                 $timeout(function () { $scope.$apply(); });
             });

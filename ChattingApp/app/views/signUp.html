@@ -13,6 +13,28 @@
         <div class="form-group label-static">
             <input type="email" class="form-control" placeholder="Email" data-ng-model="registration.email" required>
         </div>
+
+        <md-radio-group required name="language" data-ng-model="registration.language.languageType">
+            <div class="col-sm-4">
+                <img class="language-img"
+                     alt="English"
+                     src="../../Content/images/en-flag.png" />
+                <md-radio-button class="language-radio-button" value="0"> English </md-radio-button>
+            </div>
+            <div class="col-sm-4">
+                <img class="language-img"
+                     alt="Русский"
+                     src="../../Content/images/ru-flag.png" />
+                <md-radio-button class="language-radio-button" value="1"> Русский </md-radio-button>
+            </div>
+            <div class="col-sm-4">
+                <img class="language-img"
+                     alt="Українська"
+                     src="../../Content/images/uk-flag.png" />
+                <md-radio-button class="language-radio-button" value="2"> Українська </md-radio-button>
+            </div>
+        </md-radio-group>
+
         <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()">Sign Up</button>
         <div ng-if="message" data-ng-class="message ? 'alert alert-danger' : 'alert alert-success'">
             {{message}}

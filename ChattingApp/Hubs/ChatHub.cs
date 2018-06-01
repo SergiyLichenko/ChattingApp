@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using ChattingApp.Repository.Interfaces;
+using Autofac;
 using ChattingApp.Repository.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR.Hubs;
 
 namespace ChattingApp.Hubs
@@ -13,7 +12,7 @@ namespace ChattingApp.Hubs
     [RoutePrefix("api/chat-hub")]
     public class ChatHub : BaseHub
     {
-        public ChatHub(IChatRepository chatRepository) : base(chatRepository)
+        public ChatHub(ILifetimeScope lifetimeScope) : base(lifetimeScope)
         {
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Autofac;
 using ChattingApp.Repository.Interfaces;
 using ChattingApp.Repository.Models;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -13,11 +14,9 @@ namespace ChattingApp.Hubs
     {
         private readonly IMessageRepository _messageRepository;
 
-        public MessageHub(
-            IMessageRepository messageRepository,
-            IChatRepository chatRepository):base(chatRepository)
+        public MessageHub(ILifetimeScope lifetimeScope):base(lifetimeScope)
         {
-            _messageRepository = messageRepository ?? throw new ArgumentNullException(nameof(messageRepository));
+            _messageRepository = LifetimeScope.Resolve<IMessageRepository>();
         }
 
         public async Task OnMessageCreateAsync(Message message)

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using Autofac;
 using ChattingApp.Repository.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
@@ -12,6 +12,7 @@ namespace ChattingApp.Hubs
     public class BaseHub : Hub
     {
         protected readonly IChatRepository ChatRepository;
+        protected readonly ILifetimeScope LifetimeScope;
         private static readonly IDictionary<string, HashSet<string>> ClientInfo;
 
         static BaseHub()
@@ -19,9 +20,11 @@ namespace ChattingApp.Hubs
             ClientInfo = new ConcurrentDictionary<string, HashSet<string>>();
         }
 
-        protected BaseHub(IChatRepository chatRepository)
+        protected BaseHub(ILifetimeScope lifetimeScope)
         {
-            ChatRepository = chatRepository ?? throw new ArgumentNullException(nameof(chatRepository));
+            LifetimeScope = lifetimeScope?.BeginLifetimeScope() ?? throw new ArgumentNullException(nameof(lifetimeScope));
+
+            ChatRepository = LifetimeScope.Resolve<IChatRepository>();
         }
 
         public override async Task OnConnected()
@@ -66,6 +69,12 @@ namespace ChattingApp.Hubs
                 var client = Clients.Client(connectionId);
                 callback(client);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) LifetimeScope?.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

@@ -9,16 +9,12 @@ namespace ChattingApp.Repository.Repository
 {
     public class LanguageRepository : ILanguageRepository
     {
-        private const LanguageType DefaultLanguageType = LanguageType.En;
         private readonly IAuthContext _authContext;
 
         public LanguageRepository(IAuthContext authContext)
         {
             _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
         }
-
-        public async Task<Language> GetDefaultAsync() =>
-            await _authContext.Languages.FirstOrDefaultAsync(x => x.LanguageType == DefaultLanguageType);
 
         public async Task<Language> GetByLanguageTypeAsync(LanguageType languageType) =>
             await _authContext.Languages.FirstOrDefaultAsync(x => x.LanguageType == languageType);

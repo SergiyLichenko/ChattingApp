@@ -3,7 +3,7 @@
 app.controller('SignUpController',
     ['$scope', '$state', 'authService',
     function ($scope, $state, authService) {
-        $scope.registration = {};
+        $scope.registration = {language: {languageType: 0}};
 
         var getErrorMessage = function (response) {
             var errors = [];

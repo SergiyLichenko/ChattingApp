@@ -7,6 +7,7 @@ app.factory('chatHubService',
 
             var start = function () {
                 hub = new Hub('chatHub', {
+                    useSharedConnection: false,
                     rootPath: 'api/chat-hub',
                     methods: ['onChatCreateAsync', 'onChatUpdateAsync', 'onChatDeleteAsync'],
                     queryParams: {
