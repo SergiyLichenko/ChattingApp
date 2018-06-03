@@ -12,12 +12,10 @@ namespace ChattingApp.Helpers.Translate
     public class YandexTranslator : ITranslator
     {
         private readonly string _yandexKey;
-        private readonly WebClient _webClient;
 
         public YandexTranslator()
         {
             _yandexKey = ConfigurationManager.AppSettings["YandexKey"];
-            _webClient = new WebClient();
         }
 
         public async Task<string> TranslateAsync(string text, string targetLanguage)
